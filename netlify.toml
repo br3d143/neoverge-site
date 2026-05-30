@@ -1,0 +1,9 @@
+# Netlify build configuration for the Astro site
+# Docs: https://docs.netlify.com/configure-builds/file-based-configuration/
+
+[build]
+  command = "npm run build"   # How Netlify builds the site
+  publish = "dist"            # Folder Astro outputs the finished site to
+
+[build.environment]
+  NODE_VERSION = "22"         # Astro 6 requires Node 22.12+
