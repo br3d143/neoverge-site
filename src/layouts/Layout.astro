@@ -16,19 +16,6 @@ const { title = 'NeoVerge Dream School' } = Astro.props;
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
-		<!-- Netlify Identity widget: enables CMS staff login + invite redirects -->
-		<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-		<script is:inline>
-			if (window.netlifyIdentity) {
-				window.netlifyIdentity.on('init', (user) => {
-					if (!user) {
-						window.netlifyIdentity.on('login', () => {
-							document.location.href = '/admin/';
-						});
-					}
-				});
-			}
-		</script>
 	</head>
 	<body>
 		<slot />
