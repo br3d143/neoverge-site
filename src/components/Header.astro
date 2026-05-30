@@ -1,0 +1,220 @@
+---
+/**
+ * Header — sticky top navigation (Section 5).
+ * - Desktop: wordmark, nav links, Worlds dropdown, persistent APPLY NOW.
+ * - Mobile: wordmark, persistent APPLY NOW, hamburger -> full-screen overlay.
+ * - "You are here" cues via aria-current + element-colored underline.
+ * - Transparent over hero, transitions to solid on scroll (pass transparentOnTop).
+ */
+import Container from "./Container.astro";
+import Button from "./Button.astro";
+import { mainNav, worlds } from "../config/site";
+
+interface Props {
+  transparentOnTop?: boolean;
+}
+const { transparentOnTop = false } = Astro.props;
+
+const current = Astro.url.pathname.replace(/\/+$/, "") || "/";
+const isActive = (href: string) =>
+  href === "/" ? current === "/" : current === href || current.startsWith(href + "/");
+
+const dotClass = {
+  earth: "bg-earth",
+  water: "bg-water",
+  fire: "bg-fire",
+  air: "bg-air",
+};
+---
+
+<header
+  id="site-header"
+  data-transparent={transparentOnTop ? "true" : "false"}
+  class="fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,box-shadow] duration-300 [transition-timing-function:var(--ease-refined)]"
+>
+  <Container>
+    <div class="flex h-[60px] items-center justify-between lg:h-[72px]">
+      <!-- Wordmark -->
+      <a href="/" class="shrink-0" aria-label={`${"NeoVerge Dream School"} — home`}>
+        <img
+          src="/brand/neoverge-wordmark.png"
+          alt="NeoVerge Dream School"
+          width="2911"
+          height="532"
+          class="h-7 w-auto lg:h-8"
+          fetchpriority="high"
+        />
+      </a>
+
+      <!-- Desktop nav -->
+      <nav class="hidden items-center gap-8 lg:flex" aria-label="Primary">
+        {
+          mainNav.map((item) =>
+            item.children ? (
+              <div class="group relative">
+                <a
+                  href={item.href}
+                  aria-haspopup="true"
+                  aria-current={isActive(item.href) ? "page" : undefined}
+                  class:list={[
+                    "inline-flex items-center gap-1 font-display text-body-m font-medium transition-colors duration-[250ms] hover:text-foreground",
+                    isActive(item.href) ? "text-foreground" : "text-muted",
+                  ]}
+                >
+                  {item.label}
+                  <span aria-hidden="true" class="text-subtle">▾</span>
+                </a>
+                <div class="invisible absolute left-1/2 top-full z-50 w-60 -translate-x-1/2 pt-3 opacity-0 transition-all duration-[250ms] group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
+                  <ul class="overflow-hidden rounded-2xl border border-border bg-surface py-2 shadow-[0_12px_40px_-12px_rgba(26,26,26,0.18)]">
+                    {worlds.map((w) => (
+                      <li>
+                        <a
+                          href={w.href}
+                          class="flex items-center gap-3 px-4 py-2.5 text-body-s text-muted transition-colors duration-[250ms] hover:bg-foreground/[0.03] hover:text-foreground"
+                        >
+                          <span class:list={["h-2 w-2 shrink-0 rounded-full", dotClass[w.world]]} />
+                          <span class="font-display font-medium text-foreground">{w.name}</span>
+                          <span class="ml-auto font-body text-eyebrow uppercase text-subtle">
+                            {w.element}
+                          </span>
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            ) : (
+              <a
+                href={item.href}
+                aria-current={isActive(item.href) ? "page" : undefined}
+                class:list={[
+                  "font-display text-body-m font-medium transition-colors duration-[250ms] hover:text-foreground",
+                  isActive(item.href)
+                    ? "text-foreground underline decoration-2 underline-offset-8"
+                    : "text-muted",
+                ]}
+              >
+                {item.label}
+              </a>
+            ),
+          )
+        }
+      </nav>
+
+      <!-- Right cluster: APPLY NOW (always visible) + mobile hamburger -->
+      <div class="flex items-center gap-3">
+        <Button href="/admissions" size="sm" class="max-lg:px-4 max-lg:py-2">APPLY NOW</Button>
+        <button
+          id="menu-toggle"
+          type="button"
+          class="inline-flex h-10 w-10 items-center justify-center rounded-full text-foreground lg:hidden"
+          aria-label="Open menu"
+          aria-controls="mobile-menu"
+          aria-expanded="false"
+        >
+          <svg class="menu-icon-open" width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+            <path d="M3 6h16M3 11h16M3 16h16" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" />
+          </svg>
+          <svg class="menu-icon-close" width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+            <path d="M5 5l12 12M17 5L5 17" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </Container>
+</header>
+
+<!-- Mobile full-screen overlay -->
+<div
+  id="mobile-menu"
+  class="fixed inset-0 z-40 hidden flex-col bg-background lg:hidden"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Site menu"
+>
+  <div class="h-[60px] shrink-0"></div>
+  <nav class="flex flex-1 flex-col gap-2 overflow-y-auto px-6 py-8" aria-label="Mobile">
+    {
+      mainNav.map((item) => (
+        <a
+          href={item.href}
+          aria-current={isActive(item.href) ? "page" : undefined}
+          class:list={[
+            "font-display text-display-m font-medium",
+            isActive(item.href) ? "text-foreground" : "text-foreground/80",
+          ]}
+        >
+          {item.label}
+        </a>
+      ))
+    }
+    <div class="mt-4 flex flex-col gap-3 border-t border-border pt-6">
+      {
+        worlds.map((w) => (
+          <a href={w.href} class="flex items-center gap-3 font-display text-heading-m text-muted">
+            <span class:list={["h-2.5 w-2.5 rounded-full", dotClass[w.world]]} />
+            {w.name}
+            <span class="ml-auto font-body text-eyebrow uppercase text-subtle">{w.element}</span>
+          </a>
+        ))
+      }
+    </div>
+  </nav>
+</div>
+
+<style>
+  #site-header {
+    background-color: var(--color-background);
+    border-bottom: 1px solid var(--color-border);
+  }
+  #site-header[data-transparent="true"]:not([data-scrolled]) {
+    background-color: transparent;
+    border-bottom-color: transparent;
+  }
+  #site-header[data-scrolled] {
+    background-color: color-mix(in srgb, var(--color-background) 88%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom-color: var(--color-border);
+  }
+  body.menu-open {
+    overflow: hidden;
+  }
+  #menu-toggle .menu-icon-close {
+    display: none;
+  }
+  #menu-toggle[aria-expanded="true"] .menu-icon-open {
+    display: none;
+  }
+  #menu-toggle[aria-expanded="true"] .menu-icon-close {
+    display: block;
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    const header = document.getElementById("site-header");
+    const onScroll = () => {
+      if (!header) return;
+      if (window.scrollY > 24) header.setAttribute("data-scrolled", "");
+      else header.removeAttribute("data-scrolled");
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    const toggle = document.getElementById("menu-toggle");
+    const menu = document.getElementById("mobile-menu");
+    const setOpen = (open) => {
+      if (!menu || !toggle) return;
+      menu.classList.toggle("hidden", !open);
+      menu.classList.toggle("flex", open);
+      document.body.classList.toggle("menu-open", open);
+      toggle.setAttribute("aria-expanded", String(open));
+      toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+    };
+    toggle?.addEventListener("click", () => setOpen(menu?.classList.contains("hidden") ?? true));
+    menu?.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => setOpen(false)));
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") setOpen(false);
+    });
+  })();
+</script>

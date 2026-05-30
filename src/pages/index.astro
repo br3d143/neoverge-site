@@ -1,10 +1,25 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import Layout from "../layouts/Layout.astro";
+import Section from "../components/Section.astro";
+import Eyebrow from "../components/Eyebrow.astro";
+import Heading from "../components/Heading.astro";
+import Button from "../components/Button.astro";
+import Link from "../components/Link.astro";
 ---
 
-<Layout title="NeoVerge Dream School">
-	<main class="flex min-h-screen flex-col items-center justify-center gap-4 bg-slate-50 text-center">
-		<h1 class="text-4xl font-bold text-slate-800">NeoVerge Dream School</h1>
-		<p class="text-slate-500">Site coming soon — foundation is in place.</p>
-	</main>
+<Layout title="NeoVerge Dream School — One Universe. Infinite Futures.">
+  <Section>
+    <Eyebrow tone="earth">One Universe. Infinite Futures.</Eyebrow>
+    <Heading level={1} size="display-l" class="mt-4 max-w-3xl">
+      NeoVerge Dream School
+    </Heading>
+    <p class="mt-6 max-w-xl text-body-l text-muted">
+      The foundation is in place — design tokens, fonts, and base layout. The full homepage,
+      with the mandala, arrives in the next session.
+    </p>
+    <div class="mt-xl flex flex-wrap gap-4">
+      <Button href="/style-guide">View the style guide</Button>
+      <Link href="/style-guide" class="self-center">/style-guide →</Link>
+    </div>
+  </Section>
 </Layout>

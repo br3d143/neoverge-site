@@ -1,23 +1,40 @@
 ---
-import '../styles/global.css';
+import "../styles/global.css";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
 
 interface Props {
-	title?: string;
+  title?: string;
+  description?: string;
+  /** When true, the header is transparent over the hero and turns solid on scroll. */
+  headerTransparent?: boolean;
 }
-
-const { title = 'NeoVerge Dream School' } = Astro.props;
+const {
+  title = "NeoVerge Dream School",
+  description = "One Universe. Infinite Futures. A visionary learning universe where passion meets purpose.",
+  headerTransparent = false,
+} = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+    <!-- Preload the two primary font weights actually used above the fold -->
+    <link rel="preload" href="/fonts/space-grotesk-500.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/inter-400.woff2" as="font" type="font/woff2" crossorigin />
+  </head>
+  <body>
+    <a href="#main" class="skip-link">Skip to main content</a>
+    <Header transparentOnTop={headerTransparent} />
+    <main id="main" class:list={[!headerTransparent && "pt-[60px] lg:pt-[72px]"]}>
+      <slot />
+    </main>
+    <Footer />
+  </body>
 </html>

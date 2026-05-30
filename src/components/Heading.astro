@@ -1,0 +1,43 @@
+---
+/**
+ * Heading — wraps h1–h3 (or any level) with the display type scale (Section 4.1).
+ * Display sizes step down ~one stop on mobile, then scale up at md (≈80% rule).
+ * Element tones use the vibrant base color (intended for large display headings).
+ */
+interface Props {
+  level?: 1 | 2 | 3 | 4 | 5 | 6;
+  size?:
+    | "display-xl"
+    | "display-l"
+    | "display-m"
+    | "heading-l"
+    | "heading-m"
+    | "heading-s";
+  tone?: "default" | "muted" | "earth" | "water" | "fire" | "air";
+  class?: string;
+}
+const { level = 2, size = "heading-l", tone = "default", class: className = "" } =
+  Astro.props;
+const Tag = `h${level}`;
+// Full literal class strings so Tailwind can detect them.
+const sizeClass = {
+  "display-xl": "text-display-l md:text-display-xl",
+  "display-l": "text-display-m md:text-display-l",
+  "display-m": "text-heading-l md:text-display-m",
+  "heading-l": "text-heading-l",
+  "heading-m": "text-heading-m",
+  "heading-s": "text-heading-s",
+}[size];
+const toneClass = {
+  default: "text-foreground",
+  muted: "text-muted",
+  earth: "text-earth",
+  water: "text-water",
+  fire: "text-fire",
+  air: "text-air",
+}[tone];
+---
+
+<Tag class:list={["font-display", sizeClass, toneClass, className]}>
+  <slot />
+</Tag>

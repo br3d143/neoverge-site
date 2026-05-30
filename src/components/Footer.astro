@@ -1,0 +1,99 @@
+---
+/**
+ * Footer — three columns on desktop, stacked on mobile (Section 5).
+ * Columns: Brand · Sitemap · Connect (with newsletter). Bottom bar: copyright + legal.
+ */
+import Container from "./Container.astro";
+import Eyebrow from "./Eyebrow.astro";
+import Link from "./Link.astro";
+import Button from "./Button.astro";
+import { site, footerNav, social } from "../config/site";
+
+const year = 2026; // matches brief; Date.now() is avoided in this environment
+---
+
+<footer class="border-t border-border bg-background">
+  <Container class="py-2xl md:py-3xl">
+    <div class="grid grid-cols-1 gap-xl md:grid-cols-3 md:gap-lg">
+      <!-- Column 1: Brand -->
+      <div class="flex flex-col gap-4">
+        <img
+          src="/brand/neoverge-wordmark.png"
+          alt="NeoVerge Dream School"
+          width="2911"
+          height="532"
+          class="h-7 w-auto"
+          loading="lazy"
+        />
+        <p class="font-display text-heading-s text-foreground">{site.tagline}</p>
+        <p class="max-w-xs text-body-s text-muted">{site.subTagline}</p>
+      </div>
+
+      <!-- Column 2: Sitemap -->
+      <div class="flex flex-col gap-4">
+        <Eyebrow tone="subtle">Sitemap</Eyebrow>
+        <ul class="flex flex-col gap-2.5">
+          {
+            footerNav.map((item) => (
+              <li>
+                <Link href={item.href} tone="muted" class="text-body-m">
+                  {item.label}
+                </Link>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <!-- Column 3: Connect -->
+      <div class="flex flex-col gap-4">
+        <Eyebrow tone="subtle">Connect</Eyebrow>
+        <address class="flex flex-col gap-2.5 not-italic text-body-m text-muted">
+          <span>{site.location}</span>
+          <Link href={`mailto:${site.email}`} tone="muted">{site.email}</Link>
+          <Link href={site.phoneHref} tone="muted">{site.phone}</Link>
+          <span class="text-body-s text-subtle">{site.hours}</span>
+        </address>
+
+        <div class="flex gap-4">
+          {
+            social.map((s) => (
+              <Link href={s.href} tone="muted" external class="text-body-s">
+                {s.label}
+              </Link>
+            ))
+          }
+        </div>
+
+        <!-- Newsletter -->
+        <form class="mt-2 flex flex-col gap-2" aria-label="Newsletter signup">
+          <label for="newsletter-email" class="text-body-s text-muted">
+            {site.newsletterLabel}
+          </label>
+          <div class="flex gap-2">
+            <input
+              id="newsletter-email"
+              type="email"
+              name="email"
+              required
+              placeholder="you@email.com"
+              class="min-w-0 flex-1 rounded-full border border-border-strong bg-surface px-4 py-2.5 text-body-s text-foreground placeholder:text-subtle focus-visible:border-foreground focus-visible:outline-none"
+            />
+            <Button type="submit" size="sm">Subscribe</Button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Bottom bar -->
+    <div
+      class="mt-xl flex flex-col gap-3 border-t border-border pt-6 text-body-s text-subtle sm:flex-row sm:items-center sm:justify-between"
+    >
+      <p>© {year} NeoVerge Dream School. All rights reserved.</p>
+      <p class="flex gap-4">
+        <Link href="/privacy" tone="muted">Privacy Policy</Link>
+        <Link href="/terms" tone="muted">Terms of Use</Link>
+      </p>
+    </div>
+  </Container>
+</footer>

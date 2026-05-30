@@ -1,0 +1,45 @@
+---
+/**
+ * Link — inline text link. Underline appears on hover. External links are
+ * auto-detected (http/https) and get a ↗ arrow plus safe target/rel attributes.
+ */
+interface Props {
+  href: string;
+  external?: boolean;
+  tone?: "default" | "muted" | "earth" | "water" | "fire" | "air";
+  class?: string;
+  [key: string]: unknown;
+}
+const { href, tone = "default", class: className = "", external, ...rest } =
+  Astro.props;
+const isExternal = external ?? /^https?:\/\//.test(href);
+
+const toneClass = {
+  default: "text-foreground",
+  muted: "text-muted",
+  earth: "text-earth-dark",
+  water: "text-water-dark",
+  fire: "text-fire-dark",
+  air: "text-air-dark",
+}[tone];
+---
+
+<a
+  href={href}
+  target={isExternal ? "_blank" : undefined}
+  rel={isExternal ? "noopener noreferrer" : undefined}
+  class:list={[
+    "underline-offset-2 hover:underline transition-colors duration-[250ms]",
+    toneClass,
+    className,
+  ]}
+  {...rest}
+>
+  <slot />{
+    isExternal && (
+      <span aria-hidden="true" class="ml-0.5 inline-block">
+        ↗
+      </span>
+    )
+  }
+</a>

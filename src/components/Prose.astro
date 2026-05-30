@@ -1,0 +1,64 @@
+---
+/**
+ * Prose — wrapper for long-form body content (Section 4.1 / 4.3).
+ * Constrains to the 720px editorial measure and applies paragraph rhythm.
+ */
+interface Props {
+  /** Center within the prose measure. Set false to fill the parent width. */
+  centered?: boolean;
+  class?: string;
+}
+const { centered = true, class: className = "" } = Astro.props;
+---
+
+<div
+  class:list={[
+    "prose-neoverge max-w-prose font-body text-body-m text-foreground",
+    centered && "mx-auto",
+    className,
+  ]}
+>
+  <slot />
+</div>
+
+<style>
+  .prose-neoverge :global(p) {
+    margin: 0;
+  }
+  .prose-neoverge :global(p + p) {
+    margin-top: var(--spacing-lg);
+  }
+  .prose-neoverge :global(h2),
+  .prose-neoverge :global(h3) {
+    font-family: var(--font-display);
+    margin-top: var(--spacing-2xl);
+    margin-bottom: var(--spacing-md);
+  }
+  .prose-neoverge :global(ul),
+  .prose-neoverge :global(ol) {
+    margin: var(--spacing-lg) 0;
+    padding-left: var(--spacing-lg);
+  }
+  .prose-neoverge :global(ul) {
+    list-style: disc;
+  }
+  .prose-neoverge :global(ol) {
+    list-style: decimal;
+  }
+  .prose-neoverge :global(li + li) {
+    margin-top: var(--spacing-sm);
+  }
+  .prose-neoverge :global(a) {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .prose-neoverge :global(strong) {
+    font-weight: 600;
+  }
+  .prose-neoverge :global(blockquote) {
+    margin: var(--spacing-xl) 0;
+    padding-left: var(--spacing-lg);
+    border-left: 2px solid var(--color-border-strong);
+    color: var(--color-muted);
+  }
+</style>

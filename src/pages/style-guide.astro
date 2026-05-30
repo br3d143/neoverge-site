@@ -1,0 +1,323 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Section from "../components/Section.astro";
+import Container from "../components/Container.astro";
+import Eyebrow from "../components/Eyebrow.astro";
+import Heading from "../components/Heading.astro";
+import Prose from "../components/Prose.astro";
+import Button from "../components/Button.astro";
+import Link from "../components/Link.astro";
+import Divider from "../components/Divider.astro";
+
+const typeScale = [
+  { cls: "text-display-xl", name: "Display XL", spec: "72 / 76 · 500 · -0.02em", sample: "Infinite Futures" },
+  { cls: "text-display-l", name: "Display L", spec: "56 / 60 · 500 · -0.02em", sample: "One Universe" },
+  { cls: "text-display-m", name: "Display M", spec: "40 / 48 · 500 · -0.02em", sample: "Four powerful worlds" },
+  { cls: "text-heading-l", name: "Heading L", spec: "28 / 36 · 500", sample: "Whole-Child Approach" },
+  { cls: "text-heading-m", name: "Heading M", spec: "22 / 30 · 500", sample: "Cohort-Based Communities" },
+  { cls: "text-heading-s", name: "Heading S", spec: "18 / 26 · 500", sample: "Component title" },
+  { cls: "text-body-l", name: "Body L", spec: "19 / 32 · 400", sample: "Intro paragraphs and pull quotes set a calm, editorial pace." },
+  { cls: "text-body-m", name: "Body M", spec: "17 / 28 · 400", sample: "Default body copy. The workhorse size for most reading on the site." },
+  { cls: "text-body-s", name: "Body S", spec: "15 / 22 · 400", sample: "Captions and secondary information." },
+  { cls: "text-eyebrow uppercase", name: "Eyebrow", spec: "12 / 16 · 500 · 0.12em · upper", sample: "Section Label" },
+  { cls: "text-mono font-mono", name: "Mono accent", spec: "13 / 20 · 400 · mono", sample: "EST. 2026 · CODE-042" },
+];
+
+const baseColors = [
+  { cls: "bg-background", name: "Background", hex: "#FAFAF7", border: true },
+  { cls: "bg-surface", name: "Surface", hex: "#FFFFFF", border: true },
+  { cls: "bg-foreground", name: "Foreground", hex: "#1A1A1A", dark: true },
+  { cls: "bg-muted", name: "Muted", hex: "#6B6B66", dark: true },
+  { cls: "bg-subtle", name: "Subtle", hex: "#A8A8A2", dark: true },
+  { cls: "bg-border", name: "Border", hex: "rgba(26,26,26,.08)", border: true },
+  { cls: "bg-border-strong", name: "Border strong", hex: "rgba(26,26,26,.16)", border: true },
+];
+
+const elements = [
+  {
+    label: "Earth · NeoVerse",
+    swatches: [
+      { cls: "bg-earth", name: "Base", hex: "#199549", dark: true },
+      { cls: "bg-earth-tint", name: "Very light", hex: "#E8F4ED", border: true },
+      { cls: "bg-earth-light", name: "Light", hex: "#7AC295" },
+      { cls: "bg-earth-dark", name: "Dark", hex: "#0F562A", dark: true },
+    ],
+  },
+  {
+    label: "Water · Apex",
+    swatches: [
+      { cls: "bg-water", name: "Base", hex: "#5DA9B3", dark: true },
+      { cls: "bg-water-tint", name: "Very light", hex: "#EFF6F7", border: true },
+      { cls: "bg-water-light", name: "Light", hex: "#A1CDD3" },
+      { cls: "bg-water-dark", name: "Dark", hex: "#366268", dark: true },
+    ],
+  },
+  {
+    label: "Fire · Pulse",
+    swatches: [
+      { cls: "bg-fire", name: "Base", hex: "#EE8F27", dark: true },
+      { cls: "bg-fire-tint", name: "Very light", hex: "#FDF4E9", border: true },
+      { cls: "bg-fire-light", name: "Light", hex: "#F5BE82" },
+      { cls: "bg-fire-dark", name: "Dark", hex: "#8A5317", dark: true },
+    ],
+  },
+  {
+    label: "Air · WorldWise",
+    swatches: [
+      { cls: "bg-air", name: "Base", hex: "#A9ABAE", dark: true },
+      { cls: "bg-air-tint", name: "Very light", hex: "#F6F7F7", border: true },
+      { cls: "bg-air-light", name: "Light", hex: "#CDCED0" },
+      { cls: "bg-air-dark", name: "Dark", hex: "#626365", dark: true },
+    ],
+  },
+  {
+    label: "Roots · accent",
+    swatches: [
+      { cls: "bg-roots", name: "Base", hex: "#8C5F3D", dark: true },
+      { cls: "bg-roots-tint", name: "Very light", hex: "#F4EFEC", border: true },
+      { cls: "bg-roots-light", name: "Light", hex: "#BCA28E" },
+      { cls: "bg-roots-dark", name: "Dark", hex: "#513723", dark: true },
+    ],
+  },
+];
+
+const spacing = [
+  { name: "xs", px: "4px", w: "w-1" },
+  { name: "sm", px: "8px", w: "w-2" },
+  { name: "md", px: "16px", w: "w-4" },
+  { name: "lg", px: "24px", w: "w-6" },
+  { name: "xl", px: "40px", w: "w-10" },
+  { name: "2xl", px: "64px", w: "w-16" },
+  { name: "3xl", px: "96px", w: "w-24" },
+  { name: "4xl", px: "128px", w: "w-32" },
+  { name: "5xl", px: "192px", w: "w-48" },
+];
+
+const worldKeys = ["earth", "water", "fire", "air"] as const;
+---
+
+<Layout title="Style Guide — NeoVerge Dream School" headerTransparent={true}>
+  <!-- Hero (also demonstrates the transparent-to-solid header on scroll) -->
+  <section class="flex min-h-[70vh] items-center bg-earth-tint">
+    <Container>
+      <div class="max-w-3xl pt-24">
+        <Eyebrow tone="earth">Design System · Session 2</Eyebrow>
+        <Heading level={1} size="display-xl" class="mt-4">Style Guide</Heading>
+        <p class="mt-6 max-w-xl text-body-l text-muted">
+          Every design token and base component, rendered for review. Scroll up and down to
+          watch the header transition from transparent to solid.
+        </p>
+      </div>
+    </Container>
+  </section>
+
+  <!-- Typography -->
+  <Section id="typography">
+    <Eyebrow tone="earth">01</Eyebrow>
+    <Heading level={2} size="display-m" class="mt-2">Typography</Heading>
+    <p class="mt-4 max-w-prose text-body-m text-muted">
+      Display type is Space Grotesk; body is Inter. Display sizes step down on small screens
+      and scale up at the desktop breakpoint.
+    </p>
+    <div class="mt-2xl flex flex-col divide-y divide-border">
+      {
+        typeScale.map((t) => (
+          <div class="grid grid-cols-1 gap-2 py-8 md:grid-cols-[200px_1fr] md:gap-8">
+            <div class="pt-2">
+              <p class="font-display text-heading-s text-foreground">{t.name}</p>
+              <p class="font-mono text-mono text-subtle">{t.spec}</p>
+            </div>
+            <p class={`${t.cls} ${t.cls.includes("body") || t.cls.includes("eyebrow") || t.cls.includes("mono") ? "font-body" : "font-display"} text-foreground`}>
+              {t.sample}
+            </p>
+          </div>
+        ))
+      }
+    </div>
+  </Section>
+
+  <Divider />
+
+  <!-- Color -->
+  <Section id="color">
+    <Eyebrow tone="earth">02</Eyebrow>
+    <Heading level={2} size="display-m" class="mt-2">Color</Heading>
+
+    <p class="mt-2xl"><Eyebrow tone="muted">Base palette</Eyebrow></p>
+    <div class="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+      {
+        baseColors.map((c) => (
+          <div class="overflow-hidden rounded-xl border border-border">
+            <div class:list={[c.cls, c.border && "border-b border-border", "h-24"]} />
+            <div class="bg-surface p-3">
+              <p class="text-body-s font-medium text-foreground">{c.name}</p>
+              <p class="font-mono text-mono text-subtle">{c.hex}</p>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+
+    {
+      elements.map((el) => (
+        <div class="mt-xl">
+          <Eyebrow tone="muted">{el.label}</Eyebrow>
+          <div class="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-4">
+            {el.swatches.map((s) => (
+              <div class="overflow-hidden rounded-xl border border-border">
+                <div class:list={[s.cls, s.border && "border-b border-border", "h-24"]} />
+                <div class="bg-surface p-3">
+                  <p class="text-body-s font-medium text-foreground">{s.name}</p>
+                  <p class="font-mono text-mono text-subtle">{s.hex}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))
+    }
+  </Section>
+
+  <Divider />
+
+  <!-- Spacing -->
+  <Section id="spacing">
+    <Eyebrow tone="earth">03</Eyebrow>
+    <Heading level={2} size="display-m" class="mt-2">Spacing</Heading>
+    <p class="mt-4 max-w-prose text-body-m text-muted">4px base unit, xs through 5xl.</p>
+    <div class="mt-2xl flex flex-col gap-4">
+      {
+        spacing.map((s) => (
+          <div class="flex items-center gap-6">
+            <span class="w-16 font-mono text-mono text-foreground">{s.name}</span>
+            <span class="w-16 font-mono text-mono text-subtle">{s.px}</span>
+            <span class:list={[s.w, "h-4 rounded-sm bg-earth"]} />
+          </div>
+        ))
+      }
+    </div>
+  </Section>
+
+  <Divider />
+
+  <!-- Buttons -->
+  <Section id="buttons">
+    <Eyebrow tone="earth">04</Eyebrow>
+    <Heading level={2} size="display-m" class="mt-2">Buttons</Heading>
+
+    <div class="mt-2xl flex flex-col gap-10">
+      <div>
+        <Eyebrow tone="muted">Primary · sizes</Eyebrow>
+        <div class="mt-4 flex flex-wrap items-center gap-4">
+          <Button variant="primary" size="sm">Small</Button>
+          <Button variant="primary" size="md">Medium</Button>
+          <Button variant="primary" size="lg">Large</Button>
+        </div>
+      </div>
+      <div>
+        <Eyebrow tone="muted">Secondary · sizes</Eyebrow>
+        <div class="mt-4 flex flex-wrap items-center gap-4">
+          <Button variant="secondary" size="sm">Small</Button>
+          <Button variant="secondary" size="md">Medium</Button>
+          <Button variant="secondary" size="lg">Large</Button>
+        </div>
+      </div>
+      <div>
+        <Eyebrow tone="muted">Tertiary</Eyebrow>
+        <div class="mt-4 flex flex-wrap items-center gap-6">
+          <Button variant="tertiary">Explore this world</Button>
+          <Button variant="tertiary" world="water">Apex tertiary</Button>
+        </div>
+      </div>
+      <div>
+        <Eyebrow tone="muted">World-themed (primary &amp; secondary)</Eyebrow>
+        <div class="mt-4 flex flex-col gap-4">
+          {
+            worldKeys.map((w) => (
+              <div class="flex flex-wrap items-center gap-4">
+                <Button variant="primary" world={w}>Apply ({w})</Button>
+                <Button variant="secondary" world={w}>Learn more</Button>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </Section>
+
+  <Divider />
+
+  <!-- Links, Eyebrows, Headings, Dividers -->
+  <Section id="elements">
+    <Eyebrow tone="earth">05</Eyebrow>
+    <Heading level={2} size="display-m" class="mt-2">Links, Eyebrows &amp; Headings</Heading>
+
+    <div class="mt-2xl grid grid-cols-1 gap-12 md:grid-cols-2">
+      <div>
+        <Eyebrow tone="muted">Links</Eyebrow>
+        <div class="mt-4 flex flex-col gap-3 text-body-m">
+          <Link href="/about">Internal link (hover to underline)</Link>
+          <Link href="https://example.com">External link (auto arrow)</Link>
+          <Link href="/worlds/apex" tone="water">Element-toned link</Link>
+        </div>
+      </div>
+      <div>
+        <Eyebrow tone="muted">Eyebrow tones</Eyebrow>
+        <div class="mt-4 flex flex-col gap-2">
+          <Eyebrow tone="default">Default</Eyebrow>
+          <Eyebrow tone="muted">Muted</Eyebrow>
+          <Eyebrow tone="earth">Earth</Eyebrow>
+          <Eyebrow tone="water">Water</Eyebrow>
+          <Eyebrow tone="fire">Fire</Eyebrow>
+          <Eyebrow tone="air">Air</Eyebrow>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-12">
+      <Eyebrow tone="muted">Heading element tones</Eyebrow>
+      <div class="mt-4 flex flex-col gap-2">
+        <Heading level={3} size="heading-l" tone="earth">NeoVerse — Earth</Heading>
+        <Heading level={3} size="heading-l" tone="water">Apex — Water</Heading>
+        <Heading level={3} size="heading-l" tone="fire">Pulse — Fire</Heading>
+        <Heading level={3} size="heading-l" tone="air">WorldWise — Air</Heading>
+      </div>
+    </div>
+
+    <div class="mt-12 flex flex-col gap-8">
+      <Eyebrow tone="muted">Dividers</Eyebrow>
+      <Divider />
+      <Divider label="Or pick from below" />
+    </div>
+  </Section>
+
+  <Divider />
+
+  <!-- Prose -->
+  <Section id="prose">
+    <Eyebrow tone="earth">06</Eyebrow>
+    <Heading level={2} size="display-m" class="mt-2">Prose</Heading>
+    <div class="mt-2xl">
+      <Prose>
+        <p>
+          At NeoVerge Dream School, we believe education should be transformational, not
+          transactional. We create a constellation of learning experiences that honor student
+          voice, ignite curiosity, and develop critical thinkers and self-led learners.
+        </p>
+        <p>
+          Rooted in our unique element-based model, we nurture the whole child — academically,
+          artistically, athletically, and emotionally — while fostering the confidence,
+          creativity, and resilience students need to become purposeful problem-solvers.
+        </p>
+        <h3>A nested heading</h3>
+        <p>Body content keeps a comfortable 720px measure with generous line height.</p>
+        <ul>
+          <li>Personalized academic pathways grounded in passion</li>
+          <li>Independent study support for athletes and performers</li>
+          <li>NCAA-approved, college-prep curriculum</li>
+        </ul>
+        <blockquote>“We don't just prepare students for the future — we help them build it.”</blockquote>
+      </Prose>
+    </div>
+  </Section>
+</Layout>

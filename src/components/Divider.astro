@@ -1,0 +1,26 @@
+---
+/**
+ * Divider — a thin horizontal rule, with an optional centered eyebrow label.
+ */
+interface Props {
+  label?: string;
+  class?: string;
+}
+const { label, class: className = "" } = Astro.props;
+---
+
+{
+  label ? (
+    <div
+      class:list={["flex items-center gap-4", className]}
+      role="separator"
+      aria-label={label}
+    >
+      <span class="h-px flex-1 bg-border" />
+      <span class="font-body text-eyebrow uppercase text-subtle">{label}</span>
+      <span class="h-px flex-1 bg-border" />
+    </div>
+  ) : (
+    <hr class:list={["h-px border-0 bg-border", className]} />
+  )
+}

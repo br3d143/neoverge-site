@@ -1,1 +1,233 @@
 @import "tailwindcss";
+
+/* ==========================================================================
+   NeoVerge Dream School — Design Tokens
+   Source of truth: neoverge-design-brief.md, Section 4 (Design System).
+   Tailwind v4 uses CSS-first configuration: tokens are declared in @theme
+   and become utility classes (e.g. --color-earth -> bg-earth / text-earth,
+   --text-display-xl -> text-display-xl).
+   ========================================================================== */
+
+/* ---------- Self-hosted fonts (font-display: swap for fast paint) ---------- */
+@font-face {
+  font-family: "Space Grotesk";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/space-grotesk-400.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Space Grotesk";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/fonts/space-grotesk-500.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Space Grotesk";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/fonts/space-grotesk-700.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/inter-400.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/fonts/inter-500.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/fonts/inter-600.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/fonts/inter-700.woff2") format("woff2");
+}
+
+@theme {
+  /* ---------- Font families ---------- */
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", "Menlo", monospace;
+
+  /* ---------- Base color palette (Section 4.2) ---------- */
+  --color-background: #fafaf7;   /* warm off-white — never pure #fff */
+  --color-surface: #ffffff;      /* pure white for cards/elevation */
+  --color-foreground: #1a1a1a;   /* near-black — never pure #000 */
+  --color-muted: #6b6b66;        /* secondary text */
+  --color-subtle: #a8a8a2;       /* tertiary text, hints */
+  --color-border: rgba(26, 26, 26, 0.08);
+  --color-border-strong: rgba(26, 26, 26, 0.16);
+
+  /* ---------- Element accent palettes ----------
+     Base values eyedropped from the official vector logo (All Neoverge Vector.svg).
+     Tints derived from each base (very-light = 90% white, light = 42% white,
+     dark = 42% black) for consistent, accessible shading. */
+
+  /* Earth — NeoVerse (green) */
+  --color-earth: #199549;
+  --color-earth-tint: #e8f4ed;
+  --color-earth-light: #7ac295;
+  --color-earth-dark: #0f562a;
+
+  /* Water — Apex (teal) */
+  --color-water: #5da9b3;
+  --color-water-tint: #eff6f7;
+  --color-water-light: #a1cdd3;
+  --color-water-dark: #366268;
+
+  /* Fire — Pulse (orange) */
+  --color-fire: #ee8f27;
+  --color-fire-tint: #fdf4e9;
+  --color-fire-light: #f5be82;
+  --color-fire-dark: #8a5317;
+
+  /* Air — WorldWise (gray) */
+  --color-air: #a9abae;
+  --color-air-tint: #f6f7f7;
+  --color-air-light: #cdced0;
+  --color-air-dark: #626365;
+
+  /* Roots — accent brown (used rarely) */
+  --color-roots: #8c5f3d;
+  --color-roots-tint: #f4efec;
+  --color-roots-light: #bca28e;
+  --color-roots-dark: #513723;
+
+  /* ---------- Type scale (Section 4.1) ----------
+     Desktop sizes. font-size / line-height / weight / tracking bundled per token.
+     Values in rem relative to a 16px root for accessibility. */
+  --text-display-xl: 4.5rem;            /* 72px */
+  --text-display-xl--line-height: 4.75rem;   /* 76px */
+  --text-display-xl--font-weight: 500;
+  --text-display-xl--letter-spacing: -0.02em;
+
+  --text-display-l: 3.5rem;             /* 56px */
+  --text-display-l--line-height: 3.75rem;    /* 60px */
+  --text-display-l--font-weight: 500;
+  --text-display-l--letter-spacing: -0.02em;
+
+  --text-display-m: 2.5rem;             /* 40px */
+  --text-display-m--line-height: 3rem;       /* 48px */
+  --text-display-m--font-weight: 500;
+  --text-display-m--letter-spacing: -0.02em;
+
+  --text-heading-l: 1.75rem;            /* 28px */
+  --text-heading-l--line-height: 2.25rem;    /* 36px */
+  --text-heading-l--font-weight: 500;
+
+  --text-heading-m: 1.375rem;           /* 22px */
+  --text-heading-m--line-height: 1.875rem;   /* 30px */
+  --text-heading-m--font-weight: 500;
+
+  --text-heading-s: 1.125rem;           /* 18px */
+  --text-heading-s--line-height: 1.625rem;   /* 26px */
+  --text-heading-s--font-weight: 500;
+
+  --text-body-l: 1.1875rem;             /* 19px */
+  --text-body-l--line-height: 2rem;          /* 32px */
+  --text-body-l--font-weight: 400;
+
+  --text-body-m: 1.0625rem;             /* 17px */
+  --text-body-m--line-height: 1.75rem;       /* 28px */
+  --text-body-m--font-weight: 400;
+
+  --text-body-s: 0.9375rem;             /* 15px */
+  --text-body-s--line-height: 1.375rem;      /* 22px */
+  --text-body-s--font-weight: 400;
+
+  --text-eyebrow: 0.75rem;              /* 12px */
+  --text-eyebrow--line-height: 1rem;         /* 16px */
+  --text-eyebrow--font-weight: 500;
+  --text-eyebrow--letter-spacing: 0.12em;
+
+  --text-mono: 0.8125rem;               /* 13px */
+  --text-mono--line-height: 1.25rem;         /* 20px */
+  --text-mono--font-weight: 400;
+
+  /* ---------- Spacing scale (Section 4.3, 4px base) ---------- */
+  --spacing-xs: 0.25rem;   /* 4px */
+  --spacing-sm: 0.5rem;    /* 8px */
+  --spacing-md: 1rem;      /* 16px */
+  --spacing-lg: 1.5rem;    /* 24px */
+  --spacing-xl: 2.5rem;    /* 40px */
+  --spacing-2xl: 4rem;     /* 64px */
+  --spacing-3xl: 6rem;     /* 96px */
+  --spacing-4xl: 8rem;     /* 128px */
+  --spacing-5xl: 12rem;    /* 192px */
+
+  /* ---------- Container max-widths (Section 4.3) ---------- */
+  --container-page: 80rem;    /* 1280px — standard content */
+  --container-prose: 45rem;   /* 720px — editorial reading measure */
+
+  /* ---------- Motion (Section 9) ---------- */
+  --ease-refined: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* ---------- Base element styles ---------- */
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-body);
+    font-size: 1.0625rem;   /* 17px desktop (Body M) */
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  @media (max-width: 640px) {
+    body {
+      font-size: 1rem;      /* 16px mobile */
+    }
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    line-height: 1.2;
+    text-wrap: balance;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-foreground);
+    outline-offset: 2px;
+  }
+
+  /* Skip link — visually hidden until focused */
+  .skip-link {
+    position: fixed;
+    top: 0.5rem;
+    left: 0.5rem;
+    z-index: 100;
+    transform: translateY(-150%);
+    background-color: var(--color-foreground);
+    color: var(--color-background);
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    font-family: var(--font-body);
+    font-size: var(--text-body-s);
+    transition: transform 200ms var(--ease-refined);
+  }
+  .skip-link:focus {
+    transform: translateY(0);
+  }
+}

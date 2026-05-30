@@ -1,0 +1,93 @@
+---
+/**
+ * Button — variants: primary (filled), secondary (outlined), tertiary (text + arrow).
+ * Sizes: sm, md, lg. Renders as <a> when `href` is given, otherwise <button>.
+ * Pass `world` to theme primary/secondary in an element color (uses the AA-safe
+ * dark shade for fills so white text always passes contrast).
+ */
+interface Props {
+  variant?: "primary" | "secondary" | "tertiary";
+  size?: "sm" | "md" | "lg";
+  world?: "earth" | "water" | "fire" | "air";
+  href?: string;
+  type?: "button" | "submit" | "reset";
+  arrow?: boolean;
+  class?: string;
+  [key: string]: unknown;
+}
+const {
+  variant = "primary",
+  size = "md",
+  world,
+  href,
+  type = "button",
+  arrow,
+  class: className = "",
+  ...rest
+} = Astro.props;
+
+const Tag = href ? "a" : "button";
+const showArrow = arrow ?? variant === "tertiary";
+
+const base =
+  "inline-flex items-center justify-center gap-2 font-body font-semibold transition-all duration-[250ms] [transition-timing-function:var(--ease-refined)] focus-visible:outline-2 focus-visible:outline-offset-2 disabled:opacity-50 disabled:pointer-events-none";
+
+const sizeClass = {
+  sm: "text-body-s px-4 py-2 rounded-full",
+  md: "text-body-m px-6 py-3 rounded-full",
+  lg: "text-body-l px-8 py-4 rounded-full",
+}[size];
+
+// Variant + optional world theming. Full literal strings for Tailwind detection.
+const neutral = {
+  primary: "bg-foreground text-background hover:bg-foreground/90",
+  secondary:
+    "border border-border-strong text-foreground hover:border-foreground hover:bg-foreground/[0.03]",
+  tertiary: "text-foreground hover:underline underline-offset-4",
+}[variant];
+
+const worldPrimary = {
+  earth: "bg-earth-dark text-white hover:opacity-90",
+  water: "bg-water-dark text-white hover:opacity-90",
+  fire: "bg-fire-dark text-white hover:opacity-90",
+  air: "bg-air-dark text-white hover:opacity-90",
+};
+const worldSecondary = {
+  earth: "border border-earth text-earth-dark hover:bg-earth-tint",
+  water: "border border-water text-water-dark hover:bg-water-tint",
+  fire: "border border-fire text-fire-dark hover:bg-fire-tint",
+  air: "border border-air text-air-dark hover:bg-air-tint",
+};
+const worldTertiary = {
+  earth: "text-earth-dark hover:underline underline-offset-4",
+  water: "text-water-dark hover:underline underline-offset-4",
+  fire: "text-fire-dark hover:underline underline-offset-4",
+  air: "text-air-dark hover:underline underline-offset-4",
+};
+
+let variantClass = neutral;
+if (world) {
+  if (variant === "primary") variantClass = worldPrimary[world];
+  else if (variant === "secondary") variantClass = worldSecondary[world];
+  else variantClass = worldTertiary[world];
+}
+
+// Tertiary is text-only: drop the pill padding/background sizing.
+const appliedSize = variant === "tertiary" ? "text-body-m" : sizeClass;
+---
+
+<Tag
+  href={href}
+  type={href ? undefined : type}
+  class:list={[base, appliedSize, variantClass, className]}
+  {...rest}
+>
+  <slot />
+  {
+    showArrow && (
+      <span aria-hidden="true" class="transition-transform duration-[250ms]">
+        →
+      </span>
+    )
+  }
+</Tag>

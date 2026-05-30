@@ -1,0 +1,27 @@
+---
+/**
+ * Eyebrow — small uppercase tracked label (Section 4.1).
+ * Used for section labels, breadcrumbs, and small overlines.
+ */
+interface Props {
+  as?: string;
+  tone?: "default" | "muted" | "subtle" | "earth" | "water" | "fire" | "air";
+  class?: string;
+}
+const { as = "p", tone = "muted", class: className = "" } = Astro.props;
+const Tag = as;
+// Full literal class strings so Tailwind can detect them.
+const toneClass = {
+  default: "text-foreground",
+  muted: "text-muted",
+  subtle: "text-subtle",
+  earth: "text-earth-dark",
+  water: "text-water-dark",
+  fire: "text-fire-dark",
+  air: "text-air-dark",
+}[tone];
+---
+
+<Tag class:list={["font-body text-eyebrow uppercase", toneClass, className]}>
+  <slot />
+</Tag>
