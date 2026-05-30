@@ -30,13 +30,17 @@ dark = 42% black) for a consistent, accessible ramp.
 
 ## Element accents — corrected
 
-| Element | Brief (approx) | **Base (corrected)** | Very-light | Light | Dark |
-|---|---|---|---|---|---|
-| Earth · NeoVerse | ~~#2BA84A~~ | **#199549** | #E8F4ED | #7AC295 | #0F562A |
-| Water · Apex | ~~#5BAEC2~~ | **#5DA9B3** | #EFF6F7 | #A1CDD3 | #366268 |
-| Fire · Pulse | ~~#F39B2A~~ | **#EE8F27** | #FDF4E9 | #F5BE82 | #8A5317 |
-| Air · WorldWise | ~~#9B9B9B~~ | **#A9ABAE** | #F6F7F7 | #CDCED0 | #626365 |
-| Roots · accent | ~~#8B5A3C~~ | **#8C5F3D** | #F4EFEC | #BCA28E | #513723 |
+| Element | Brief (approx) | **Base (corrected)** | Very-light | Light | Dark | Accent (text-safe) |
+|---|---|---|---|---|---|---|
+| Earth · NeoVerse | ~~#2BA84A~~ | **#199549** | #E8F4ED | #7AC295 | #0F562A | #168340 |
+| Water · Apex | ~~#5BAEC2~~ | **#5DA9B3** | #EFF6F7 | #A1CDD3 | #366268 | #447B83 |
+| Fire · Pulse | ~~#F39B2A~~ | **#EE8F27** | #FDF4E9 | #F5BE82 | #8A5317 | #A4631B |
+| Air · WorldWise | ~~#9B9B9B~~ | **#A9ABAE** | #F6F7F7 | #CDCED0 | #626365 | #717375 |
+| Roots · accent | ~~#8B5A3C~~ | **#8C5F3D** | #F4EFEC | #BCA28E | #513723 | #8C5F3D |
+
+The **accent (text-safe)** column is each base darkened just enough to pass WCAG AA (≥4.5:1)
+at any text size. Element-toned headings, eyebrows, and links use it so brand color never
+costs us contrast.
 
 ## Accessibility note (contrast vs #FAFAF7 background)
 
@@ -51,5 +55,6 @@ not for small body text. For text, use the **dark** shade — all five pass WCAG
 | Air | 2.20 | 5.75 |
 | Roots | 5.26 | 10.46 |
 
-Component convention: `Heading` element tones use the **base** color (large display text);
-`Eyebrow`, `Link`, and small text element tones use the **dark** shade.
+Component convention: `Heading`, `Eyebrow`, and `Link` element tones all use the
+**accent (text-safe)** shade (≥4.5:1). The vibrant **base** is for fills/underlines/dots;
+button fills use the **dark** shade with white text.

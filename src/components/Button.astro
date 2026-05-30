@@ -30,11 +30,11 @@ const Tag = href ? "a" : "button";
 const showArrow = arrow ?? variant === "tertiary";
 
 const base =
-  "inline-flex items-center justify-center gap-2 font-body font-semibold transition-all duration-[250ms] [transition-timing-function:var(--ease-refined)] focus-visible:outline-2 focus-visible:outline-offset-2 disabled:opacity-50 disabled:pointer-events-none";
+  "inline-flex items-center justify-center gap-2 font-body font-semibold touch-manipulation transition-all duration-[250ms] [transition-timing-function:var(--ease-refined)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground disabled:opacity-50 disabled:pointer-events-none";
 
 const sizeClass = {
-  sm: "text-body-s px-4 py-2 rounded-full",
-  md: "text-body-m px-6 py-3 rounded-full",
+  sm: "text-body-s px-5 py-2.5 min-h-[44px] rounded-full",
+  md: "text-body-m px-6 py-3 min-h-[48px] rounded-full",
   lg: "text-body-l px-8 py-4 rounded-full",
 }[size];
 

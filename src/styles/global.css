@@ -109,6 +109,15 @@
   --color-roots-light: #bca28e;
   --color-roots-dark: #513723;
 
+  /* Text-safe accents: the base hue darkened just enough to pass WCAG AA (4.5:1)
+     on the background at any text size. Used for element-toned headings, eyebrows,
+     and links so brand color never costs us contrast. */
+  --color-earth-accent: #168340;
+  --color-water-accent: #447b83;
+  --color-fire-accent: #a4631b;
+  --color-air-accent: #717375;
+  --color-roots-accent: #8c5f3d;
+
   /* ---------- Type scale (Section 4.1) ----------
      Desktop sizes. font-size / line-height / weight / tracking bundled per token.
      Values in rem relative to a 16px root for accessibility. */
@@ -229,5 +238,17 @@
   }
   .skip-link:focus {
     transform: translateY(0);
+  }
+}
+
+/* Honor reduced-motion: disable non-essential transitions/animations (Section 9 / a11y) */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

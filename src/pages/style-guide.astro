@@ -41,6 +41,7 @@ const elements = [
       { cls: "bg-earth-tint", name: "Very light", hex: "#E8F4ED", border: true },
       { cls: "bg-earth-light", name: "Light", hex: "#7AC295" },
       { cls: "bg-earth-dark", name: "Dark", hex: "#0F562A", dark: true },
+      { cls: "bg-earth-accent", name: "Accent (text)", hex: "#168340", dark: true },
     ],
   },
   {
@@ -50,6 +51,7 @@ const elements = [
       { cls: "bg-water-tint", name: "Very light", hex: "#EFF6F7", border: true },
       { cls: "bg-water-light", name: "Light", hex: "#A1CDD3" },
       { cls: "bg-water-dark", name: "Dark", hex: "#366268", dark: true },
+      { cls: "bg-water-accent", name: "Accent (text)", hex: "#447B83", dark: true },
     ],
   },
   {
@@ -59,6 +61,7 @@ const elements = [
       { cls: "bg-fire-tint", name: "Very light", hex: "#FDF4E9", border: true },
       { cls: "bg-fire-light", name: "Light", hex: "#F5BE82" },
       { cls: "bg-fire-dark", name: "Dark", hex: "#8A5317", dark: true },
+      { cls: "bg-fire-accent", name: "Accent (text)", hex: "#A4631B", dark: true },
     ],
   },
   {
@@ -68,6 +71,7 @@ const elements = [
       { cls: "bg-air-tint", name: "Very light", hex: "#F6F7F7", border: true },
       { cls: "bg-air-light", name: "Light", hex: "#CDCED0" },
       { cls: "bg-air-dark", name: "Dark", hex: "#626365", dark: true },
+      { cls: "bg-air-accent", name: "Accent (text)", hex: "#717375", dark: true },
     ],
   },
   {
@@ -77,6 +81,7 @@ const elements = [
       { cls: "bg-roots-tint", name: "Very light", hex: "#F4EFEC", border: true },
       { cls: "bg-roots-light", name: "Light", hex: "#BCA28E" },
       { cls: "bg-roots-dark", name: "Dark", hex: "#513723", dark: true },
+      { cls: "bg-roots-accent", name: "Accent (text)", hex: "#8C5F3D", dark: true },
     ],
   },
 ];
@@ -162,7 +167,7 @@ const worldKeys = ["earth", "water", "fire", "air"] as const;
       elements.map((el) => (
         <div class="mt-xl">
           <Eyebrow tone="muted">{el.label}</Eyebrow>
-          <div class="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-4">
+          <div class="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
             {el.swatches.map((s) => (
               <div class="overflow-hidden rounded-xl border border-border">
                 <div class:list={[s.cls, s.border && "border-b border-border", "h-24"]} />
