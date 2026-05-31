@@ -146,9 +146,9 @@ const icons: Record<string, string> = {
     height: 100%;
     border-radius: 9999px;
     background: var(--color-surface);
-    border: 1px solid var(--color-border-strong);
-    color: var(--color-muted);
-    box-shadow: 0 6px 20px -12px rgba(26, 26, 26, 0.22);
+    border: 1.5px solid color-mix(in srgb, var(--base) 45%, transparent);
+    color: var(--accent);
+    box-shadow: 0 6px 20px -12px color-mix(in srgb, var(--base) 40%, rgba(26, 26, 26, 0.22));
     transition:
       transform 250ms var(--ease-refined),
       background-color 250ms var(--ease-refined),
