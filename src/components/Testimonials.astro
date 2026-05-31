@@ -1,0 +1,119 @@
+---
+/**
+ * Testimonials — a single horizontal carousel (one quote per view) with prev/next
+ * arrows. Accessible: native scroll-snap, keyboard-reachable slides, arrow buttons,
+ * reduced-motion aware. Each slide has a headshot slot (image or initials avatar).
+ */
+import Container from "./Container.astro";
+import Eyebrow from "./Eyebrow.astro";
+
+interface Testimonial {
+  quote: string;
+  name: string;
+  initials: string;
+  image?: string;
+}
+interface Props {
+  items: Testimonial[];
+}
+const { items } = Astro.props;
+---
+
+<section aria-label="What our students say" class="border-t border-border" data-testimonials>
+  <Container class="py-2xl md:py-3xl">
+    <div class="flex items-end justify-between gap-4">
+      <Eyebrow tone="muted">What our students say</Eyebrow>
+      <div class="flex gap-2">
+        <button
+          type="button"
+          data-prev
+          class="grid h-11 w-11 place-items-center rounded-full border border-border-strong text-foreground transition-colors duration-[250ms] hover:bg-foreground/[0.04] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground"
+          aria-label="Previous testimonial"
+        >
+          <span aria-hidden="true">←</span>
+        </button>
+        <button
+          type="button"
+          data-next
+          class="grid h-11 w-11 place-items-center rounded-full border border-border-strong text-foreground transition-colors duration-[250ms] hover:bg-foreground/[0.04] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground"
+          aria-label="Next testimonial"
+        >
+          <span aria-hidden="true">→</span>
+        </button>
+      </div>
+    </div>
+
+    <div
+      data-track
+      class="testi-track mt-xl flex snap-x snap-mandatory gap-8 overflow-x-auto scroll-smooth"
+      role="group"
+      aria-roledescription="carousel"
+      tabindex="0"
+    >
+      {
+        items.map((t, i) => (
+          <figure
+            class="w-full shrink-0 snap-center"
+            aria-roledescription="slide"
+            aria-label={`${i + 1} of ${items.length}`}
+          >
+            <div class="mx-auto max-w-[46rem] text-center">
+              <blockquote class="text-balance font-display text-heading-l text-foreground md:text-display-m">
+                “{t.quote}”
+              </blockquote>
+              <figcaption class="mt-8 flex items-center justify-center gap-3">
+                {t.image ? (
+                  <img
+                    src={t.image}
+                    alt={t.name}
+                    width="96"
+                    height="96"
+                    loading="lazy"
+                    class="h-12 w-12 rounded-full object-cover"
+                  />
+                ) : (
+                  <span
+                    class="grid h-12 w-12 place-items-center rounded-full bg-foreground/[0.06] font-body text-body-s font-semibold text-muted"
+                    aria-hidden="true"
+                  >
+                    {t.initials}
+                  </span>
+                )}
+                <span class="font-body text-body-m text-muted">{t.name}</span>
+              </figcaption>
+            </div>
+          </figure>
+        ))
+      }
+    </div>
+  </Container>
+</section>
+
+<style>
+  .testi-track {
+    scrollbar-width: none;
+  }
+  .testi-track::-webkit-scrollbar {
+    display: none;
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    document.querySelectorAll("[data-testimonials]").forEach((root) => {
+      const track = root.querySelector("[data-track]");
+      const prev = root.querySelector("[data-prev]");
+      const next = root.querySelector("[data-next]");
+      if (!track) return;
+      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const go = (dir) =>
+        track.scrollBy({ left: dir * track.clientWidth, behavior: reduce ? "auto" : "smooth" });
+      prev?.addEventListener("click", () => go(-1));
+      next?.addEventListener("click", () => go(1));
+      track.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowRight") { e.preventDefault(); go(1); }
+        if (e.key === "ArrowLeft") { e.preventDefault(); go(-1); }
+      });
+    });
+  })();
+</script>

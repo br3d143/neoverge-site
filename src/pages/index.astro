@@ -10,6 +10,7 @@ import Divider from "../components/Divider.astro";
 import Mandala from "../components/Mandala.astro";
 import WorldCard from "../components/WorldCard.astro";
 import QuoteBlock from "../components/QuoteBlock.astro";
+import Testimonials from "../components/Testimonials.astro";
 
 const cards = [
   { world: "earth", name: "NeoVerse", meta: "Earth · K–8 Academics", href: "/worlds/neoverse", status: "Coming soon" },
@@ -40,6 +41,12 @@ const testimonials = [
 ];
 
 const linkTone = { earth: "earth", water: "water", fire: "fire", air: "air" } as const;
+const tintBg = {
+  earth: "bg-earth-tint",
+  water: "bg-water-tint",
+  fire: "bg-fire-tint",
+  air: "bg-air-tint",
+};
 ---
 
 <Layout
@@ -47,7 +54,8 @@ const linkTone = { earth: "earth", water: "water", fire: "fire", air: "air" } as
   headerTransparent={true}
 >
   <!-- Hero: oversized tagline + the Mandala (signature moment) -->
-  <section class="hero relative flex min-h-[100dvh] flex-col items-center justify-center gap-7 overflow-hidden px-6 pt-24 pb-14 text-center">
+  <section class="hero relative isolate flex min-h-[100dvh] flex-col items-center justify-center gap-7 overflow-hidden px-6 pt-24 pb-14 text-center">
+    <div class="hero__bg" aria-hidden="true"></div>
     <h1 class="hero__title font-display text-display-l text-foreground md:text-display-xl">
       <span class="hero__line">One Universe.</span>
       <span class="hero__line">Infinite Futures.</span>
@@ -79,8 +87,8 @@ const linkTone = { earth: "earth", water: "water", fire: "fire", air: "air" } as
   <!-- Why NeoVerge — three editorial pillars -->
   <Section class="bg-surface">
     <div data-reveal>
-      <Eyebrow tone="earth">Why NeoVerge</Eyebrow>
-      <Heading level={2} size="display-m" class="mt-3 max-w-[42rem]">
+      <Eyebrow tone="muted">Why NeoVerge</Eyebrow>
+      <Heading level={2} size="display-l" class="mt-4 max-w-[48rem]">
         Passion-driven, individualized learning.
       </Heading>
     </div>
@@ -96,34 +104,31 @@ const linkTone = { earth: "earth", water: "water", fire: "fire", air: "air" } as
     </div>
   </Section>
 
-  <!-- Four-world scroll reveal -->
+  <!-- Four-world reveal (logos shown clearly in their element-colored cards) -->
   <section aria-label="The four worlds">
     {
       worldPanels.map((w, i) => (
-        <div class="relative overflow-hidden border-t border-border py-2xl md:py-3xl lg:py-4xl">
-          <img
-            src={w.logo}
-            alt=""
-            aria-hidden="true"
-            loading="lazy"
-            class:list={[
-              "pointer-events-none absolute top-1/2 hidden w-[40%] max-w-[28rem] -translate-y-1/2 opacity-[0.06] sm:block",
-              i % 2 === 0 ? "right-[4%]" : "left-[4%]",
-            ]}
-          />
+        <div class="border-t border-border py-2xl md:py-3xl">
           <div class="mx-auto w-full max-w-page px-6 sm:px-12 lg:px-20">
-            <div class:list={["max-w-[36rem]", i % 2 === 1 && "md:ml-auto md:text-right"]} data-reveal>
-              <Eyebrow tone={linkTone[w.world]}>{w.meta}</Eyebrow>
-              <Heading level={2} size="display-l" tone={w.world} class="mt-4">{w.name}</Heading>
-              <p class="mt-4 font-display text-heading-m text-foreground">{w.tagline}</p>
-              <p class="mt-4 text-body-l text-muted">{w.desc}</p>
-              <div class:list={["mt-8 flex items-center gap-4", i % 2 === 1 && "md:justify-end"]}>
-                <Button href={w.href} variant="tertiary" world={w.world}>
-                  {w.status === "Active" ? "Enter this world" : "Explore this world"}
-                </Button>
-                {w.status === "Coming soon" && (
-                  <span class="font-body text-eyebrow uppercase text-subtle">Coming soon</span>
-                )}
+            <div class="grid items-center gap-xl md:grid-cols-2 md:gap-2xl">
+              <div class:list={["flex justify-center", i % 2 === 1 && "md:order-2"]} data-reveal>
+                <div class:list={["flex aspect-[4/3] w-full max-w-[26rem] items-center justify-center rounded-3xl p-10", tintBg[w.world]]}>
+                  <img src={w.logo} alt={`${w.name} logo`} class="max-h-full max-w-full object-contain" loading="lazy" />
+                </div>
+              </div>
+              <div class:list={["max-w-[36rem]", i % 2 === 1 && "md:order-1"]} data-reveal>
+                <Eyebrow tone={linkTone[w.world]}>{w.meta}</Eyebrow>
+                <Heading level={2} size="display-m" tone={w.world} class="mt-3">{w.name}</Heading>
+                <p class="mt-4 font-display text-heading-m text-foreground">{w.tagline}</p>
+                <p class="mt-4 text-body-l text-muted">{w.desc}</p>
+                <div class="mt-7 flex items-center gap-4">
+                  <Button href={w.href} variant="tertiary" world={w.world}>
+                    {w.status === "Active" ? "Enter this world" : "Explore this world"}
+                  </Button>
+                  {w.status === "Coming soon" && (
+                    <span class="font-body text-eyebrow uppercase text-subtle">Coming soon</span>
+                  )}
+                </div>
               </div>
             </div>
           </div>
@@ -172,27 +177,8 @@ const linkTone = { earth: "earth", water: "water", fire: "fire", air: "air" } as
     </div>
   </Section>
 
-  <!-- Testimonials -->
-  <section aria-label="What our students say" class="border-t border-border">
-    <Container class="py-2xl">
-      <div class="text-center" data-reveal>
-        <Eyebrow tone="muted">What our students say</Eyebrow>
-      </div>
-    </Container>
-    {
-      testimonials.map((t) => (
-        <div class="flex min-h-[72vh] items-center">
-          <Container width="prose">
-            <div data-reveal>
-              <QuoteBlock attribution={t.name} initials={t.initials} size="display-l">
-                “{t.quote}”
-              </QuoteBlock>
-            </div>
-          </Container>
-        </div>
-      ))
-    }
-  </section>
+  <!-- Testimonials carousel -->
+  <Testimonials items={testimonials} />
 
   <!-- Pre-footer CTA -->
   <Section class="border-t border-border">
@@ -236,6 +222,21 @@ const linkTone = { earth: "earth", water: "water", fire: "fire", air: "air" } as
 </script>
 
 <style>
+  .hero__bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(38rem 32rem at 50% 15%, color-mix(in srgb, var(--color-earth) 8%, transparent), transparent 66%),
+      radial-gradient(36rem 32rem at 85% 56%, color-mix(in srgb, var(--color-fire) 7%, transparent), transparent 66%),
+      radial-gradient(38rem 34rem at 50% 97%, color-mix(in srgb, var(--color-water) 8%, transparent), transparent 66%),
+      radial-gradient(36rem 32rem at 15% 56%, color-mix(in srgb, var(--color-air) 10%, transparent), transparent 66%);
+  }
+  .hero > :not(.hero__bg) {
+    position: relative;
+    z-index: 1;
+  }
   .hero__title {
     display: flex;
     flex-direction: column;
