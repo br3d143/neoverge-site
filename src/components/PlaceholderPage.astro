@@ -1,0 +1,36 @@
+---
+/**
+ * PlaceholderPage — lightweight stub for routes built in later sessions, so the
+ * header/footer/mandala navigation never hits a 404 during review.
+ */
+import Layout from "../layouts/Layout.astro";
+import Section from "../components/Section.astro";
+import Eyebrow from "../components/Eyebrow.astro";
+import Heading from "../components/Heading.astro";
+import Button from "../components/Button.astro";
+
+interface Props {
+  title: string;
+  eyebrow?: string;
+  world?: "earth" | "water" | "fire" | "air";
+  note?: string;
+}
+const { title, eyebrow, world, note } = Astro.props;
+const tone = world ?? "muted";
+---
+
+<Layout title={`${title} — NeoVerge Dream School`}>
+  <Section class="flex min-h-[70vh] items-center">
+    <div class="max-w-[42rem]">
+      <Eyebrow tone={tone}>{eyebrow ?? "NeoVerge Dream School"}</Eyebrow>
+      <Heading level={1} size="display-l" tone={world} class="mt-4">{title}</Heading>
+      <p class="mt-6 text-body-l text-muted">
+        {note ?? "This page is part of a later build session. The foundation, navigation, and design system are in place — full content is coming soon."}
+      </p>
+      <div class="mt-xl flex flex-wrap gap-4">
+        <Button href="/">Back to home</Button>
+        <Button href="/style-guide" variant="secondary">View the style guide</Button>
+      </div>
+    </div>
+  </Section>
+</Layout>

@@ -10,7 +10,7 @@ interface Props {
 }
 const { width = "page", as = "div", class: className = "" } = Astro.props;
 const Tag = as;
-const maxWidth = width === "prose" ? "max-w-prose" : "max-w-page";
+const maxWidth = width === "prose" ? "max-w-[45rem]" : "max-w-page";
 ---
 
 <Tag class:list={["mx-auto w-full px-6 sm:px-12 lg:px-20", maxWidth, className]}>

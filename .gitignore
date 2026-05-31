@@ -33,3 +33,6 @@ Desktop.ini
 
 # Claude Code tooling (local only)
 .claude/
+
+# Local screenshot output
+.shots/

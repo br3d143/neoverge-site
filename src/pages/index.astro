@@ -1,25 +1,233 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Section from "../components/Section.astro";
+import Container from "../components/Container.astro";
 import Eyebrow from "../components/Eyebrow.astro";
 import Heading from "../components/Heading.astro";
 import Button from "../components/Button.astro";
 import Link from "../components/Link.astro";
+import Divider from "../components/Divider.astro";
+import Mandala from "../components/Mandala.astro";
+import WorldCard from "../components/WorldCard.astro";
+import QuoteBlock from "../components/QuoteBlock.astro";
+
+const cards = [
+  { world: "earth", name: "NeoVerse", meta: "Earth · K–8 Academics", href: "/worlds/neoverse", status: "Coming soon" },
+  { world: "water", name: "Apex Inner System", meta: "Water · Student-Athletes", href: "/worlds/apex", status: "Active" },
+  { world: "fire", name: "Pulse Collective", meta: "Fire · Performing Arts", href: "/worlds/pulse", status: "Coming soon" },
+  { world: "air", name: "WorldWise", meta: "Air · Hybrid Learning", href: "/worlds/worldwise", status: "Coming soon" },
+] as const;
+
+const pillars = [
+  { title: "One Vision, Many Pathways", body: "Whether your child thrives in the arts, academics, athletics, or global exploration, our four immersive worlds meet them where they are and help them grow." },
+  { title: "Whole-Child Approach", body: "We nurture the mind, body, and spirit through a curriculum that balances intellectual challenge, emotional intelligence, physical movement, and creative expression." },
+  { title: "Cohort-Based Communities", body: "Students belong to mission-driven cohorts — NeoVerse, Apex, Pulse Collective, and WorldWise — each with its own culture, colors, and calling." },
+];
+
+const worldPanels = [
+  { world: "earth", name: "NeoVerse", meta: "Earth · K–8 Academics", tagline: "Grounded in purpose. Growing with power.", desc: "Rigorous academics and rich enrichment for K–8 explorers — from garden science and project-based learning to languages, music, and wellness.", href: "/worlds/neoverse", logo: "/brand/neoverse.png", status: "Coming soon" },
+  { world: "water", name: "Apex Inner System", meta: "Water · Grades 6–12 + Post-Grad", tagline: "Flow with focus. Train with heart.", desc: "Elite training, mindset coaching, and NCAA-aligned academics that prepare student-athletes to lead in competition and in life.", href: "/worlds/apex", logo: "/brand/apex.png", status: "Active" },
+  { world: "fire", name: "Pulse Collective", meta: "Fire · Performing Arts (K–12)", tagline: "Ignite your spark. Move with meaning.", desc: "A bold performing-arts world where young artists shine in dance, musical theatre, and acting alongside personalized academics.", href: "/worlds/pulse", logo: "/brand/pulse.png", status: "Coming soon" },
+  { world: "air", name: "WorldWise", meta: "Air · K–12 Hybrid", tagline: "Freedom to learn. Space to soar.", desc: "Flexible, community-driven learning for independent K–12 homeschool families and curious global learners.", href: "/worlds/worldwise", logo: "/brand/worldwise.png", status: "Coming soon" },
+] as const;
+
+const testimonials = [
+  { quote: "Before Apex, I was working hard but not working smart. Now I've got a game plan for my sport, my education, and my life.", name: "Shaun Stinson", initials: "SS" },
+  { quote: "The coaches, mentors, and teachers here actually care. Apex changed my grind into something greater — something with purpose.", name: "Jake Vasquez", initials: "JV" },
+  { quote: "This program gave me more than skills, it gave me vision. I now see college and success as something I can reach, not just dream about.", name: "Sahar Filler", initials: "SF" },
+  { quote: "At Apex, I found a family that pushes me to be my best on the court and in the classroom. They believe in me even when I doubt myself.", name: "Giorgi Shalikiani", initials: "GS" },
+  { quote: "Apex didn't just train my body, it trained my mindset. I came in as an athlete, but I'll be leaving as a leader.", name: "Elijah Sumi", initials: "ES" },
+];
+
+const linkTone = { earth: "earth", water: "water", fire: "fire", air: "air" } as const;
 ---
 
-<Layout title="NeoVerge Dream School — One Universe. Infinite Futures.">
+<Layout
+  title="NeoVerge Dream School — One Universe. Infinite Futures."
+  headerTransparent={true}
+>
+  <!-- Hero: the Mandala (signature moment) -->
+  <section class="flex min-h-[100dvh] flex-col items-center justify-center gap-10 px-6 pt-28 pb-16 text-center">
+    <Eyebrow tone="muted">One Universe · Infinite Futures</Eyebrow>
+    <Mandala />
+    <Eyebrow tone="subtle">Choose your world to begin</Eyebrow>
+  </section>
+
+  <!-- Fallback navigation cards (equal priority to the mandala) -->
+  <Container class="pb-3xl">
+    <Divider label="Or pick from below" class="mx-auto max-w-[28rem]" />
+    <div class="mt-xl grid grid-cols-1 gap-4 sm:grid-cols-2">
+      {cards.map((c) => <WorldCard world={c.world} name={c.name} meta={c.meta.toUpperCase()} href={c.href} status={c.status} />)}
+    </div>
+  </Container>
+
+  <!-- Welcome -->
   <Section>
-    <Eyebrow tone="earth">One Universe. Infinite Futures.</Eyebrow>
-    <Heading level={1} size="display-l" class="mt-4 max-w-3xl">
-      NeoVerge Dream School
-    </Heading>
-    <p class="mt-6 max-w-xl text-body-l text-muted">
-      The foundation is in place — design tokens, fonts, and base layout. The full homepage,
-      with the mandala, arrives in the next session.
-    </p>
-    <div class="mt-xl flex flex-wrap gap-4">
-      <Button href="/style-guide">View the style guide</Button>
-      <Link href="/style-guide" class="self-center">/style-guide →</Link>
+    <div class="mx-auto max-w-[42rem] text-center" data-reveal>
+      <Eyebrow tone="muted">Welcome</Eyebrow>
+      <p class="mt-6 text-body-l text-foreground">
+        Welcome to NeoVerge Dream School — a visionary learning universe where passion meets
+        purpose. We offer four immersive worlds of education designed to nurture every
+        student's gifts and guide them toward meaningful futures.
+      </p>
+    </div>
+  </Section>
+
+  <!-- Why NeoVerge — three editorial pillars -->
+  <Section class="bg-surface">
+    <div data-reveal>
+      <Eyebrow tone="earth">Why NeoVerge</Eyebrow>
+      <Heading level={2} size="display-m" class="mt-3 max-w-[42rem]">
+        Passion-driven, individualized learning.
+      </Heading>
+    </div>
+    <div class="mt-2xl grid grid-cols-1 gap-x-lg gap-y-xl md:grid-cols-3" data-reveal>
+      {
+        pillars.map((p) => (
+          <div class="border-t border-border-strong pt-6">
+            <Heading level={3} size="heading-l">{p.title}</Heading>
+            <p class="mt-3 text-body-m text-muted">{p.body}</p>
+          </div>
+        ))
+      }
+    </div>
+  </Section>
+
+  <!-- Four-world scroll reveal -->
+  <section aria-label="The four worlds">
+    {
+      worldPanels.map((w, i) => (
+        <div class="relative overflow-hidden border-t border-border py-3xl md:py-4xl lg:py-5xl">
+          <img
+            src={w.logo}
+            alt=""
+            aria-hidden="true"
+            loading="lazy"
+            class:list={[
+              "pointer-events-none absolute top-1/2 hidden w-[40%] max-w-[28rem] -translate-y-1/2 opacity-[0.06] sm:block",
+              i % 2 === 0 ? "right-[4%]" : "left-[4%]",
+            ]}
+          />
+          <div class="mx-auto w-full max-w-page px-6 sm:px-12 lg:px-20">
+            <div class:list={["max-w-[36rem]", i % 2 === 1 && "md:ml-auto md:text-right"]} data-reveal>
+              <Eyebrow tone={linkTone[w.world]}>{w.meta}</Eyebrow>
+              <Heading level={2} size="display-l" tone={w.world} class="mt-4">{w.name}</Heading>
+              <p class="mt-4 font-display text-heading-m text-foreground">{w.tagline}</p>
+              <p class="mt-4 text-body-l text-muted">{w.desc}</p>
+              <div class:list={["mt-8 flex items-center gap-4", i % 2 === 1 && "md:justify-end"]}>
+                <Button href={w.href} variant="tertiary" world={w.world}>
+                  {w.status === "Active" ? "Enter this world" : "Explore this world"}
+                </Button>
+                {w.status === "Coming soon" && (
+                  <span class="font-body text-eyebrow uppercase text-subtle">Coming soon</span>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      ))
+    }
+  </section>
+
+  <!-- Educational philosophy -->
+  <Section width="prose" class="border-t border-border">
+    <div data-reveal>
+      <Eyebrow tone="muted">Our Philosophy</Eyebrow>
+      <div class="mt-8 flex flex-col gap-6 text-body-l text-foreground">
+        <p>
+          At NeoVerge Dream School, we believe education should be transformational, not
+          transactional. We create a constellation of learning experiences that honor student
+          voice, ignite curiosity, and develop critical thinkers and self-led learners who are
+          driven to pursue their individual passions.
+        </p>
+        <p>
+          Rooted in our unique element-based model, we nurture the whole child — academically,
+          artistically, athletically, and emotionally — while fostering the confidence,
+          creativity, and resilience students need to become purposeful problem-solvers.
+        </p>
+        <p class="font-display text-heading-l text-foreground">
+          We don't just prepare students for the future — we help them build it in order to
+          lead it.
+        </p>
+      </div>
+    </div>
+  </Section>
+
+  <!-- Mission & Vision -->
+  <Section class="bg-surface">
+    <div class="grid grid-cols-1 gap-xl md:grid-cols-2 md:gap-lg" data-reveal>
+      <QuoteBlock label="Our Mission">
+        To cultivate a dynamic learning universe where students ignite their passions,
+        strengthen their character, and develop into curious, capable, and self-driven thinkers
+        through personalized, whole-child education.
+      </QuoteBlock>
+      <QuoteBlock label="Our Vision">
+        To become a national model of innovative, elemental education where every student is
+        known, inspired, and equipped to thrive as a critical thinker, creative contributor, and
+        compassionate leader in any field they choose.
+      </QuoteBlock>
+    </div>
+  </Section>
+
+  <!-- Testimonials -->
+  <section aria-label="What our students say" class="border-t border-border">
+    <Container class="py-2xl">
+      <div class="text-center" data-reveal>
+        <Eyebrow tone="muted">What our students say</Eyebrow>
+      </div>
+    </Container>
+    {
+      testimonials.map((t) => (
+        <div class="flex min-h-[72vh] items-center">
+          <Container width="prose">
+            <div data-reveal>
+              <QuoteBlock attribution={t.name} initials={t.initials} size="display-l">
+                “{t.quote}”
+              </QuoteBlock>
+            </div>
+          </Container>
+        </div>
+      ))
+    }
+  </section>
+
+  <!-- Pre-footer CTA -->
+  <Section class="border-t border-border">
+    <div class="mx-auto max-w-[42rem] text-center" data-reveal>
+      <Heading level={2} size="display-m">Ready to explore?</Heading>
+      <p class="mt-5 text-body-l text-muted">
+        Find the world where your child belongs — or reach out and we'll help you find the fit.
+      </p>
+      <div class="mt-xl flex flex-wrap items-center justify-center gap-5">
+        <Button href="/admissions" size="lg">Apply now</Button>
+        <Link href="/contact" class="text-body-m">Or get in touch →</Link>
+      </div>
     </div>
   </Section>
 </Layout>
+
+<script is:inline>
+  (function () {
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const els = document.querySelectorAll("[data-reveal]");
+    if (reduce || !("IntersectionObserver" in window)) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.animate(
+              [
+                { opacity: 0, transform: "translateY(14px)" },
+                { opacity: 1, transform: "translateY(0)" },
+              ],
+              { duration: 600, easing: "cubic-bezier(0.2,0.8,0.2,1)", fill: "both" },
+            );
+            io.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.18 },
+    );
+    els.forEach((el) => io.observe(el));
+  })();
+</script>
