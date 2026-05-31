@@ -46,11 +46,14 @@ const linkTone = { earth: "earth", water: "water", fire: "fire", air: "air" } as
   title="NeoVerge Dream School — One Universe. Infinite Futures."
   headerTransparent={true}
 >
-  <!-- Hero: the Mandala (signature moment) -->
-  <section class="flex min-h-[100dvh] flex-col items-center justify-center gap-10 px-6 pt-28 pb-16 text-center">
-    <Eyebrow tone="muted">One Universe · Infinite Futures</Eyebrow>
+  <!-- Hero: oversized tagline + the Mandala (signature moment) -->
+  <section class="hero relative flex min-h-[100dvh] flex-col items-center justify-center gap-7 overflow-hidden px-6 pt-24 pb-14 text-center">
+    <h1 class="hero__title font-display text-display-l text-foreground md:text-display-xl">
+      <span class="hero__line">One Universe.</span>
+      <span class="hero__line">Infinite Futures.</span>
+    </h1>
     <Mandala />
-    <Eyebrow tone="subtle">Choose your world to begin</Eyebrow>
+    <p class="hero__cue font-body text-eyebrow uppercase text-subtle">Choose your world to begin</p>
   </section>
 
   <!-- Fallback navigation cards (equal priority to the mandala) -->
@@ -97,7 +100,7 @@ const linkTone = { earth: "earth", water: "water", fire: "fire", air: "air" } as
   <section aria-label="The four worlds">
     {
       worldPanels.map((w, i) => (
-        <div class="relative overflow-hidden border-t border-border py-3xl md:py-4xl lg:py-5xl">
+        <div class="relative overflow-hidden border-t border-border py-2xl md:py-3xl lg:py-4xl">
           <img
             src={w.logo}
             alt=""
@@ -231,3 +234,29 @@ const linkTone = { earth: "earth", water: "water", fire: "fire", air: "air" } as
     els.forEach((el) => io.observe(el));
   })();
 </script>
+
+<style>
+  .hero__title {
+    display: flex;
+    flex-direction: column;
+    text-wrap: balance;
+  }
+  .hero__line {
+    display: block;
+    opacity: 0;
+    transform: translateY(0.45em);
+    animation: hero-rise 0.85s var(--ease-refined) both;
+  }
+  .hero__line:nth-child(1) { animation-delay: 0.1s; }
+  .hero__line:nth-child(2) { animation-delay: 0.3s; }
+  .hero__cue {
+    opacity: 0;
+    animation: hero-fade 0.8s var(--ease-refined) 1.3s both;
+  }
+  @keyframes hero-rise {
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes hero-fade {
+    to { opacity: 1; }
+  }
+</style>
