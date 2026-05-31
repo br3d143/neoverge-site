@@ -1,4 +1,73 @@
 ---
-import PlaceholderPage from "../components/PlaceholderPage.astro";
+import Layout from "../layouts/Layout.astro";
+import Container from "../components/Container.astro";
+import Eyebrow from "../components/Eyebrow.astro";
+import Heading from "../components/Heading.astro";
+import Button from "../components/Button.astro";
+import ApplicationCTA from "../components/ApplicationCTA.astro";
+import { worldsContent, worldOrder } from "../config/site";
+
+const tintBg = {
+  earth: "bg-earth-tint",
+  water: "bg-water-tint",
+  fire: "bg-fire-tint",
+  air: "bg-air-tint",
+};
 ---
-<PlaceholderPage title="One Universe" eyebrow="Four powerful worlds. Infinite ways to thrive." />
+
+<Layout title="Worlds — NeoVerge Dream School" headerTransparent={true}>
+  <!-- Editorial hero -->
+  <section class="flex min-h-[68vh] items-center px-6 pt-28 pb-16">
+    <Container>
+      <div class="max-w-[48rem]">
+        <Eyebrow tone="muted">Four powerful worlds · Infinite ways to thrive</Eyebrow>
+        <Heading level={1} size="display-xl" class="mt-4">One universe.</Heading>
+        <p class="mt-7 max-w-[40rem] text-body-l text-muted">
+          At NeoVerge, students don't just take classes — they step into immersive worlds that
+          honor who they are and who they're becoming. Each world is fueled by its own element,
+          culture, and calling.
+        </p>
+      </div>
+    </Container>
+  </section>
+
+  <!-- The four worlds -->
+  {
+    worldOrder.map((key, i) => {
+      const w = worldsContent[key];
+      return (
+        <div class="border-t border-border py-2xl md:py-3xl">
+          <Container>
+            <div class="grid items-center gap-xl md:grid-cols-2 md:gap-2xl">
+              <div class:list={["flex justify-center", i % 2 === 1 && "md:order-2"]} data-reveal>
+                <div class:list={["flex aspect-[4/3] w-full max-w-[26rem] items-center justify-center rounded-3xl p-10", tintBg[key]]}>
+                  <img src={w.logo} alt={`${w.name} logo`} class="max-h-full max-w-full object-contain" loading="lazy" />
+                </div>
+              </div>
+              <div class:list={[i % 2 === 1 && "md:order-1"]} data-reveal>
+                <Eyebrow tone={key}>{w.element} · {w.grades}</Eyebrow>
+                <Heading level={2} size="display-m" tone={key} class="mt-3">{w.name}</Heading>
+                <p class="mt-4 font-display text-heading-m text-foreground">{w.tagline}</p>
+                <p class="mt-4 max-w-[34rem] text-body-l text-muted">{w.blurb}</p>
+                <div class="mt-7 flex items-center gap-4">
+                  <Button href={w.href} variant="tertiary" world={key}>
+                    {w.status === "Active" ? "Enter this world" : "Explore this world"}
+                  </Button>
+                  {w.status === "Coming soon" && (
+                    <Eyebrow tone="subtle">Coming soon</Eyebrow>
+                  )}
+                </div>
+              </div>
+            </div>
+          </Container>
+        </div>
+      );
+    })
+  }
+
+  <ApplicationCTA
+    heading="Find your world."
+    body="Whether you're an artist, athlete, innovator, or explorer — there's a place here for every kind of brilliance."
+    primaryLabel="APPLY NOW"
+  />
+</Layout>

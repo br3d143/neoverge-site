@@ -1,0 +1,41 @@
+---
+/**
+ * ApplicationCTA — reusable "ready to apply?" block with a primary CTA + secondary link.
+ */
+import Container from "./Container.astro";
+import Heading from "./Heading.astro";
+import Button from "./Button.astro";
+import Link from "./Link.astro";
+
+interface Props {
+  heading?: string;
+  body?: string;
+  world?: "earth" | "water" | "fire" | "air";
+  primaryHref?: string;
+  primaryLabel?: string;
+  secondaryHref?: string;
+  secondaryLabel?: string;
+}
+const {
+  heading = "Ready to explore?",
+  body,
+  world,
+  primaryHref = "/admissions",
+  primaryLabel = "Apply now",
+  secondaryHref = "/contact",
+  secondaryLabel = "Or get in touch",
+} = Astro.props;
+---
+
+<section class="border-t border-border">
+  <Container class="py-3xl text-center">
+    <div class="mx-auto max-w-[42rem]" data-reveal>
+      <Heading level={2} size="display-m">{heading}</Heading>
+      {body && <p class="mt-5 text-body-l text-muted">{body}</p>}
+      <div class="mt-xl flex flex-wrap items-center justify-center gap-5">
+        <Button href={primaryHref} world={world} size="lg">{primaryLabel}</Button>
+        <Link href={secondaryHref} class="text-body-m">{secondaryLabel} →</Link>
+      </div>
+    </div>
+  </Container>
+</section>
