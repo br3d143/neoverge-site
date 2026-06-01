@@ -11,6 +11,7 @@ import Mandala from "../components/Mandala.astro";
 import WorldCard from "../components/WorldCard.astro";
 import QuoteBlock from "../components/QuoteBlock.astro";
 import Testimonials from "../components/Testimonials.astro";
+import Constellation from "../components/Constellation.astro";
 
 const cards = [
   { world: "earth", name: "NeoVerse", meta: "Earth · K–8 Academics", href: "/worlds/neoverse", status: "Coming soon" },
@@ -56,6 +57,7 @@ const tintBg = {
   <!-- Hero: the elemental mark + oversized tagline -->
   <section class="hero relative isolate flex min-h-[100dvh] flex-col items-center justify-center gap-6 overflow-hidden px-6 pt-24 pb-16 text-center">
     <div class="hero__bg" aria-hidden="true"></div>
+    <Constellation />
     <div class="hero__logo" aria-hidden="true">
       <img
         src="/brand/neoverge-circle.png"
@@ -257,7 +259,7 @@ const tintBg = {
       radial-gradient(32rem 28rem at 22% 50%, color-mix(in srgb, var(--color-air) 18%, transparent), transparent 62%);
     animation: hero-drift 150s linear infinite;
   }
-  .hero > :not(.hero__bg) {
+  .hero > :not(.hero__bg):not(.constellation) {
     position: relative;
     z-index: 1;
   }
@@ -286,10 +288,10 @@ const tintBg = {
       var(--color-air),
       var(--color-earth)
     );
-    filter: blur(18px);
-    opacity: 0.5;
+    filter: blur(15px);
+    opacity: 0.32;
     z-index: 0;
-    animation: hero-swirl 14s linear infinite;
+    animation: hero-swirl 9s linear infinite;
   }
   .hero__mark {
     position: relative;

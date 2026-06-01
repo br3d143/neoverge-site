@@ -226,3 +226,46 @@ const icons: Record<string, string> = {
     to { opacity: 1; }
   }
 </style>
+
+<script is:inline>
+  (function () {
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    document.querySelectorAll(".mandala__node").forEach((node) => {
+      node.addEventListener("click", (e) => {
+        const href = node.getAttribute("href");
+        if (reduce || !href || e.metaKey || e.ctrlKey) return;
+        e.preventDefault();
+        const rect = node.getBoundingClientRect();
+        const cx = rect.left + rect.width / 2;
+        const cy = rect.top + rect.height / 2;
+        const base =
+          getComputedStyle(node).getPropertyValue("--base").trim() || "#1a1a1a";
+        const wipe = document.createElement("div");
+        const start = "circle(0px at " + cx + "px " + cy + "px)";
+        wipe.style.cssText =
+          "position:fixed;inset:0;z-index:200;background:" +
+          base +
+          ";clip-path:" +
+          start +
+          ";-webkit-clip-path:" +
+          start +
+          ";transition:clip-path 620ms cubic-bezier(.2,.8,.2,1),-webkit-clip-path 620ms cubic-bezier(.2,.8,.2,1);pointer-events:none;";
+        document.body.appendChild(wipe);
+        const radius =
+          Math.hypot(
+            Math.max(cx, window.innerWidth - cx),
+            Math.max(cy, window.innerHeight - cy),
+          ) + 48;
+        requestAnimationFrame(() => {
+          const end = "circle(" + radius + "px at " + cx + "px " + cy + "px)";
+          wipe.style.clipPath = end;
+          wipe.style.webkitClipPath = end;
+        });
+        setTimeout(() => {
+          window.location.href = href;
+        }, 650);
+      });
+    });
+  })();
+</script>
+
