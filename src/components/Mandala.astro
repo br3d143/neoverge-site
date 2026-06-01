@@ -45,6 +45,7 @@ const icons: Record<string, string> = {
       nodes.map((n) => (
         <a
           href={n.href}
+          data-world={n.world}
           class:list={["mandala__node", `is-${n.pos}`, ring[n.world]]}
           aria-label={`Enter ${n.name}, the world of ${n.element}`}
         >
@@ -230,6 +231,68 @@ const icons: Record<string, string> = {
 <script is:inline>
   (function () {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const SHAPE = {
+      earth: '<path d="M12 2C7 7 6 16 12 22C18 16 18 7 12 2Z"/>',
+      fire: '<path d="M12 2c3 4 5 7 5 10a5 5 0 0 1-10 0c0-2 .8-3.4 2-4.6 0 1.8 1.4 2.7 2.7 2.2C11.6 7.6 10 6 12 2Z"/>',
+      water: '<path d="M12 3c4 5.5 6 8.6 6 11.2a6 6 0 0 1-12 0C6 11.6 8 8.5 12 3Z"/>',
+      air: '<path d="M3 8h12a3 3 0 1 0-3-3M3 13h8" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>',
+    };
+
+    function burst(world, cx, cy, color) {
+      const layer = document.createElement("div");
+      layer.style.cssText = "position:fixed;inset:0;z-index:215;pointer-events:none;overflow:hidden;";
+      document.body.appendChild(layer);
+      const stroke = world === "air";
+      const n = world === "water" ? 6 : 16;
+      for (let i = 0; i < n; i++) {
+        const el = document.createElement("div");
+        const size = (stroke ? 24 : 14) + Math.random() * 16;
+        el.style.cssText = "position:absolute;left:" + cx + "px;top:" + cy + "px;color:" + color + ";";
+        el.innerHTML = '<svg width="' + size + '" height="' + size + '" viewBox="0 0 24 24" fill="' + (stroke ? "none" : color) + '">' + SHAPE[world] + "</svg>";
+        layer.appendChild(el);
+        let angle, dist;
+        if (world === "fire") { angle = -Math.PI / 2 + (Math.random() - 0.5) * 0.9; dist = 90 + Math.random() * 150; }
+        else if (world === "earth") { angle = -Math.PI / 2 + (Math.random() - 0.5) * 1.9; dist = 70 + Math.random() * 120; }
+        else if (world === "air") { angle = (Math.random() - 0.5) * 0.7; dist = 150 + Math.random() * 180; }
+        else { angle = Math.random() * 6.2832; dist = 70 + Math.random() * 100; }
+        const dx = Math.cos(angle) * dist, dy = Math.sin(angle) * dist;
+        const rot = (Math.random() - 0.5) * (stroke ? 120 : 360);
+        el.animate([
+          { transform: "translate(-50%,-50%) scale(0.2) rotate(0deg)", opacity: 0 },
+          { transform: "translate(-50%,-50%) translate(" + dx * 0.35 + "px," + dy * 0.35 + "px) scale(1) rotate(" + rot * 0.4 + "deg)", opacity: 1, offset: 0.3 },
+          { transform: "translate(-50%,-50%) translate(" + dx + "px," + dy + "px) scale(" + (world === "fire" ? 0.5 : 0.9) + ") rotate(" + rot + "deg)", opacity: 0 },
+        ], { duration: 650 + Math.random() * 450, easing: "cubic-bezier(.2,.8,.2,1)", fill: "forwards" });
+      }
+      if (world === "water") {
+        for (let k = 0; k < 3; k++) {
+          const ring = document.createElement("div");
+          ring.style.cssText = "position:absolute;left:" + cx + "px;top:" + cy + "px;width:48px;height:48px;border:2px solid " + color + ";border-radius:50%;";
+          layer.appendChild(ring);
+          ring.animate([
+            { transform: "translate(-50%,-50%) scale(0.3)", opacity: 0.7 },
+            { transform: "translate(-50%,-50%) scale(" + (4 + k * 1.6) + ")", opacity: 0 },
+          ], { duration: 760 + k * 150, delay: k * 90, easing: "cubic-bezier(.2,.8,.2,1)", fill: "forwards" });
+        }
+      }
+      setTimeout(() => layer.remove(), 1300);
+    }
+
+    function wipe(cx, cy, color) {
+      const el = document.createElement("div");
+      const start = "circle(0px at " + cx + "px " + cy + "px)";
+      el.style.cssText = "position:fixed;inset:0;z-index:210;background:" + color +
+        ";clip-path:" + start + ";-webkit-clip-path:" + start +
+        ";transition:clip-path 600ms cubic-bezier(.2,.8,.2,1),-webkit-clip-path 600ms cubic-bezier(.2,.8,.2,1);pointer-events:none;";
+      document.body.appendChild(el);
+      const radius = Math.hypot(Math.max(cx, window.innerWidth - cx), Math.max(cy, window.innerHeight - cy)) + 48;
+      requestAnimationFrame(() => {
+        const end = "circle(" + radius + "px at " + cx + "px " + cy + "px)";
+        el.style.clipPath = end;
+        el.style.webkitClipPath = end;
+      });
+    }
+
     document.querySelectorAll(".mandala__node").forEach((node) => {
       node.addEventListener("click", (e) => {
         const href = node.getAttribute("href");
@@ -238,32 +301,13 @@ const icons: Record<string, string> = {
         const rect = node.getBoundingClientRect();
         const cx = rect.left + rect.width / 2;
         const cy = rect.top + rect.height / 2;
-        const base =
-          getComputedStyle(node).getPropertyValue("--base").trim() || "#1a1a1a";
-        const wipe = document.createElement("div");
-        const start = "circle(0px at " + cx + "px " + cy + "px)";
-        wipe.style.cssText =
-          "position:fixed;inset:0;z-index:200;background:" +
-          base +
-          ";clip-path:" +
-          start +
-          ";-webkit-clip-path:" +
-          start +
-          ";transition:clip-path 620ms cubic-bezier(.2,.8,.2,1),-webkit-clip-path 620ms cubic-bezier(.2,.8,.2,1);pointer-events:none;";
-        document.body.appendChild(wipe);
-        const radius =
-          Math.hypot(
-            Math.max(cx, window.innerWidth - cx),
-            Math.max(cy, window.innerHeight - cy),
-          ) + 48;
-        requestAnimationFrame(() => {
-          const end = "circle(" + radius + "px at " + cx + "px " + cy + "px)";
-          wipe.style.clipPath = end;
-          wipe.style.webkitClipPath = end;
-        });
-        setTimeout(() => {
-          window.location.href = href;
-        }, 650);
+        const world = node.getAttribute("data-world");
+        const styles = getComputedStyle(node);
+        const accent = styles.getPropertyValue("--accent").trim() || "#1a1a1a";
+        const base = styles.getPropertyValue("--base").trim() || "#1a1a1a";
+        burst(world, cx, cy, accent);
+        setTimeout(() => wipe(cx, cy, base), 260);
+        setTimeout(() => { window.location.href = href; }, 920);
       });
     });
   })();

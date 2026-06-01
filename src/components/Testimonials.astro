@@ -106,14 +106,32 @@ const { items } = Astro.props;
       const next = root.querySelector("[data-next]");
       if (!track) return;
       const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      const go = (dir) =>
-        track.scrollBy({ left: dir * track.clientWidth, behavior: reduce ? "auto" : "smooth" });
-      prev?.addEventListener("click", () => go(-1));
-      next?.addEventListener("click", () => go(1));
+      const behavior = reduce ? "auto" : "smooth";
+      const go = (dir) => {
+        const atEnd = track.scrollLeft + track.clientWidth >= track.scrollWidth - 4;
+        const atStart = track.scrollLeft <= 4;
+        if (dir > 0 && atEnd) return track.scrollTo({ left: 0, behavior });
+        if (dir < 0 && atStart) return track.scrollTo({ left: track.scrollWidth, behavior });
+        track.scrollBy({ left: dir * track.clientWidth, behavior });
+      };
+
+      let timer = null;
+      const start = () => { if (!reduce && !timer) timer = window.setInterval(() => go(1), 5000); };
+      const stop = () => { if (timer) { clearInterval(timer); timer = null; } };
+      const restart = () => { stop(); start(); };
+
+      prev?.addEventListener("click", () => { go(-1); restart(); });
+      next?.addEventListener("click", () => { go(1); restart(); });
       track.addEventListener("keydown", (e) => {
-        if (e.key === "ArrowRight") { e.preventDefault(); go(1); }
-        if (e.key === "ArrowLeft") { e.preventDefault(); go(-1); }
+        if (e.key === "ArrowRight") { e.preventDefault(); go(1); restart(); }
+        if (e.key === "ArrowLeft") { e.preventDefault(); go(-1); restart(); }
       });
+      root.addEventListener("mouseenter", stop);
+      root.addEventListener("mouseleave", start);
+      root.addEventListener("focusin", stop);
+      root.addEventListener("focusout", start);
+      document.addEventListener("visibilitychange", () => (document.hidden ? stop() : start()));
+      start();
     });
   })();
 </script>
