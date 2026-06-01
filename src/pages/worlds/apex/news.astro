@@ -1,0 +1,29 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import PageHero from "../../../components/PageHero.astro";
+import Section from "../../../components/Section.astro";
+import Eyebrow from "../../../components/Eyebrow.astro";
+import Button from "../../../components/Button.astro";
+import Link from "../../../components/Link.astro";
+import { worldInstagram } from "../../../config/site";
+---
+
+<Layout title="News & Highlights — Apex · NeoVerge Dream School" headerTransparent={true}>
+  <PageHero
+    world="water"
+    eyebrow="Apex · News & Highlights"
+    title="News & Highlights"
+    intro="Catch the latest from NeoVerge — from student showcases and athletic achievements to new program launches and educator spotlights. This is where our universe comes to life. See how our students are making waves, taking the stage, and reaching new heights."
+  />
+
+  <Section width="prose">
+    <div data-reveal>
+      <Eyebrow tone="water">Stay in the loop</Eyebrow>
+      <p class="mt-6 text-body-l text-muted">Our latest highlights live on Instagram while we build out a curated news feed here. Follow Apex for game recaps, student spotlights, and program updates.</p>
+      <div class="mt-8 flex flex-wrap items-center gap-5">
+        <Button href={worldInstagram.water} world="water">Follow Apex on Instagram</Button>
+        <Link href="/blog" class="text-body-m">Read the blog →</Link>
+      </div>
+    </div>
+  </Section>
+</Layout>

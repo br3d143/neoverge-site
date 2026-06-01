@@ -1,0 +1,30 @@
+---
+/**
+ * PageHero — editorial hero for content pages (About, Admissions, Apex sub-pages…).
+ * Optional element `world` tints the eyebrow + heading.
+ */
+import Container from "./Container.astro";
+import Eyebrow from "./Eyebrow.astro";
+import Heading from "./Heading.astro";
+
+interface Props {
+  eyebrow?: string;
+  title: string;
+  subhead?: string;
+  intro?: string;
+  world?: "earth" | "water" | "fire" | "air";
+  size?: "display-l" | "display-m";
+}
+const { eyebrow, title, subhead, intro, world, size = "display-l" } = Astro.props;
+---
+
+<section class="relative overflow-hidden">
+  <Container class="flex min-h-[56vh] flex-col justify-center pt-28 pb-xl">
+    <div class="max-w-[46rem]" data-reveal>
+      {eyebrow && <Eyebrow tone={world ?? "muted"}>{eyebrow}</Eyebrow>}
+      <Heading level={1} size={size} tone={world} class="mt-4">{title}</Heading>
+      {subhead && <p class="mt-5 font-display text-heading-m text-foreground">{subhead}</p>}
+      {intro && <p class="mt-5 max-w-[42rem] text-body-l text-muted">{intro}</p>}
+    </div>
+  </Container>
+</section>

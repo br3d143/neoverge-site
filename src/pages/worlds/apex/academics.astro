@@ -1,9 +1,55 @@
 ---
-import PlaceholderPage from "../../../components/PlaceholderPage.astro";
+import Layout from "../../../layouts/Layout.astro";
+import PageHero from "../../../components/PageHero.astro";
+import Section from "../../../components/Section.astro";
+import Eyebrow from "../../../components/Eyebrow.astro";
+import Heading from "../../../components/Heading.astro";
+import Prose from "../../../components/Prose.astro";
+import ApplicationCTA from "../../../components/ApplicationCTA.astro";
+
+const offers = [
+  { t: "Independent Study Support (Built for Athletes)", b: "Flexible, asynchronous learning platforms let student-athletes move at a competitive rhythm without falling behind. Daily academic sessions are embedded in the schedule for structure and accountability — at a pace that works for the individual." },
+  { t: "NCAA-Approved Coursework", b: "All academic offerings align with NCAA eligibility standards to keep every athlete eligible for D1, D2, or NAIA programs, with course tracking and core subject coverage built to support real recruitment outcomes." },
+  { t: "Academic Coaching & Mentorship", b: "Athletes don't just get assignments — they get coached through them. Mentors monitor progress, provide support, and build executive function, time management, and strategic learning skills." },
+  { t: "College-Ready Transcripts & Advising", b: "We partner with accredited curriculum providers for real college-prep transcripts recognized by colleges, universities, and the NCAA, plus personalized advising and recruitment strategy." },
+  { t: "SAT/ACT Prep & Future-Ready Planning", b: "Optional test prep, test-taking strategy, and guidance on building a strong college admissions profile — even beyond athletics." },
+];
 ---
-<PlaceholderPage
-  title="Brains. Buckets. Balance."
-  eyebrow="Apex · Academics"
-  world="water"
-  note="NCAA-aligned, college-prep academics built around an athlete's schedule. Full page coming soon."
-/>
+
+<Layout title="Academics — Apex · NeoVerge Dream School" headerTransparent={true}>
+  <PageHero
+    world="water"
+    eyebrow="Apex · Academics"
+    title="Brains. Buckets. Balance."
+    intro="At Apex, academics don't sit in the background — they run point. We flip the traditional model by giving student-athletes the flexibility and support to grow in the classroom without ever losing momentum on the court. Our academic model is NCAA-aligned, college-prep focused, and built so that when recruiters call, your grades, eligibility, and mindset are already in championship form."
+  />
+
+  <Section>
+    <div data-reveal>
+      <Eyebrow tone="water">What we offer</Eyebrow>
+      <Heading level={2} size="display-m" class="mt-3 max-w-[42rem]">You don't have to choose between buckets and books.</Heading>
+    </div>
+    <div class="mt-2xl flex flex-col gap-xl" data-reveal>
+      {offers.map((o, i) => (
+        <div class="grid grid-cols-[auto_1fr] gap-6 border-t border-border-strong pt-6 md:gap-10">
+          <span class="font-display text-heading-l text-water">{String(i + 1).padStart(2, "0")}</span>
+          <div>
+            <Heading level={3} size="heading-m">{o.t}</Heading>
+            <p class="mt-3 max-w-[44rem] text-body-m text-muted">{o.b}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </Section>
+
+  <Section width="prose" class="border-t border-border">
+    <div data-reveal>
+      <Eyebrow tone="water">Why it matters</Eyebrow>
+      <Prose class="mt-6">
+        <p>We've seen too many talented players held back by poor grades, lost eligibility, or limited academic vision. That doesn't happen here. At Apex, your student-athlete gets the best of both worlds: elite basketball development and a powerful academic foundation that opens doors on the court and in life.</p>
+      </Prose>
+    </div>
+  </Section>
+
+  <ApplicationCTA world="water" heading="Build the whole picture." primaryHref="/admissions" primaryLabel="Apply now" secondaryHref="/contact" secondaryLabel="Contact Coach Quincy" />
+</Layout>

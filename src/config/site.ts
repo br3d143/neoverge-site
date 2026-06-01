@@ -50,12 +50,39 @@ export const footerNav = [
   { label: "Blog", href: "/blog" },
 ];
 
-// Social handles are placeholders — real handles are an open question in the brief.
+// Parent NeoVerge has no dedicated IG account; using the active Apex account as a
+// stand-in for the footer. Facebook/YouTube have no real accounts yet.
 export const social = [
-  { label: "Instagram", href: "#" },
+  { label: "Instagram", href: "https://www.instagram.com/apexinnersystemathletics/" },
   { label: "Facebook", href: "#" },
   { label: "YouTube", href: "#" },
 ];
+
+// Real, verified per-world Instagram accounts.
+export const worldInstagram: Record<WorldKey, string> = {
+  earth: "https://www.instagram.com/neoverseearth/",
+  water: "https://www.instagram.com/apexinnersystemathletics/",
+  fire: "https://www.instagram.com/pulsecollectivefire/",
+  air: "https://www.instagram.com/worldwiseair/",
+};
+
+// External forms & scheduling links (from the content master).
+export const forms = {
+  apexInterest: "https://form.jotform.com/250895493963171",
+  shadowDay:
+    "https://docs.google.com/forms/d/e/1FAIpQLSfGauVN5dYJCbFCggb8L2m96QORtqd5JY0Ow_GtE5BYOt-XLQ/viewform?usp=header",
+  scholarship:
+    "https://docs.google.com/forms/d/e/1FAIpQLSfImvDYIZCuKZoe7JBYtaxqei_mF_WvAT80QRAWGm7UALGNtg/viewform?usp=header",
+  mindsetConsent:
+    "https://docs.google.com/document/d/1fY6pFxncexn_AoYSbQuirrc_Om2Vzn6MM0yU1bXBRkU/copy",
+  zenithBooking: "https://calendly.com/drm-zenithmindset",
+  cortezBooking: "https://calendly.com/cortes-barcelona10/30min",
+};
+
+export const partners = {
+  zenith: "https://www.zenithmindset.com",
+  apexISA: "https://www.apexisa.com",
+};
 
 // Rich per-world content (content sourced verbatim-ish from neoverge-content-master.md).
 // Shared by the homepage, the Worlds overview, and each world page.

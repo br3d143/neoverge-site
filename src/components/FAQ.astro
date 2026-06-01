@@ -1,0 +1,23 @@
+---
+/**
+ * FAQ — accordion list using native <details>/<summary> (accessible, keyboard-ready).
+ */
+interface Props {
+  items: { q: string; a: string }[];
+}
+const { items } = Astro.props;
+---
+
+<div class="flex flex-col divide-y divide-border border-y border-border">
+  {
+    items.map((it) => (
+      <details class="group">
+        <summary class="flex cursor-pointer list-none items-center justify-between gap-6 py-5 font-display text-heading-s text-foreground [&::-webkit-details-marker]:hidden">
+          <span>{it.q}</span>
+          <span class="shrink-0 text-subtle transition-transform duration-[250ms] group-open:rotate-45" aria-hidden="true">+</span>
+        </summary>
+        <p class="max-w-[46rem] pb-6 text-body-m text-muted">{it.a}</p>
+      </details>
+    ))
+  }
+</div>

@@ -1,0 +1,54 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Section from "../../components/Section.astro";
+import Container from "../../components/Container.astro";
+import Eyebrow from "../../components/Eyebrow.astro";
+import Heading from "../../components/Heading.astro";
+import Prose from "../../components/Prose.astro";
+import Link from "../../components/Link.astro";
+import { posts } from "../../config/blog";
+
+export function getStaticPaths() {
+  return posts.map((post) => ({ params: { slug: post.slug }, props: { post } }));
+}
+const { post } = Astro.props;
+const more = posts.filter((p) => p.slug !== post.slug).slice(0, 2);
+---
+
+<Layout title={`${post.title} — NeoVerge Dream School`}>
+  <article>
+    <Section width="prose" space="compact" class="pt-2xl">
+      <div data-reveal>
+        <Eyebrow tone="muted">{post.category} · {post.date}</Eyebrow>
+        <Heading level={1} size="display-m" class="mt-4">{post.title}</Heading>
+      </div>
+    </Section>
+
+    <Section width="prose" space="compact">
+      <Prose>
+        {post.body.map((para) => <p>{para}</p>)}
+      </Prose>
+    </Section>
+  </article>
+
+  <Section class="border-t border-border">
+    <div class="flex items-center justify-between gap-4">
+      <Eyebrow tone="muted">Read more</Eyebrow>
+      <Link href="/blog" class="text-body-m">All posts →</Link>
+    </div>
+    <div class="mt-xl grid grid-cols-1 gap-6 md:grid-cols-2">
+      {
+        more.map((p) => (
+          <a
+            href={`/blog/${p.slug}`}
+            class="group flex flex-col gap-3 rounded-3xl border border-border bg-surface p-7 transition-all duration-[250ms] [transition-timing-function:var(--ease-refined)] hover:-translate-y-0.5 hover:shadow-[0_16px_50px_-20px_rgba(26,26,26,0.28)]"
+          >
+            <Eyebrow tone="muted">{p.category} · {p.date}</Eyebrow>
+            <Heading level={2} size="heading-m">{p.title}</Heading>
+            <p class="text-body-s text-muted">{p.excerpt}</p>
+          </a>
+        ))
+      }
+    </div>
+  </Section>
+</Layout>

@@ -1,0 +1,54 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import PageHero from "../../../components/PageHero.astro";
+import Section from "../../../components/Section.astro";
+import Eyebrow from "../../../components/Eyebrow.astro";
+import { worldInstagram, worldsContent, worldOrder } from "../../../config/site";
+
+const socials = worldOrder.map((k) => ({
+  name: worldsContent[k].name,
+  element: worldsContent[k].element,
+  href: worldInstagram[k],
+  world: k,
+}));
+const dot = { earth: "bg-earth", water: "bg-water", fire: "bg-fire", air: "bg-air" };
+---
+
+<Layout title="Media — Apex · NeoVerge Dream School" headerTransparent={true}>
+  <PageHero
+    world="water"
+    eyebrow="Apex · Media"
+    title="Catch the action. Feel the movement."
+    intro="Our athletes put in real work and it shows. From highlight reels and game days to classroom clips and behind-the-scenes hustle, see how Apex is transforming lives on and off the court. Follow us and our athletes."
+  />
+
+  <Section>
+    <div data-reveal>
+      <Eyebrow tone="water">Follow our worlds</Eyebrow>
+    </div>
+    <div class="mt-xl grid grid-cols-1 gap-4 sm:grid-cols-2" data-reveal>
+      {socials.map((s) => (
+        <a
+          href={s.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="group flex items-center gap-4 rounded-2xl border border-border bg-surface px-5 py-4 transition-all duration-[250ms] [transition-timing-function:var(--ease-refined)] hover:-translate-y-0.5 hover:shadow-[0_12px_40px_-16px_rgba(26,26,26,0.25)]"
+        >
+          <span class:list={["h-2.5 w-2.5 shrink-0 rounded-full", dot[s.world]]} aria-hidden="true" />
+          <span class="flex flex-col">
+            <span class="font-display text-heading-s text-foreground">{s.name}</span>
+            <span class="font-body text-eyebrow uppercase text-subtle">{s.element} · Instagram</span>
+          </span>
+          <span class="ml-auto text-subtle transition-transform duration-[250ms] group-hover:translate-x-1" aria-hidden="true">↗</span>
+        </a>
+      ))}
+    </div>
+  </Section>
+
+  <Section class="border-t border-border" width="prose">
+    <div data-reveal>
+      <Eyebrow tone="water">Photo & video gallery</Eyebrow>
+      <p class="mt-6 text-body-l text-muted">A curated gallery of game days, training, and highlight reels is coming soon. In the meantime, follow along on Instagram for the latest from the team.</p>
+    </div>
+  </Section>
+</Layout>

@@ -1,4 +1,37 @@
 ---
-import PlaceholderPage from "../components/PlaceholderPage.astro";
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Section from "../components/Section.astro";
+import Eyebrow from "../components/Eyebrow.astro";
+import Heading from "../components/Heading.astro";
+import { posts } from "../config/blog";
 ---
-<PlaceholderPage title="News & Highlights" eyebrow="Blog" />
+
+<Layout title="Blog — NeoVerge Dream School" headerTransparent={true}>
+  <PageHero
+    eyebrow="News & Highlights"
+    title="Stories from the universe."
+    intro="Student showcases, athletic achievements, behind-the-scenes hustle, and the people who make NeoVerge what it is."
+  />
+
+  <Section class="border-t border-border">
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-2" data-reveal>
+      {
+        posts.map((p) => (
+          <a
+            href={`/blog/${p.slug}`}
+            class="group flex flex-col gap-4 rounded-3xl border border-border bg-surface p-7 transition-all duration-[250ms] [transition-timing-function:var(--ease-refined)] hover:-translate-y-0.5 hover:shadow-[0_16px_50px_-20px_rgba(26,26,26,0.28)]"
+          >
+            <Eyebrow tone="muted">{p.category} · {p.date}</Eyebrow>
+            <Heading level={2} size="heading-l">{p.title}</Heading>
+            <p class="text-body-m text-muted">{p.excerpt}</p>
+            <span class="mt-auto inline-flex items-center gap-2 font-body text-body-m font-semibold text-foreground">
+              Read more
+              <span class="transition-transform duration-[250ms] group-hover:translate-x-1" aria-hidden="true">→</span>
+            </span>
+          </a>
+        ))
+      }
+    </div>
+  </Section>
+</Layout>

@@ -1,4 +1,81 @@
 ---
-import PlaceholderPage from "../components/PlaceholderPage.astro";
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Section from "../components/Section.astro";
+import Eyebrow from "../components/Eyebrow.astro";
+import Button from "../components/Button.astro";
+import Link from "../components/Link.astro";
+import { site } from "../config/site";
+
+const info = [
+  { label: "Phone", value: site.phone, href: site.phoneHref },
+  { label: "Email", value: site.email, href: `mailto:${site.email}` },
+  { label: "Location", value: site.location },
+  { label: "Hours", value: site.hours },
+];
+const inputClass =
+  "mt-2 w-full rounded-xl border border-border-strong bg-surface px-4 py-3 text-body-m text-foreground placeholder:text-subtle focus-visible:border-foreground focus-visible:outline-none";
 ---
-<PlaceholderPage title="Connect with us" eyebrow="Contact" />
+
+<Layout title="Contact — NeoVerge Dream School" headerTransparent={true}>
+  <PageHero
+    eyebrow="Contact"
+    title="Connect with us."
+    intro="We're here to help you take the next step into the NeoVerge universe. Reach out with questions, tour requests, or collaboration opportunities."
+  />
+
+  <Section class="border-t border-border">
+    <div class="grid grid-cols-1 gap-2xl md:grid-cols-[1.3fr_1fr] md:gap-3xl">
+      <!-- Contact form (Netlify Forms) -->
+      <div data-reveal>
+        <Eyebrow tone="muted">Send a message</Eyebrow>
+        <form
+          name="contact"
+          method="POST"
+          data-netlify="true"
+          netlify-honeypot="bot-field"
+          class="mt-8 flex flex-col gap-6"
+        >
+          <input type="hidden" name="form-name" value="contact" />
+          <p class="hidden">
+            <label>Don't fill this out: <input name="bot-field" /></label>
+          </p>
+          <div>
+            <label for="name" class="text-body-s font-medium text-foreground">Full name</label>
+            <input id="name" name="name" type="text" required autocomplete="name" placeholder="Your name" class={inputClass} />
+          </div>
+          <div>
+            <label for="email" class="text-body-s font-medium text-foreground">Email</label>
+            <input id="email" name="email" type="email" required autocomplete="email" placeholder="you@email.com" class={inputClass} />
+          </div>
+          <div>
+            <label for="subject" class="text-body-s font-medium text-foreground">Subject</label>
+            <input id="subject" name="subject" type="text" placeholder="What's this about?" class={inputClass} />
+          </div>
+          <div>
+            <label for="message" class="text-body-s font-medium text-foreground">Message</label>
+            <textarea id="message" name="message" rows="5" required placeholder="How can we help?" class={inputClass}></textarea>
+          </div>
+          <div>
+            <Button type="submit" size="lg">Send message</Button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Contact info -->
+      <div data-reveal>
+        <Eyebrow tone="muted">Let's connect</Eyebrow>
+        <dl class="mt-8 flex flex-col gap-6">
+          {info.map((it) => (
+            <div class="border-t border-border-strong pt-4">
+              <dt class="font-body text-eyebrow uppercase text-subtle">{it.label}</dt>
+              <dd class="mt-1 text-body-m text-foreground">
+                {it.href ? <Link href={it.href}>{it.value}</Link> : it.value}
+              </dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+    </div>
+  </Section>
+</Layout>

@@ -1,9 +1,83 @@
 ---
-import PlaceholderPage from "../../../components/PlaceholderPage.astro";
+import Layout from "../../../layouts/Layout.astro";
+import PageHero from "../../../components/PageHero.astro";
+import Section from "../../../components/Section.astro";
+import Eyebrow from "../../../components/Eyebrow.astro";
+import Heading from "../../../components/Heading.astro";
+import Prose from "../../../components/Prose.astro";
+import Button from "../../../components/Button.astro";
+import ApplicationCTA from "../../../components/ApplicationCTA.astro";
+import { forms } from "../../../config/site";
+
+const blocks = [
+  {
+    t: "Nutrition & Performance",
+    sub: "Fuel like a pro. Recover like a beast.",
+    items: ["Performance-based meal planning", "Weight gain & lean muscle strategies", "Hydration, recovery & supplement education", "Cooking basics & smart choices on a budget"],
+  },
+  {
+    t: "Sleep Education & Wellness",
+    sub: "Because recovery is part of the grind.",
+    items: ["Sleep routines that actually work", "Rest and performance science", "Stress, burnout & self-care tools", "Sleep tracking and accountability"],
+  },
+  {
+    t: "Financial Literacy",
+    sub: "Secure the bag — and know what to do with it.",
+    items: ["Budgeting, saving & banking basics", "Credit, debt & smart money habits", "NIL readiness: managing your brand income", "Taxes, contracts & financial red flags"],
+  },
+  {
+    t: "Personal Branding & Media Training",
+    sub: "Your image is your impact. Own it.",
+    items: ["Social media presence & digital footprint", "Interview training & public speaking", "Content creation tips for NIL and visibility", "Understanding your voice, story & audience"],
+  },
+  {
+    t: "Parent Workshops",
+    sub: "Because your kid isn't doing this alone.",
+    items: ["Navigating recruiting realities", "Supporting academic & athletic balance", "How to advocate for your athlete", "Mental health, motivation & trust at home"],
+  },
+];
 ---
-<PlaceholderPage
-  title="Life beyond the court."
-  eyebrow="Apex · Life Beyond the Court"
-  world="water"
-  note="Nutrition, recovery, financial literacy, personal branding, and parent workshops. Full page coming soon."
-/>
+
+<Layout title="Life Beyond the Court — Apex · NeoVerge Dream School" headerTransparent={true}>
+  <PageHero
+    world="water"
+    eyebrow="Apex · Life Beyond the Court"
+    title="Yes, we build athletes — and we care about the whole person."
+    intro="Basketball's the hook, but life is the mission. At Apex, we prepare student-athletes for what's waiting off the court. We teach them how to eat, sleep, think, and move like champions — how to manage money, own their name, and lead with purpose. This is real-life prep, not textbook fluff."
+  />
+
+  {blocks.map((b, i) => (
+    <Section class={i === 0 ? "" : "border-t border-border"}>
+      <div class="grid grid-cols-1 gap-xl md:grid-cols-[1fr_1.4fr] md:gap-2xl" data-reveal>
+        <div>
+          <Eyebrow tone="water">{b.t}</Eyebrow>
+          <Heading level={2} size="heading-l" class="mt-3">{b.sub}</Heading>
+        </div>
+        <ul class="flex flex-col gap-4">
+          {b.items.map((o) => (
+            <li class="flex items-start gap-3 border-t border-border-strong pt-4">
+              <span class="mt-2 h-2 w-2 shrink-0 rounded-full bg-water" aria-hidden="true" />
+              <span class="text-body-m text-foreground">{o}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </Section>
+  ))}
+
+  <Section width="prose" class="border-t border-border">
+    <div data-reveal>
+      <Eyebrow tone="water">In-house recovery</Eyebrow>
+      <Heading level={2} size="display-m" class="mt-3">Meet Dr. Angel Cortez, DC</Heading>
+      <Prose class="mt-6">
+        <p>Recovery is just as important as training. That's why we've partnered with Dr. Angel Cortez, Doctor of Chiropractic, who brings a clinical, athlete-centered approach to performance recovery and injury prevention. With extensive experience treating student-athletes, Dr. Cortez combines chiropractic care with advanced therapeutic techniques to help each athlete move better, feel stronger, and perform at their peak.</p>
+        <p>All Apex members receive weekly 20-minute one-on-one recovery sessions tailored to improve mobility, reduce pain, and support overall musculoskeletal health. Longer, individualized appointments are available for more focused care.</p>
+      </Prose>
+      <div class="mt-8">
+        <Button href={forms.cortezBooking} world="water">Book a recovery session</Button>
+      </div>
+    </div>
+  </Section>
+
+  <ApplicationCTA world="water" heading="Build a champion for life." primaryHref="/admissions" primaryLabel="Apply now" secondaryHref="/contact" secondaryLabel="Contact Coach Quincy" />
+</Layout>
