@@ -1,0 +1,107 @@
+---
+/**
+ * ElementHeroFX — a distinct, element-themed ambient canvas animation per world:
+ *  fire  → embers rising + flickering
+ *  water → bubbles rising + drifting
+ *  earth → spores/leaves floating
+ *  air   → wind streaks sweeping across
+ * Reduced-motion: renders a single static frame.
+ */
+interface Props {
+  type: "earth" | "water" | "fire" | "air";
+}
+const { type } = Astro.props;
+---
+
+<canvas class="element-fx" data-type={type} aria-hidden="true"></canvas>
+
+<style>
+  .element-fx {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    const canvas = document.querySelector(".element-fx");
+    if (!canvas) return;
+    const mode = canvas.getAttribute("data-type");
+    const ctx = canvas.getContext("2d");
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const PALETTE = {
+      fire: [[238, 143, 39], [245, 190, 120], [255, 165, 60]],
+      water: [[93, 169, 179], [161, 205, 211], [120, 190, 200]],
+      earth: [[25, 149, 73], [122, 194, 149], [60, 170, 105]],
+      air: [[150, 152, 154], [185, 187, 189]],
+    }[mode];
+    const DENSITY = { fire: 15000, water: 28000, earth: 22000, air: 26000 }[mode];
+    const MAXN = { fire: 90, water: 50, earth: 55, air: 48 }[mode];
+
+    let w = 0, h = 0, dpr = 1, parts = [], raf = 0, t = 0;
+    const rnd = (a, b) => a + Math.random() * (b - a);
+    const pick = () => PALETTE[(Math.random() * PALETTE.length) | 0];
+
+    function spawn(init) {
+      const c = pick();
+      if (mode === "fire")
+        return { x: rnd(0, w), y: init ? rnd(0, h) : h + rnd(0, 50), vx: rnd(-0.25, 0.25), vy: rnd(-1.5, -0.6), r: rnd(1, 3.2), c, ph: rnd(0, 6.28) };
+      if (mode === "water")
+        return { x: rnd(0, w), y: init ? rnd(0, h) : h + rnd(0, 40), vy: rnd(-0.7, -0.3), r: rnd(2, 5), c, ph: rnd(0, 6.28) };
+      if (mode === "earth")
+        return { x: rnd(0, w), y: rnd(0, h), vx: rnd(-0.25, 0.25), vy: rnd(-0.3, 0.12), r: rnd(1.5, 3.6), c, ph: rnd(0, 6.28) };
+      return { x: init ? rnd(0, w) : -rnd(0, 80), y: rnd(0, h), vx: rnd(0.9, 2), len: rnd(16, 44), c, ph: rnd(0, 6.28), amp: rnd(6, 16) };
+    }
+
+    function build() {
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const r = canvas.getBoundingClientRect();
+      w = r.width; h = r.height;
+      canvas.width = Math.round(w * dpr);
+      canvas.height = Math.round(h * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const n = Math.max(16, Math.min(MAXN, Math.floor((w * h) / DENSITY)));
+      parts = Array.from({ length: n }, () => spawn(true));
+    }
+
+    function frame() {
+      t += 0.016;
+      ctx.clearRect(0, 0, w, h);
+      for (let i = 0; i < parts.length; i++) {
+        const p = parts[i];
+        if (!reduce) {
+          if (mode === "fire") { p.x += p.vx; p.y += p.vy; p.r *= 0.993; if (p.y < -12 || p.r < 0.4) Object.assign(p, spawn(false)); }
+          else if (mode === "water") { p.y += p.vy; p.x += Math.sin(t * 1.2 + p.ph) * 0.3; if (p.y < -12) Object.assign(p, spawn(false)); }
+          else if (mode === "earth") { p.x += p.vx + Math.sin(t * 0.6 + p.ph) * 0.12; p.y += p.vy; if (p.x < 0) p.x = w; else if (p.x > w) p.x = 0; if (p.y < 0) p.y = h; else if (p.y > h) p.y = 0; }
+          else { p.x += p.vx; if (p.x > w + 60) Object.assign(p, spawn(false)); }
+        }
+        if (mode === "air") {
+          const y = p.y + Math.sin(t * 0.8 + p.ph) * p.amp;
+          ctx.beginPath();
+          ctx.moveTo(p.x, y);
+          ctx.lineTo(p.x + p.len, y - 2);
+          ctx.strokeStyle = "rgba(" + p.c[0] + "," + p.c[1] + "," + p.c[2] + ",0.33)";
+          ctx.lineWidth = 2;
+          ctx.lineCap = "round";
+          ctx.stroke();
+        } else {
+          const a = mode === "fire" ? 0.45 + 0.45 * Math.sin(t * 6 + p.ph) : 0.5;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, Math.max(0.4, p.r), 0, 6.2832);
+          ctx.fillStyle = "rgba(" + p.c[0] + "," + p.c[1] + "," + p.c[2] + "," + Math.max(0.08, a) + ")";
+          ctx.fill();
+        }
+      }
+      if (!reduce) raf = requestAnimationFrame(frame);
+    }
+
+    function start() { build(); cancelAnimationFrame(raf); frame(); }
+    let to;
+    window.addEventListener("resize", () => { clearTimeout(to); to = setTimeout(start, 200); });
+    start();
+  })();
+</script>

@@ -192,6 +192,15 @@ export const worldsContent = {
 
 export const worldOrder = ["earth", "water", "fire", "air"] as const;
 
+// Optional decorative figure silhouettes shown in a world's hero (e.g. Pulse dancers).
+export const worldFigures: Partial<Record<WorldKey, string[]>> = {
+  fire: [
+    "/images/pulse-dancer-1.webp",
+    "/images/pulse-dancer-2.webp",
+    "/images/pulse-dancer-3.webp",
+  ],
+};
+
 // Apex program sub-pages (full builds come in a later session; titles use the Apex voice).
 export const apexPages = [
   { title: "Athletics", href: "/worlds/apex/athletics", blurb: "Where killers are crafted and leaders are born." },
