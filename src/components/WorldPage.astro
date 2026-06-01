@@ -10,7 +10,8 @@ import Heading from "./Heading.astro";
 import WorldHero from "./WorldHero.astro";
 import QuoteBlock from "./QuoteBlock.astro";
 import ApplicationCTA from "./ApplicationCTA.astro";
-import { worldsContent, worldInstagram, worldFigures, type WorldKey } from "../config/site";
+import PhotoBand from "./PhotoBand.astro";
+import { worldsContent, worldInstagram, worldFigures, worldPhotos, type WorldKey } from "../config/site";
 
 interface Props {
   world: WorldKey;
@@ -19,6 +20,7 @@ const { world } = Astro.props;
 const w = worldsContent[world];
 const ig = worldInstagram[world];
 const figures = worldFigures[world];
+const photos = worldPhotos[world];
 
 const tintBg = { earth: "bg-earth-tint", water: "bg-water-tint", fire: "bg-fire-tint", air: "bg-air-tint" }[world];
 const dot = { earth: "bg-earth", water: "bg-water", fire: "bg-fire", air: "bg-air" }[world];
@@ -68,7 +70,7 @@ const waitlist = `mailto:${w.contact}?subject=Waitlist%20%E2%80%94%20${encodeURI
   </Section>
 
   {
-    figures && figures.length > 0 ? (
+    figures && figures.length > 0 && (
       <Section>
         <div class="mx-auto max-w-[42rem] text-center" data-reveal>
           <Eyebrow tone={world}>On the stage</Eyebrow>
@@ -81,7 +83,21 @@ const waitlist = `mailto:${w.contact}?subject=Waitlist%20%E2%80%94%20${encodeURI
           ))}
         </div>
       </Section>
-    ) : (
+    )
+  }
+
+  {/* Photography of life inside the world */}
+  {
+    photos && photos.length > 0 ? (
+      <Section space={figures && figures.length > 0 ? "compact" : "default"}>
+        <div class="mx-auto max-w-[42rem] text-center" data-reveal>
+          <Eyebrow tone={world}>Inside {w.name}</Eyebrow>
+          <Heading level={2} size="display-m" class="mt-3">A glimpse of the everyday.</Heading>
+        </div>
+        <PhotoBand photos={photos} class="mt-2xl" />
+        <p class="mt-6 text-center text-body-s text-muted">Photos shown are illustrative; real {w.name} photography coming soon.</p>
+      </Section>
+    ) : (!figures || figures.length === 0) ? (
       <Section space="compact">
         <div class:list={["flex aspect-[16/9] w-full items-center justify-center overflow-hidden rounded-3xl", tintBg]} data-reveal>
           <div class="flex flex-col items-center gap-4 text-center">
@@ -90,7 +106,7 @@ const waitlist = `mailto:${w.contact}?subject=Waitlist%20%E2%80%94%20${encodeURI
           </div>
         </div>
       </Section>
-    )
+    ) : null
   }
 
   <ApplicationCTA

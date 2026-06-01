@@ -9,6 +9,7 @@ import Prose from "../components/Prose.astro";
 import QuoteBlock from "../components/QuoteBlock.astro";
 import FAQ from "../components/FAQ.astro";
 import ApplicationCTA from "../components/ApplicationCTA.astro";
+import PhotoBand from "../components/PhotoBand.astro";
 
 const academics = [
   { world: "earth", name: "NeoVerse", body: "For academic explorers in grades K–8, we blend core subjects with project-based learning, design thinking, and cross-disciplinary challenges that spark deep inquiry. Earth science meets entrepreneurship. Math meets movement. Reading meets relevance." },
@@ -63,6 +64,19 @@ const faqs = [
       <p>At NeoVerge, we believe learning should ignite passion and purpose. We blend academics, arts, wellness, and innovation into immersive worlds where every child is seen, heard, and empowered to lead. By designing flexible pathways rooted in curiosity, creativity, and community, we're breaking the mold of traditional education. Our students aren't just preparing for the future — they're shaping it, with voice, agency, and a sense of belonging at every step.</p>
     </Prose>
   </SplitSection>
+
+  <!-- Community photography -->
+  <Section class="border-t border-border" space="compact">
+    <div data-reveal>
+      <PhotoBand
+        photos={[
+          { src: "/images/stock/about-1.webp", alt: "A mentor working one-on-one with a student" },
+          { src: "/images/stock/about-2.webp", alt: "Students collaborating on a hands-on project" },
+        ]}
+      />
+      <p class="mt-6 text-body-s text-subtle">Photos shown are illustrative; real NeoVerge photography coming soon.</p>
+    </div>
+  </Section>
 
   <!-- Academics breakdown -->
   <Section class="border-t border-border">

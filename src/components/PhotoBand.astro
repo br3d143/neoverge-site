@@ -1,0 +1,59 @@
+---
+/**
+ * PhotoBand — editorial photo arrangement (not a generic 3-equal-card row).
+ * 1 photo: a single wide band. 2: offset pair. 3: one feature + two stacked.
+ * Images get a subtle hover zoom (reduced-motion safe).
+ */
+interface Props {
+  photos: { src: string; alt: string }[];
+  class?: string;
+}
+const { photos, class: cls = "" } = Astro.props;
+const n = photos.length;
+---
+
+{
+  n === 1 && (
+    <figure class:list={["pb-frame overflow-hidden rounded-3xl", cls]}>
+      <img src={photos[0].src} alt={photos[0].alt} class="pb-img h-64 w-full object-cover sm:h-[24rem]" loading="lazy" />
+    </figure>
+  )
+}
+
+{
+  n === 2 && (
+    <div class:list={["grid gap-5 sm:grid-cols-2", cls]}>
+      {photos.map((p, i) => (
+        <figure class:list={["pb-frame overflow-hidden rounded-3xl", i === 1 && "sm:mt-12"]}>
+          <img src={p.src} alt={p.alt} class="pb-img h-60 w-full object-cover sm:h-80" loading="lazy" />
+        </figure>
+      ))}
+    </div>
+  )
+}
+
+{
+  n >= 3 && (
+    <div class:list={["grid gap-5 md:h-[28rem] md:grid-cols-3 md:grid-rows-2", cls]}>
+      <figure class="pb-frame overflow-hidden rounded-3xl md:col-span-2 md:row-span-2">
+        <img src={photos[0].src} alt={photos[0].alt} class="pb-img h-72 w-full object-cover md:h-full" loading="lazy" />
+      </figure>
+      <figure class="pb-frame overflow-hidden rounded-3xl">
+        <img src={photos[1].src} alt={photos[1].alt} class="pb-img h-44 w-full object-cover md:h-full" loading="lazy" />
+      </figure>
+      <figure class="pb-frame overflow-hidden rounded-3xl">
+        <img src={photos[2].src} alt={photos[2].alt} class="pb-img h-44 w-full object-cover md:h-full" loading="lazy" />
+      </figure>
+    </div>
+  )
+}
+
+<style>
+  .pb-frame { background: color-mix(in srgb, var(--color-foreground) 6%, transparent); }
+  .pb-img { transition: transform 0.6s var(--ease-refined, ease-out); }
+  .pb-frame:hover .pb-img { transform: scale(1.05); }
+  @media (prefers-reduced-motion: reduce) {
+    .pb-img { transition: none; }
+    .pb-frame:hover .pb-img { transform: none; }
+  }
+</style>
