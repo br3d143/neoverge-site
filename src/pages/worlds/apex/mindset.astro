@@ -2,6 +2,7 @@
 import Layout from "../../../layouts/Layout.astro";
 import PageHero from "../../../components/PageHero.astro";
 import Section from "../../../components/Section.astro";
+import SplitSection from "../../../components/SplitSection.astro";
 import Eyebrow from "../../../components/Eyebrow.astro";
 import Heading from "../../../components/Heading.astro";
 import Prose from "../../../components/Prose.astro";
@@ -51,15 +52,12 @@ const includes = [
     </ul>
   </Section>
 
-  <Section width="prose" class="border-t border-border">
-    <div data-reveal>
-      <Eyebrow tone="water">Why “Apex Inner System”?</Eyebrow>
-      <Prose class="mt-6">
-        <p>“Apex” represents the highest point — the pursuit of peak performance. But the path to that peak doesn't start with talent. It starts with the inner system that drives everything you do: thought patterns, habits, emotional control, resilience, and belief. We help athletes build those systems deliberately, from the inside out.</p>
-        <p>Like water — central to our identity — we teach athletes to move with both force and flexibility. Water adapts to any environment. It nourishes and sustains, but it can also carve through rock. Calm under pressure, relentless in its direction. That's the mindset we train: adaptable, composed, powerful.</p>
-      </Prose>
-    </div>
-  </Section>
+  <SplitSection world="water" eyebrow="Why “Apex Inner System”?" heading="Built from the inside out." class="border-t border-border">
+    <Prose centered={false}>
+      <p>“Apex” represents the highest point — the pursuit of peak performance. But the path to that peak doesn't start with talent. It starts with the inner system that drives everything you do: thought patterns, habits, emotional control, resilience, and belief. We help athletes build those systems deliberately, from the inside out.</p>
+      <p>Like water — central to our identity — we teach athletes to move with both force and flexibility. Water adapts to any environment. It nourishes and sustains, but it can also carve through rock. Calm under pressure, relentless in its direction. That's the mindset we train: adaptable, composed, powerful.</p>
+    </Prose>
+  </SplitSection>
 
   <Section class="border-t border-border">
     <div data-reveal>

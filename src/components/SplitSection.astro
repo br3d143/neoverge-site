@@ -1,0 +1,37 @@
+---
+/**
+ * SplitSection — editorial two-column section: a label/heading column on the left
+ * and the content (slot) filling the right. Replaces narrow centered text blocks so
+ * sections use the full page width. Stacks on mobile.
+ */
+import Section from "./Section.astro";
+import Eyebrow from "./Eyebrow.astro";
+import Heading from "./Heading.astro";
+
+interface Props {
+  eyebrow?: string;
+  heading?: string;
+  intro?: string;
+  world?: "earth" | "water" | "fire" | "air";
+  headingSize?: "heading-l" | "display-m";
+  sticky?: boolean;
+  class?: string;
+  id?: string;
+}
+const { eyebrow, heading, intro, world, headingSize = "display-m", sticky = true, class: className = "", id } = Astro.props;
+---
+
+<Section id={id} class={className}>
+  <div class="grid grid-cols-1 gap-lg md:grid-cols-[0.8fr_1.4fr] md:gap-2xl lg:gap-3xl">
+    <div data-reveal>
+      <div class:list={[sticky && "md:sticky md:top-28"]}>
+        {eyebrow && <Eyebrow tone={world ?? "muted"}>{eyebrow}</Eyebrow>}
+        {heading && <Heading level={2} size={headingSize} class="mt-3">{heading}</Heading>}
+        {intro && <p class="mt-4 text-body-m text-muted">{intro}</p>}
+      </div>
+    </div>
+    <div class="min-w-0" data-reveal>
+      <slot />
+    </div>
+  </div>
+</Section>

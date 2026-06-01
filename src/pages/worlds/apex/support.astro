@@ -2,6 +2,7 @@
 import Layout from "../../../layouts/Layout.astro";
 import PageHero from "../../../components/PageHero.astro";
 import Section from "../../../components/Section.astro";
+import SplitSection from "../../../components/SplitSection.astro";
 import Eyebrow from "../../../components/Eyebrow.astro";
 import Heading from "../../../components/Heading.astro";
 import Prose from "../../../components/Prose.astro";
@@ -19,28 +20,21 @@ import { partners } from "../../../config/site";
     intro="Apex International Sports Academy is a nonprofit fueled by heart, hustle, and community support. Every dollar helps us serve more youth, hire more mentors, and open more doors. When you give to Apex, you're not just donating — you're investing in futures."
   />
 
-  <Section width="prose">
-    <div data-reveal>
-      <Eyebrow tone="water">Impact Crew</Eyebrow>
-      <Prose class="mt-6">
-        <p>At NeoVerge, families don't just support the mission — they help build it. Our Impact Crew is a community of visionary parents and guardians who roll up their sleeves and bring big ideas to life: organizing school-wide events, leading enrichment experiences, supporting student wellness, and designing spaces where learning can thrive.</p>
-        <p><strong>Join a crew. Lead a project. Be the impact.</strong></p>
-      </Prose>
-    </div>
-  </Section>
+  <SplitSection world="water" eyebrow="Impact Crew" heading="Families don't just support the mission — they build it.">
+    <Prose centered={false}>
+      <p>Our Impact Crew is a community of visionary parents and guardians who roll up their sleeves and bring big ideas to life: organizing school-wide events, leading enrichment experiences, supporting student wellness, and designing spaces where learning can thrive.</p>
+      <p><strong>Join a crew. Lead a project. Be the impact.</strong></p>
+    </Prose>
+  </SplitSection>
 
-  <Section class="border-t border-border" width="prose">
-    <div data-reveal>
-      <Eyebrow tone="water">Become a funding ally</Eyebrow>
-      <Heading level={2} size="display-m" class="mt-3">Because changing lives takes a team.</Heading>
-      <Prose class="mt-6">
-        <p>Apex International Sports Academy is a 501(c)(3) nonprofit that supports organizations like Apex Inner System Athletics. Your gift directly funds students who want to be part of the program.</p>
-      </Prose>
-      <div class="mt-8 flex flex-wrap gap-4">
-        <Button href={partners.apexISA} world="water">Donate now</Button>
-      </div>
+  <SplitSection world="water" eyebrow="Become a funding ally" heading="Because changing lives takes a team." class="border-t border-border">
+    <Prose centered={false}>
+      <p>Apex International Sports Academy is a 501(c)(3) nonprofit that supports organizations like Apex Inner System Athletics. Your gift directly funds students who want to be part of the program.</p>
+    </Prose>
+    <div class="mt-8 flex flex-wrap gap-4">
+      <Button href={partners.apexISA} world="water">Donate now</Button>
     </div>
-  </Section>
+  </SplitSection>
 
   <ApexNav current="/worlds/apex/support" />
 

@@ -2,6 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import PageHero from "../components/PageHero.astro";
 import Section from "../components/Section.astro";
+import SplitSection from "../components/SplitSection.astro";
 import Eyebrow from "../components/Eyebrow.astro";
 import Heading from "../components/Heading.astro";
 import Prose from "../components/Prose.astro";
@@ -57,14 +58,11 @@ const faqs = [
   </Section>
 
   <!-- Reimagining Education -->
-  <Section width="prose">
-    <div data-reveal>
-      <Eyebrow tone="muted">Reimagining education, centered on students</Eyebrow>
-      <Prose class="mt-6">
-        <p>At NeoVerge, we believe learning should ignite passion and purpose. We blend academics, arts, wellness, and innovation into immersive worlds where every child is seen, heard, and empowered to lead. By designing flexible pathways rooted in curiosity, creativity, and community, we're breaking the mold of traditional education. Our students aren't just preparing for the future — they're shaping it, with voice, agency, and a sense of belonging at every step.</p>
-      </Prose>
-    </div>
-  </Section>
+  <SplitSection eyebrow="Reimagining education" heading="Centered on students." headingSize="display-m">
+    <Prose centered={false}>
+      <p>At NeoVerge, we believe learning should ignite passion and purpose. We blend academics, arts, wellness, and innovation into immersive worlds where every child is seen, heard, and empowered to lead. By designing flexible pathways rooted in curiosity, creativity, and community, we're breaking the mold of traditional education. Our students aren't just preparing for the future — they're shaping it, with voice, agency, and a sense of belonging at every step.</p>
+    </Prose>
+  </SplitSection>
 
   <!-- Academics breakdown -->
   <Section class="border-t border-border">
@@ -100,13 +98,9 @@ const faqs = [
   </Section>
 
   <!-- FAQs -->
-  <Section width="prose" class="border-t border-border">
-    <div data-reveal>
-      <Eyebrow tone="muted">Frequently asked</Eyebrow>
-      <Heading level={2} size="display-m" class="mb-2xl mt-3">Questions, answered.</Heading>
-      <FAQ items={faqs} />
-    </div>
-  </Section>
+  <SplitSection eyebrow="Frequently asked" heading="Questions, answered." class="border-t border-border">
+    <FAQ items={faqs} />
+  </SplitSection>
 
   <ApplicationCTA heading="Your journey starts here." body="Whether you're an artist, athlete, innovator, or explorer — if you're committed to doing the work, we're committed to walking with you." primaryHref="/admissions" primaryLabel="Explore admissions" secondaryHref="/contact" secondaryLabel="Or get in touch" />
 </Layout>

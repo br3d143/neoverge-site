@@ -10,6 +10,7 @@ import Heading from "./Heading.astro";
 import WorldHero from "./WorldHero.astro";
 import QuoteBlock from "./QuoteBlock.astro";
 import ApplicationCTA from "./ApplicationCTA.astro";
+import DecorMotif from "./DecorMotif.astro";
 import { worldsContent, worldInstagram, type WorldKey } from "../config/site";
 
 interface Props {
@@ -27,6 +28,7 @@ const waitlist = `mailto:${w.contact}?subject=Waitlist%20%E2%80%94%20${encodeURI
 <Layout title={`${w.name} — NeoVerge Dream School`} headerTransparent={true}>
   <WorldHero
     world={world}
+    name={w.name}
     meta={`${w.element} · ${w.grades}`}
     heading={w.heroHeading}
     tagline={w.tagline}
@@ -65,13 +67,11 @@ const waitlist = `mailto:${w.contact}?subject=Waitlist%20%E2%80%94%20${encodeURI
     </ul>
   </Section>
 
-  <!-- Imagery placeholder until real photography exists -->
+  <!-- Decorative element panel (until real photography exists) -->
   <Section space="compact">
-    <div class:list={["flex aspect-[16/9] w-full items-center justify-center overflow-hidden rounded-3xl", tintBg]} data-reveal>
-      <div class="flex flex-col items-center gap-4 text-center">
-        <img src={w.logo} alt="" aria-hidden="true" class="max-h-24 w-auto opacity-30" />
-        <Eyebrow tone="subtle">Photography coming soon</Eyebrow>
-      </div>
+    <div class:list={["relative flex aspect-[16/9] w-full flex-col items-center justify-center gap-5 overflow-hidden rounded-3xl", tintBg]} data-reveal>
+      <DecorMotif type={world} class="h-28 w-28 opacity-50" />
+      <Eyebrow tone="subtle">Photography coming soon</Eyebrow>
     </div>
   </Section>
 

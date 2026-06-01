@@ -2,6 +2,7 @@
 import Layout from "../../../layouts/Layout.astro";
 import PageHero from "../../../components/PageHero.astro";
 import Section from "../../../components/Section.astro";
+import SplitSection from "../../../components/SplitSection.astro";
 import Eyebrow from "../../../components/Eyebrow.astro";
 import Heading from "../../../components/Heading.astro";
 import Prose from "../../../components/Prose.astro";
@@ -43,14 +44,11 @@ const offers = [
     </div>
   </Section>
 
-  <Section width="prose" class="border-t border-border">
-    <div data-reveal>
-      <Eyebrow tone="water">Why it matters</Eyebrow>
-      <Prose class="mt-6">
-        <p>We've seen too many talented players held back by poor grades, lost eligibility, or limited academic vision. That doesn't happen here. At Apex, your student-athlete gets the best of both worlds: elite basketball development and a powerful academic foundation that opens doors on the court and in life.</p>
-      </Prose>
-    </div>
-  </Section>
+  <SplitSection world="water" eyebrow="Why it matters" heading="The best of both worlds." class="border-t border-border">
+    <Prose centered={false}>
+      <p>We've seen too many talented players held back by poor grades, lost eligibility, or limited academic vision. That doesn't happen here. At Apex, your student-athlete gets the best of both worlds: elite basketball development and a powerful academic foundation that opens doors on the court and in life.</p>
+    </Prose>
+  </SplitSection>
 
   <ApexNav current="/worlds/apex/academics" />
 

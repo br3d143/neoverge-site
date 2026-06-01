@@ -2,6 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import PageHero from "../components/PageHero.astro";
 import Section from "../components/Section.astro";
+import SplitSection from "../components/SplitSection.astro";
 import Container from "../components/Container.astro";
 import Eyebrow from "../components/Eyebrow.astro";
 import Heading from "../components/Heading.astro";
@@ -59,15 +60,12 @@ const quicklinks = [
   />
 
   <!-- Shadow Day -->
-  <Section width="prose">
-    <div data-reveal>
-      <Eyebrow tone="muted">It starts with a Shadow Day</Eyebrow>
-      <Prose class="mt-6">
-        <p>Joining Apex isn't just about how talented you are — it's about how you think, how you train, and how you show up every single day. We don't run two-hour tryouts. We run full Shadow Day experiences: a full-day immersion into the Apex system. You'll train with the team, attend academic sessions, and see firsthand how we operate.</p>
-        <p>It's your chance to see if Apex is the right fit, and our opportunity to evaluate your mindset, effort, coachability, and alignment with our culture. To schedule your official Shadow Day, contact Coach Quincy at <strong>apex@neovergedreamschool.com</strong> or (310) 817-0494.</p>
-      </Prose>
-    </div>
-  </Section>
+  <SplitSection eyebrow="It starts with a Shadow Day" heading="More than a tryout — a full-day immersion.">
+    <Prose centered={false}>
+      <p>Joining Apex isn't just about how talented you are — it's about how you think, how you train, and how you show up every single day. We don't run two-hour tryouts. We run full Shadow Day experiences: a full-day immersion into the Apex system. You'll train with the team, attend academic sessions, and see firsthand how we operate.</p>
+      <p>It's your chance to see if Apex is the right fit, and our opportunity to evaluate your mindset, effort, coachability, and alignment with our culture. To schedule your official Shadow Day, contact Coach Quincy at <strong>apex@neovergedreamschool.com</strong> or (310) 817-0494.</p>
+    </Prose>
+  </SplitSection>
 
   <!-- Application steps -->
   <Section class="border-t border-border">
@@ -113,23 +111,16 @@ const quicklinks = [
   </Section>
 
   <!-- Scholarships -->
-  <Section width="prose" class="border-t border-border">
-    <div data-reveal>
-      <Eyebrow tone="muted">Scholarships</Eyebrow>
-      <Prose class="mt-6">
-        <p>We believe financial limitations shouldn't block access to opportunity. Apex offers a limited number of need-based scholarships each year to qualifying domestic student-athletes — awarded on demonstrated financial need, leadership, character, work ethic, academic standing, and athletic potential. Scholarship applications are provided after acceptance and reviewed confidentially by our leadership team.</p>
-      </Prose>
-    </div>
-  </Section>
+  <SplitSection eyebrow="Scholarships" heading="Opportunity shouldn't have a price tag." class="border-t border-border">
+    <Prose centered={false}>
+      <p>We believe financial limitations shouldn't block access to opportunity. Apex offers a limited number of need-based scholarships each year to qualifying domestic student-athletes — awarded on demonstrated financial need, leadership, character, work ethic, academic standing, and athletic potential. Scholarship applications are provided after acceptance and reviewed confidentially by our leadership team.</p>
+    </Prose>
+  </SplitSection>
 
   <!-- FAQs -->
-  <Section width="prose" class="border-t border-border">
-    <div data-reveal>
-      <Eyebrow tone="muted">Admissions FAQs</Eyebrow>
-      <Heading level={2} size="display-m" class="mb-2xl mt-3">Questions, answered.</Heading>
-      <FAQ items={faqs} />
-    </div>
-  </Section>
+  <SplitSection eyebrow="Admissions FAQs" heading="Questions, answered." class="border-t border-border">
+    <FAQ items={faqs} />
+  </SplitSection>
 
   <!-- Forms & quicklinks -->
   <Section class="border-t border-border">

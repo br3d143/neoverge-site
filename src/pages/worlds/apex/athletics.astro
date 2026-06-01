@@ -2,6 +2,7 @@
 import Layout from "../../../layouts/Layout.astro";
 import PageHero from "../../../components/PageHero.astro";
 import Section from "../../../components/Section.astro";
+import SplitSection from "../../../components/SplitSection.astro";
 import Eyebrow from "../../../components/Eyebrow.astro";
 import Heading from "../../../components/Heading.astro";
 import Prose from "../../../components/Prose.astro";
@@ -39,14 +40,11 @@ const deliver = [
     </ul>
   </Section>
 
-  <Section width="prose" class="border-t border-border">
-    <div data-reveal>
-      <Eyebrow tone="water">Coached by people who've been there</Eyebrow>
-      <Prose class="mt-6">
-        <p>Our coaches come from where you're trying to go. They don't just teach the game — they breathe it. If you're built for more, this is where your next level lives.</p>
-      </Prose>
-    </div>
-  </Section>
+  <SplitSection world="water" eyebrow="Coached by people who've been there" heading="They don't just teach the game — they breathe it." class="border-t border-border">
+    <Prose centered={false}>
+      <p>Our coaches come from where you're trying to go. If you're built for more, this is where your next level lives — surrounded by people who've already walked the path you're chasing.</p>
+    </Prose>
+  </SplitSection>
 
   <ApexNav current="/worlds/apex/athletics" />
 

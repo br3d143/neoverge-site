@@ -2,6 +2,7 @@
 import Layout from "../../../layouts/Layout.astro";
 import PageHero from "../../../components/PageHero.astro";
 import Section from "../../../components/Section.astro";
+import SplitSection from "../../../components/SplitSection.astro";
 import Eyebrow from "../../../components/Eyebrow.astro";
 import ApexNav from "../../../components/ApexNav.astro";
 import { worldInstagram, worldsContent, worldOrder } from "../../../config/site";
@@ -46,12 +47,9 @@ const dot = { earth: "bg-earth", water: "bg-water", fire: "bg-fire", air: "bg-ai
     </div>
   </Section>
 
-  <Section class="border-t border-border" width="prose">
-    <div data-reveal>
-      <Eyebrow tone="water">Photo & video gallery</Eyebrow>
-      <p class="mt-6 text-body-l text-muted">A curated gallery of game days, training, and highlight reels is coming soon. In the meantime, follow along on Instagram for the latest from the team.</p>
-    </div>
-  </Section>
+  <SplitSection world="water" eyebrow="Photo & video gallery" heading="More to come." class="border-t border-border">
+    <p class="text-body-l text-muted">A curated gallery of game days, training, and highlight reels is coming soon. In the meantime, follow along on Instagram for the latest from the team.</p>
+  </SplitSection>
 
   <ApexNav current="/worlds/apex/media" />
 </Layout>

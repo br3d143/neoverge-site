@@ -1,0 +1,35 @@
+---
+/**
+ * DecorMotif — decorative element line-art (leaf / wave / flame / wind) used to add
+ * thematic visual interest to otherwise text-only pages. Inherits color via `text-*`.
+ */
+interface Props {
+  type: "earth" | "water" | "fire" | "air";
+  class?: string;
+}
+const { type, class: className = "" } = Astro.props;
+
+const colorClass = { earth: "text-earth", water: "text-water", fire: "text-fire", air: "text-air" }[type];
+const paths: Record<string, string> = {
+  earth:
+    '<path d="M50 96 L50 33"/><path d="M50 73 C35 70 27 58 25 44 C40 47 48 58 50 71"/><path d="M50 58 C65 55 73 43 75 29 C60 32 52 44 50 56"/><path d="M50 45 C42 35 42 24 50 14 C58 24 58 35 50 45"/>',
+  water:
+    '<path d="M12 36 q15 -12 30 0 t30 0 t14 0"/><path d="M12 53 q15 -12 30 0 t30 0 t14 0"/><path d="M12 70 q15 -12 30 0 t30 0 t14 0"/>',
+  fire:
+    '<path d="M50 93 C29 74 36 49 50 11 C64 49 71 74 50 93Z"/><path d="M50 82 C40 72 44 57 50 38 C56 57 60 72 50 82Z"/>',
+  air:
+    '<path d="M14 36 H58 a9 9 0 1 0 -9 -9"/><path d="M14 53 H72 a9 9 0 1 1 -9 9"/><path d="M14 70 H50"/>',
+};
+---
+
+<svg
+  viewBox="0 0 100 100"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2.2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class:list={[colorClass, className]}
+  aria-hidden="true"
+  set:html={paths[type]}
+></svg>

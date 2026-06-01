@@ -2,6 +2,7 @@
 import Layout from "../../../layouts/Layout.astro";
 import PageHero from "../../../components/PageHero.astro";
 import Section from "../../../components/Section.astro";
+import SplitSection from "../../../components/SplitSection.astro";
 import Eyebrow from "../../../components/Eyebrow.astro";
 import Heading from "../../../components/Heading.astro";
 import Prose from "../../../components/Prose.astro";
@@ -66,19 +67,15 @@ const blocks = [
     </Section>
   ))}
 
-  <Section width="prose" class="border-t border-border">
-    <div data-reveal>
-      <Eyebrow tone="water">In-house recovery</Eyebrow>
-      <Heading level={2} size="display-m" class="mt-3">Meet Dr. Angel Cortez, DC</Heading>
-      <Prose class="mt-6">
-        <p>Recovery is just as important as training. That's why we've partnered with Dr. Angel Cortez, Doctor of Chiropractic, who brings a clinical, athlete-centered approach to performance recovery and injury prevention. With extensive experience treating student-athletes, Dr. Cortez combines chiropractic care with advanced therapeutic techniques to help each athlete move better, feel stronger, and perform at their peak.</p>
-        <p>All Apex members receive weekly 20-minute one-on-one recovery sessions tailored to improve mobility, reduce pain, and support overall musculoskeletal health. Longer, individualized appointments are available for more focused care.</p>
-      </Prose>
-      <div class="mt-8">
-        <Button href={forms.cortezBooking} world="water">Book a recovery session</Button>
-      </div>
+  <SplitSection world="water" eyebrow="In-house recovery" heading="Meet Dr. Angel Cortez, DC" class="border-t border-border">
+    <Prose centered={false}>
+      <p>Recovery is just as important as training. That's why we've partnered with Dr. Angel Cortez, Doctor of Chiropractic, who brings a clinical, athlete-centered approach to performance recovery and injury prevention. With extensive experience treating student-athletes, Dr. Cortez combines chiropractic care with advanced therapeutic techniques to help each athlete move better, feel stronger, and perform at their peak.</p>
+      <p>All Apex members receive weekly 20-minute one-on-one recovery sessions tailored to improve mobility, reduce pain, and support overall musculoskeletal health. Longer, individualized appointments are available for more focused care.</p>
+    </Prose>
+    <div class="mt-8">
+      <Button href={forms.cortezBooking} world="water">Book a recovery session</Button>
     </div>
-  </Section>
+  </SplitSection>
 
   <ApexNav current="/worlds/apex/life-beyond-court" />
 
