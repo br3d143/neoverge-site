@@ -1,15 +1,14 @@
 ---
 /**
- * WorldHero — world-page hero (Hero.World). Two columns: themed copy on the left,
- * the world's logo shown prominently in an element-tinted card on the right.
- * Constellation behind. Stacks on mobile (copy first, logo below).
+ * WorldHero — immersive, full-viewport world hero themed in the world's element.
+ * The world logo is the huge animated centerpiece (glow + float), over a drifting
+ * element-color atmosphere + constellation. Mirrors the homepage's "wow" per world.
  */
 import Container from "./Container.astro";
 import Eyebrow from "./Eyebrow.astro";
 import Heading from "./Heading.astro";
 import Button from "./Button.astro";
 import Constellation from "./Constellation.astro";
-import DecorMotif from "./DecorMotif.astro";
 
 interface Props {
   world: "earth" | "water" | "fire" | "air";
@@ -27,42 +26,88 @@ interface Props {
 }
 const { world, name, meta, heading, tagline, intro, status, logo, primaryHref, primaryLabel, secondaryHref, secondaryLabel } = Astro.props;
 
-const accentLine = { earth: "bg-earth", water: "bg-water", fire: "bg-fire", air: "bg-air" }[world];
-const tintBg = { earth: "bg-earth-tint", water: "bg-water-tint", fire: "bg-fire-tint", air: "bg-air-tint" }[world];
-const ringBorder = { earth: "border-earth/30", water: "border-water/30", fire: "border-fire/30", air: "border-air/30" }[world];
+const wvar = {
+  earth: "[--w:var(--color-earth)]",
+  water: "[--w:var(--color-water)]",
+  fire: "[--w:var(--color-fire)]",
+  air: "[--w:var(--color-air)]",
+}[world];
 ---
 
-<section class="relative isolate overflow-hidden">
+<section class:list={["world-hero relative isolate flex min-h-[100dvh] flex-col items-center justify-center gap-6 overflow-hidden px-6 pt-28 pb-16 text-center", wvar]}>
+  <div class="world-hero__bg" aria-hidden="true"></div>
   <Constellation />
-  <DecorMotif type={world} class="pointer-events-none absolute bottom-[-6%] left-[-5%] z-0 hidden h-80 w-80 opacity-[0.05] lg:block" />
-  <Container class="relative z-[1] grid min-h-[86vh] items-center gap-2xl py-28 md:grid-cols-[1.15fr_1fr] md:gap-3xl">
-    <div class="max-w-[40rem]" data-reveal>
-      <Eyebrow tone={world}>{meta}</Eyebrow>
-      <Heading level={1} size="display-l" tone={world} class="mt-4">{heading}</Heading>
-      <span class:list={["mt-6 block h-1 w-16 rounded-full", accentLine]} aria-hidden="true"></span>
-      <p class="mt-7 font-display text-heading-l text-foreground">{tagline}</p>
-      <p class="mt-5 max-w-[40rem] text-body-l text-muted">{intro}</p>
-      {status === "Coming soon" && (
-        <p class="mt-6"><Eyebrow tone="subtle">Coming soon</Eyebrow></p>
-      )}
-      {
-        (primaryHref || secondaryHref) && (
-          <div class="mt-9 flex flex-wrap items-center gap-4">
-            {primaryHref && (
-              <Button href={primaryHref} world={world} size="lg">{primaryLabel}</Button>
-            )}
-            {secondaryHref && (
-              <Button href={secondaryHref} variant="secondary" size="lg">{secondaryLabel}</Button>
-            )}
-          </div>
-        )
-      }
-    </div>
 
-    <div class="flex justify-center" data-reveal>
-      <div class:list={["flex aspect-square w-full max-w-[26rem] items-center justify-center rounded-[2rem] border p-12 shadow-[0_24px_70px_-30px_rgba(26,26,26,0.3)]", tintBg, ringBorder]}>
-        <img src={logo} alt={`${name} logo`} class="max-h-full max-w-full object-contain" width="800" height="800" fetchpriority="high" />
+  <Eyebrow tone={world} class="relative z-[1]">{meta}</Eyebrow>
+
+  <div class="world-hero__logo relative z-[1]">
+    <span class="world-hero__glow" aria-hidden="true"></span>
+    <img src={logo} alt={`${name} logo`} class="world-hero__mark" fetchpriority="high" />
+  </div>
+
+  <Heading level={1} size="display-m" tone={world} class="wh-heading relative z-[1] max-w-[42rem]">{heading}</Heading>
+  <p class="wh-tag relative z-[1] font-display text-heading-m text-foreground">{tagline}</p>
+  <p class="wh-intro relative z-[1] max-w-[42rem] text-body-m text-muted">{intro}</p>
+
+  {status === "Coming soon" && <p class="relative z-[1]"><Eyebrow tone="subtle">Coming soon</Eyebrow></p>}
+
+  {
+    (primaryHref || secondaryHref) && (
+      <div class="relative z-[1] mt-3 flex flex-wrap items-center justify-center gap-4">
+        {primaryHref && <Button href={primaryHref} world={world} size="lg">{primaryLabel}</Button>}
+        {secondaryHref && <Button href={secondaryHref} variant="secondary" size="lg">{secondaryLabel}</Button>}
       </div>
-    </div>
-  </Container>
+    )
+  }
 </section>
+
+<style>
+  .world-hero__bg {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 170%;
+    height: 170%;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(36rem 30rem at 50% 28%, color-mix(in srgb, var(--w) 17%, transparent), transparent 64%),
+      radial-gradient(30rem 26rem at 22% 76%, color-mix(in srgb, var(--w) 12%, transparent), transparent 64%),
+      radial-gradient(30rem 26rem at 80% 74%, color-mix(in srgb, var(--w) 12%, transparent), transparent 64%);
+    animation: wh-drift 150s linear infinite;
+  }
+  .world-hero__logo {
+    margin: 0.5rem 0;
+    opacity: 0;
+    animation:
+      wh-in 1s var(--ease-refined) both,
+      wh-float 7s var(--ease-refined) 1s infinite;
+  }
+  .world-hero__glow {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 150%;
+    height: 175%;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(closest-side, color-mix(in srgb, var(--w) 32%, transparent), transparent 72%);
+    filter: blur(26px);
+    z-index: -1;
+  }
+  .world-hero__mark {
+    display: block;
+    height: clamp(140px, 24vh, 240px);
+    width: auto;
+    max-width: 86vw;
+    object-fit: contain;
+  }
+  .wh-heading { opacity: 0; animation: wh-rise 0.8s var(--ease-refined) 0.45s both; }
+  .wh-tag { opacity: 0; animation: wh-rise 0.8s var(--ease-refined) 0.6s both; }
+  .wh-intro { opacity: 0; animation: wh-rise 0.8s var(--ease-refined) 0.75s both; }
+
+  @keyframes wh-drift { to { transform: translate(-50%, -50%) rotate(360deg); } }
+  @keyframes wh-in { from { opacity: 0; scale: 0.88; } to { opacity: 1; scale: 1; } }
+  @keyframes wh-float { 0%, 100% { translate: 0 0; } 50% { translate: 0 -12px; } }
+  @keyframes wh-rise { from { opacity: 0; transform: translateY(0.4em); } to { opacity: 1; transform: translateY(0); } }
+</style>
