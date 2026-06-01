@@ -19,13 +19,12 @@ interface Props {
   intro: string;
   status?: "Active" | "Coming soon";
   logo: string;
-  figures?: string[];
   primaryHref?: string;
   primaryLabel?: string;
   secondaryHref?: string;
   secondaryLabel?: string;
 }
-const { world, name, meta, heading, tagline, intro, status, logo, figures, primaryHref, primaryLabel, secondaryHref, secondaryLabel } = Astro.props;
+const { world, name, meta, heading, tagline, intro, status, logo, primaryHref, primaryLabel, secondaryHref, secondaryLabel } = Astro.props;
 
 const wvar = {
   earth: "[--w:var(--color-earth)]",
@@ -44,14 +43,6 @@ const accentLine = { earth: "bg-earth", water: "bg-water", fire: "bg-fire", air:
     <span class="world-hero__glow" aria-hidden="true"></span>
     <img src={logo} alt={`${name} logo`} class="world-hero__mark" fetchpriority="high" />
   </div>
-
-  {
-    figures && figures.length > 0 && (
-      <div class="world-hero__figures" aria-hidden="true">
-        {figures.map((f) => <img src={f} alt="" class="wh-figure" loading="lazy" />)}
-      </div>
-    )
-  }
 </section>
 
 <Section class={`relative ${wvar}`}>
@@ -120,32 +111,7 @@ const accentLine = { earth: "bg-earth", water: "bg-water", fire: "bg-fire", air:
     max-width: 86vw;
     object-fit: contain;
   }
-  .world-hero__figures {
-    position: absolute;
-    inset-inline: 0;
-    bottom: 0;
-    z-index: 1;
-    display: flex;
-    justify-content: space-around;
-    align-items: flex-end;
-    padding: 0 4%;
-    pointer-events: none;
-  }
-  .wh-figure {
-    height: clamp(110px, 20vh, 210px);
-    width: auto;
-    opacity: 0.9;
-    transform-origin: bottom center;
-    animation: wh-dance 3.2s var(--ease-refined) infinite;
-  }
-  .wh-figure:nth-child(2) { animation-delay: 0.5s; height: clamp(130px, 23vh, 240px); }
-  .wh-figure:nth-child(3) { animation-delay: 1s; }
-
   @keyframes wh-drift { to { transform: translate(-50%, -50%) rotate(360deg); } }
   @keyframes wh-in { from { opacity: 0; scale: 0.86; } to { opacity: 1; scale: 1; } }
   @keyframes wh-float { 0%, 100% { translate: 0 0; } 50% { translate: 0 -12px; } }
-  @keyframes wh-dance {
-    0%, 100% { transform: translateY(0) rotate(-1.5deg); }
-    50% { transform: translateY(-9px) rotate(2deg); }
-  }
 </style>
