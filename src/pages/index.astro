@@ -11,6 +11,7 @@ import Mandala from "../components/Mandala.astro";
 import WorldCard from "../components/WorldCard.astro";
 import QuoteBlock from "../components/QuoteBlock.astro";
 import Testimonials from "../components/Testimonials.astro";
+import ElementalMark from "../components/ElementalMark.astro";
 
 const cards = [
   { world: "earth", name: "NeoVerse", meta: "Earth · K–8 Academics", href: "/worlds/neoverse", status: "Coming soon" },
@@ -56,15 +57,8 @@ const tintBg = {
   <!-- Hero: the elemental mark + oversized tagline -->
   <section class="hero relative isolate flex min-h-[100dvh] flex-col items-center justify-center gap-6 overflow-hidden px-6 pt-24 pb-16 text-center">
     <div class="hero__bg" aria-hidden="true"></div>
-    <div class="hero__logo" aria-hidden="true">
-      <img
-        src="/brand/neoverge-circle.png"
-        width="1619"
-        height="1615"
-        alt=""
-        class="hero__mark"
-        fetchpriority="high"
-      />
+    <div class="hero__logo">
+      <ElementalMark class="hero__mark" />
     </div>
     <h1 class="hero__title font-display text-display-l text-foreground md:text-display-xl">
       <span class="hero__line">One Universe.</span>
