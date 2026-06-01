@@ -6,6 +6,7 @@ import Eyebrow from "../../../components/Eyebrow.astro";
 import Heading from "../../../components/Heading.astro";
 import Prose from "../../../components/Prose.astro";
 import ApplicationCTA from "../../../components/ApplicationCTA.astro";
+import ApexNav from "../../../components/ApexNav.astro";
 
 const blocks = [
   { t: "Team Practice", s: "Led by an expert college-level coach", b: "Each day begins with high-level, structured team practices that develop offensive and defensive systems, game IQ, communication, and execution under pressure — replicating the intensity and pace of college programs." },
@@ -68,6 +69,8 @@ const includes = [
       </Prose>
     </div>
   </Section>
+
+  <ApexNav current="/worlds/apex/programming" />
 
   <ApplicationCTA world="water" heading="Serious about leveling up?" primaryHref="/admissions" primaryLabel="Apply now" secondaryHref="/contact" secondaryLabel="Contact Coach Quincy" />
 </Layout>

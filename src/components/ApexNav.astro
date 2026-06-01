@@ -1,0 +1,54 @@
+---
+/**
+ * ApexNav — "more from Apex" cross-link band for the Apex sub-pages. Excludes the
+ * current page and shows three siblings (keeps thin pages full + aids navigation).
+ */
+import Container from "./Container.astro";
+import Eyebrow from "./Eyebrow.astro";
+import Heading from "./Heading.astro";
+
+interface Props {
+  current?: string;
+}
+const { current = "" } = Astro.props;
+
+const pages = [
+  { title: "Athletics", href: "/worlds/apex/athletics", blurb: "Where killers are crafted and leaders are born." },
+  { title: "Programming", href: "/worlds/apex/programming", blurb: "Whole-athlete development, every single day." },
+  { title: "Academics", href: "/worlds/apex/academics", blurb: "Brains. Buckets. Balance." },
+  { title: "Mindset Training", href: "/worlds/apex/mindset", blurb: "Because the game starts in your head." },
+  { title: "Life Beyond the Court", href: "/worlds/apex/life-beyond-court", blurb: "Basketball's the hook — life is the mission." },
+  { title: "Support Us", href: "/worlds/apex/support", blurb: "Help us build something bigger than basketball." },
+  { title: "Media", href: "/worlds/apex/media", blurb: "Catch the action. Feel the movement." },
+  { title: "News & Highlights", href: "/worlds/apex/news", blurb: "The latest from the team." },
+].filter((p) => p.href !== current);
+const show = pages.slice(0, 3);
+---
+
+<section class="border-t border-border">
+  <Container class="py-2xl md:py-3xl">
+    <div class="flex items-end justify-between gap-4" data-reveal>
+      <div>
+        <Eyebrow tone="water">Explore Apex</Eyebrow>
+        <Heading level={2} size="heading-l" class="mt-2">More from the program.</Heading>
+      </div>
+      <a href="/worlds/apex" class="hidden text-body-m font-semibold text-water-accent hover:underline sm:inline">Apex overview →</a>
+    </div>
+    <div class="mt-xl grid grid-cols-1 gap-4 sm:grid-cols-3" data-reveal>
+      {
+        show.map((p) => (
+          <a
+            href={p.href}
+            class="group flex flex-col gap-2 rounded-2xl border border-border bg-surface p-6 transition-all duration-[250ms] [transition-timing-function:var(--ease-refined)] hover:-translate-y-0.5 hover:border-water/60 hover:shadow-[0_12px_40px_-16px_rgba(26,26,26,0.25)]"
+          >
+            <span class="flex items-center justify-between gap-3">
+              <span class="font-display text-heading-s text-foreground">{p.title}</span>
+              <span class="text-water-accent transition-transform duration-[250ms] group-hover:translate-x-1" aria-hidden="true">→</span>
+            </span>
+            <span class="text-body-s text-muted">{p.blurb}</span>
+          </a>
+        ))
+      }
+    </div>
+  </Container>
+</section>

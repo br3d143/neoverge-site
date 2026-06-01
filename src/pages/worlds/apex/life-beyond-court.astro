@@ -7,6 +7,7 @@ import Heading from "../../../components/Heading.astro";
 import Prose from "../../../components/Prose.astro";
 import Button from "../../../components/Button.astro";
 import ApplicationCTA from "../../../components/ApplicationCTA.astro";
+import ApexNav from "../../../components/ApexNav.astro";
 import { forms } from "../../../config/site";
 
 const blocks = [
@@ -78,6 +79,8 @@ const blocks = [
       </div>
     </div>
   </Section>
+
+  <ApexNav current="/worlds/apex/life-beyond-court" />
 
   <ApplicationCTA world="water" heading="Build a champion for life." primaryHref="/admissions" primaryLabel="Apply now" secondaryHref="/contact" secondaryLabel="Contact Coach Quincy" />
 </Layout>

@@ -7,6 +7,7 @@ import Container from "./Container.astro";
 import Eyebrow from "./Eyebrow.astro";
 import Heading from "./Heading.astro";
 import Button from "./Button.astro";
+import Constellation from "./Constellation.astro";
 
 interface Props {
   world: "earth" | "water" | "fire" | "air";
@@ -26,14 +27,15 @@ const { world, meta, heading, tagline, intro, status, logo, primaryHref, primary
 const accentLine = { earth: "bg-earth", water: "bg-water", fire: "bg-fire", air: "bg-air" }[world];
 ---
 
-<section class="relative overflow-hidden">
+<section class="relative isolate overflow-hidden">
+  <Constellation />
   <img
     src={logo}
     alt=""
     aria-hidden="true"
-    class="pointer-events-none absolute right-[-8%] top-1/2 hidden w-[48%] max-w-[36rem] -translate-y-1/2 opacity-[0.06] lg:block"
+    class="pointer-events-none absolute right-[-8%] top-1/2 z-0 hidden w-[48%] max-w-[36rem] -translate-y-1/2 opacity-[0.07] lg:block"
   />
-  <Container class="relative flex min-h-[88vh] flex-col justify-center pt-28 pb-2xl">
+  <Container class="relative z-[1] flex min-h-[88vh] flex-col justify-center pt-28 pb-2xl">
     <div class="max-w-[44rem]">
       <Eyebrow tone={world}>{meta}</Eyebrow>
       <Heading level={1} size="display-l" tone={world} class="mt-4">{heading}</Heading>

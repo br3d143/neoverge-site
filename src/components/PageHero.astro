@@ -1,11 +1,13 @@
 ---
 /**
  * PageHero — editorial hero for content pages (About, Admissions, Apex sub-pages…).
- * Optional element `world` tints the eyebrow + heading.
+ * Filled with a subtle constellation + brand atmosphere + a faint elemental-mark
+ * watermark so the composition never feels empty. Optional `world` tints the type.
  */
 import Container from "./Container.astro";
 import Eyebrow from "./Eyebrow.astro";
 import Heading from "./Heading.astro";
+import Constellation from "./Constellation.astro";
 
 interface Props {
   eyebrow?: string;
@@ -18,8 +20,18 @@ interface Props {
 const { eyebrow, title, subhead, intro, world, size = "display-l" } = Astro.props;
 ---
 
-<section class="relative overflow-hidden">
-  <Container class="flex min-h-[56vh] flex-col justify-center pt-28 pb-xl">
+<section class="page-hero relative isolate overflow-hidden">
+  <div class="page-hero__atmo" aria-hidden="true"></div>
+  <Constellation />
+  <img
+    src="/brand/neoverge-circle.png"
+    alt=""
+    aria-hidden="true"
+    class="page-hero__mark"
+    width="1619"
+    height="1615"
+  />
+  <Container class="relative z-[1] flex min-h-[58vh] flex-col justify-center pt-28 pb-xl">
     <div class="max-w-[46rem]" data-reveal>
       {eyebrow && <Eyebrow tone={world ?? "muted"}>{eyebrow}</Eyebrow>}
       <Heading level={1} size={size} tone={world} class="mt-4">{title}</Heading>
@@ -28,3 +40,30 @@ const { eyebrow, title, subhead, intro, world, size = "display-l" } = Astro.prop
     </div>
   </Container>
 </section>
+
+<style>
+  .page-hero__atmo {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(34rem 26rem at 88% 30%, color-mix(in srgb, var(--color-fire) 9%, transparent), transparent 64%),
+      radial-gradient(32rem 26rem at 96% 78%, color-mix(in srgb, var(--color-water) 9%, transparent), transparent 64%),
+      radial-gradient(30rem 24rem at 70% 6%, color-mix(in srgb, var(--color-earth) 7%, transparent), transparent 62%);
+  }
+  .page-hero__mark {
+    position: absolute;
+    right: -7%;
+    top: 50%;
+    transform: translateY(-50%);
+    width: min(46%, 30rem);
+    height: auto;
+    opacity: 0.1;
+    z-index: 0;
+    pointer-events: none;
+  }
+  @media (max-width: 768px) {
+    .page-hero__mark { opacity: 0.06; right: -22%; }
+  }
+</style>

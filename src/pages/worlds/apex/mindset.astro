@@ -8,6 +8,7 @@ import Prose from "../../../components/Prose.astro";
 import Button from "../../../components/Button.astro";
 import Link from "../../../components/Link.astro";
 import ApplicationCTA from "../../../components/ApplicationCTA.astro";
+import ApexNav from "../../../components/ApexNav.astro";
 import { forms, partners } from "../../../config/site";
 
 const why = [
@@ -77,6 +78,8 @@ const includes = [
       <Link href={partners.zenith} class="text-body-m">Visit Zenith Mindset →</Link>
     </div>
   </Section>
+
+  <ApexNav current="/worlds/apex/mindset" />
 
   <ApplicationCTA world="water" heading="Train the mental, too." primaryHref="/admissions" primaryLabel="Apply now" secondaryHref="/contact" secondaryLabel="Contact Coach Quincy" />
 </Layout>

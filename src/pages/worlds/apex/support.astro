@@ -7,6 +7,7 @@ import Heading from "../../../components/Heading.astro";
 import Prose from "../../../components/Prose.astro";
 import Button from "../../../components/Button.astro";
 import ApplicationCTA from "../../../components/ApplicationCTA.astro";
+import ApexNav from "../../../components/ApexNav.astro";
 import { partners } from "../../../config/site";
 ---
 
@@ -40,6 +41,8 @@ import { partners } from "../../../config/site";
       </div>
     </div>
   </Section>
+
+  <ApexNav current="/worlds/apex/support" />
 
   <ApplicationCTA world="water" heading="We need you on our team." primaryHref="/contact" primaryLabel="Get involved" secondaryHref="/worlds/apex" secondaryLabel="Back to Apex" />
 </Layout>

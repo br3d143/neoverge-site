@@ -6,6 +6,7 @@ import Eyebrow from "../../../components/Eyebrow.astro";
 import Heading from "../../../components/Heading.astro";
 import Prose from "../../../components/Prose.astro";
 import ApplicationCTA from "../../../components/ApplicationCTA.astro";
+import ApexNav from "../../../components/ApexNav.astro";
 
 const offers = [
   { t: "Independent Study Support (Built for Athletes)", b: "Flexible, asynchronous learning platforms let student-athletes move at a competitive rhythm without falling behind. Daily academic sessions are embedded in the schedule for structure and accountability — at a pace that works for the individual." },
@@ -50,6 +51,8 @@ const offers = [
       </Prose>
     </div>
   </Section>
+
+  <ApexNav current="/worlds/apex/academics" />
 
   <ApplicationCTA world="water" heading="Build the whole picture." primaryHref="/admissions" primaryLabel="Apply now" secondaryHref="/contact" secondaryLabel="Contact Coach Quincy" />
 </Layout>
