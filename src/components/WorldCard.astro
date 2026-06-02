@@ -1,16 +1,17 @@
 ---
 /**
- * WorldCard — scannable card for the homepage fallback grid and worlds overview.
- * Element dot + world name + element/focus eyebrow + arrow. Subtle lift on hover.
+ * WorldCard — scannable card for the homepage "or pick from below" grid.
+ * Element dot + world name + status label (matches the Worlds dropdown) + arrow.
+ * Subtle lift on hover.
  */
 interface Props {
   world: "earth" | "water" | "fire" | "air";
   name: string;
-  meta: string; // e.g. "EARTH · K–8 ACADEMICS"
+  label?: string; // status label, e.g. "Enroll now" / "Coming Fall 2026" / "Coming soon"
   href: string;
   status?: "Active" | "Coming soon";
 }
-const { world, name, meta, href, status } = Astro.props;
+const { world, name, label, href, status } = Astro.props;
 
 const dot = {
   earth: "bg-earth",
@@ -34,21 +35,23 @@ const hoverBorder = {
   ]}
 >
   <span class:list={["h-2.5 w-2.5 shrink-0 rounded-full", dot]} aria-hidden="true"></span>
-  <span class="flex flex-col">
-    <span class="font-display text-heading-s text-foreground">{name}</span>
-    <span class="font-body text-eyebrow uppercase text-subtle">{meta}</span>
-  </span>
+  <span class="min-w-0 font-display text-heading-s text-foreground">{name}</span>
   {
-    status === "Coming soon" && (
-      <span class="ml-auto hidden font-body text-eyebrow uppercase text-subtle sm:inline">
-        Coming soon
+    label && (
+      <span
+        class:list={[
+          "ml-auto shrink-0 whitespace-nowrap font-body text-eyebrow uppercase",
+          status === "Active" ? "font-semibold text-foreground" : "text-subtle",
+        ]}
+      >
+        {label}
       </span>
     )
   }
   <span
     class:list={[
-      "font-display text-heading-s text-subtle transition-transform duration-[250ms] group-hover:translate-x-1 group-hover:text-foreground",
-      status === "Coming soon" ? "ml-2" : "ml-auto",
+      "shrink-0 font-display text-heading-s text-subtle transition-transform duration-[250ms] group-hover:translate-x-1 group-hover:text-foreground",
+      label ? "ml-3" : "ml-auto",
     ]}
     aria-hidden="true"
   >→</span>

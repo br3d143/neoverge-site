@@ -15,11 +15,12 @@ import Constellation from "../components/Constellation.astro";
 import PhotoBand from "../components/PhotoBand.astro";
 import SplitSection from "../components/SplitSection.astro";
 
+// Labels match the Worlds dropdown menu (see `worlds` in config/site.ts).
 const cards = [
-  { world: "earth", name: "NeoVerse", meta: "Earth · K–8 Academics", href: "/worlds/neoverse", status: "Coming soon" },
-  { world: "water", name: "Apex Inner System Athletics", meta: "Water · Student-Athletes", href: "/worlds/apex", status: "Active" },
-  { world: "fire", name: "Pulse Collective", meta: "Fire · Performing Arts", href: "/worlds/pulse", status: "Coming soon" },
-  { world: "air", name: "WorldWise", meta: "Air · Hybrid Learning", href: "/worlds/worldwise", status: "Coming soon" },
+  { world: "earth", name: "NeoVerse", label: "Coming soon", href: "/worlds/neoverse", status: "Coming soon" },
+  { world: "water", name: "Apex Inner System Athletics", label: "Enroll now", href: "/worlds/apex", status: "Active" },
+  { world: "fire", name: "Pulse Collective", label: "Coming Fall 2026", href: "/worlds/pulse", status: "Coming soon" },
+  { world: "air", name: "WorldWise", label: "Coming soon", href: "/worlds/worldwise", status: "Coming soon" },
 ] as const;
 
 const pillars = [
@@ -102,7 +103,7 @@ const tintBg = {
     <div class="mx-auto mt-3xl max-w-[52rem]">
       <Divider label="Or pick from below" class="mx-auto max-w-[28rem]" />
       <div class="mt-xl grid grid-cols-1 gap-4 sm:grid-cols-2">
-        {cards.map((c) => <WorldCard world={c.world} name={c.name} meta={c.meta.toUpperCase()} href={c.href} status={c.status} />)}
+        {cards.map((c) => <WorldCard world={c.world} name={c.name} label={c.label} href={c.href} status={c.status} />)}
       </div>
     </div>
   </Section>
