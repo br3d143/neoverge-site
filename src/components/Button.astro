@@ -2,8 +2,8 @@
 /**
  * Button — variants: primary (filled), secondary (outlined), tertiary (text + arrow).
  * Sizes: sm, md, lg. Renders as <a> when `href` is given, otherwise <button>.
- * Pass `world` to theme primary/secondary in an element color (uses the AA-safe
- * dark shade for fills so white text always passes contrast).
+ * Pass `world` to theme primary/secondary in an element color. Water/Fire fill with
+ * the bright logo color + dark text; Earth/Air use a deeper fill + white text.
  */
 interface Props {
   variant?: "primary" | "secondary" | "tertiary";
@@ -46,23 +46,26 @@ const neutral = {
   tertiary: "text-foreground hover:underline underline-offset-4",
 }[variant];
 
+// Apex (water) and Pulse (fire) use the bright logo color as the fill, with
+// near-black text so the label stays readable on the vibrant color. Earth/Air
+// keep a deeper fill + white text (their bright bases don't pass with dark text).
 const worldPrimary = {
   earth: "bg-earth-dark text-white hover:opacity-90",
-  water: "bg-water-dark text-white hover:opacity-90",
-  fire: "bg-fire-dark text-white hover:opacity-90",
+  water: "bg-water text-foreground hover:brightness-95",
+  fire: "bg-fire text-foreground hover:brightness-95",
   air: "bg-air-dark text-white hover:opacity-90",
 };
 const worldSecondary = {
-  earth: "border border-earth text-earth-dark hover:bg-earth-tint",
-  water: "border border-water text-water-dark hover:bg-water-tint",
-  fire: "border border-fire text-fire-dark hover:bg-fire-tint",
-  air: "border border-air text-air-dark hover:bg-air-tint",
+  earth: "border border-earth text-earth-accent hover:bg-earth-tint",
+  water: "border border-water text-water-accent hover:bg-water-tint",
+  fire: "border border-fire text-fire-accent hover:bg-fire-tint",
+  air: "border border-air text-air-accent hover:bg-air-tint",
 };
 const worldTertiary = {
-  earth: "text-earth-dark hover:underline underline-offset-4",
-  water: "text-water-dark hover:underline underline-offset-4",
-  fire: "text-fire-dark hover:underline underline-offset-4",
-  air: "text-air-dark hover:underline underline-offset-4",
+  earth: "text-earth-accent hover:underline underline-offset-4",
+  water: "text-water-accent hover:underline underline-offset-4",
+  fire: "text-fire-accent hover:underline underline-offset-4",
+  air: "text-air-accent hover:underline underline-offset-4",
 };
 
 let variantClass = neutral;
