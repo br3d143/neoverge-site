@@ -13,6 +13,7 @@ import QuoteBlock from "../components/QuoteBlock.astro";
 import Testimonials from "../components/Testimonials.astro";
 import Constellation from "../components/Constellation.astro";
 import PhotoBand from "../components/PhotoBand.astro";
+import SplitSection from "../components/SplitSection.astro";
 
 const cards = [
   { world: "earth", name: "NeoVerse", meta: "Earth · K–8 Academics", href: "/worlds/neoverse", status: "Coming soon" },
@@ -179,28 +180,28 @@ const tintBg = {
   </Section>
 
   <!-- Educational philosophy -->
-  <Section width="prose" class="border-t border-border">
-    <div data-reveal>
-      <Eyebrow tone="muted">Our Philosophy</Eyebrow>
-      <div class="mt-8 flex flex-col gap-6 text-body-l text-foreground">
-        <p>
-          At NeoVerge Dream School, we believe education should be transformational, not
-          transactional. We create a constellation of learning experiences that honor student
-          voice, ignite curiosity, and develop critical thinkers and self-led learners who are
-          driven to pursue their individual passions.
-        </p>
-        <p>
-          Rooted in our unique element-based model, we nurture the whole child — academically,
-          artistically, athletically, and emotionally — while fostering the confidence,
-          creativity, and resilience students need to become purposeful problem-solvers.
-        </p>
-        <p class="font-display text-heading-l text-foreground">
-          We don't just prepare students for the future — we help them build it in order to
-          lead it.
-        </p>
-      </div>
+  <SplitSection
+    eyebrow="Our Philosophy"
+    heading="Transformational, not transactional."
+    class="border-t border-border"
+  >
+    <div class="flex flex-col gap-6 text-body-l text-foreground">
+      <p>
+        At NeoVerge, we create a constellation of learning experiences that honor student
+        voice, ignite curiosity, and develop critical thinkers and self-led learners who are
+        driven to pursue their individual passions.
+      </p>
+      <p>
+        Rooted in our unique element-based model, we nurture the whole child — academically,
+        artistically, athletically, and emotionally — while fostering the confidence,
+        creativity, and resilience students need to become purposeful problem-solvers.
+      </p>
+      <p class="border-l-2 border-border-strong pl-6 font-display text-heading-l text-foreground">
+        We don't just prepare students for the future — we help them build it in order to
+        lead it.
+      </p>
     </div>
-  </Section>
+  </SplitSection>
 
   <!-- Mission & Vision -->
   <Section class="bg-surface">
