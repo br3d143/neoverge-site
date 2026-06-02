@@ -27,10 +27,11 @@ export const worlds: {
   href: string;
   status: "Active" | "Coming soon";
   menuLabel: string;
+  emphasizeLabel?: boolean; // bold the menu label (Apex "Enroll now", Pulse date)
 }[] = [
   { name: "NeoVerse", element: "Earth", world: "earth", href: "/worlds/neoverse", status: "Coming soon", menuLabel: "Coming soon" },
-  { name: "Apex", element: "Water", world: "water", href: "/worlds/apex", status: "Active", menuLabel: "Enroll now" },
-  { name: "Pulse Collective", element: "Fire", world: "fire", href: "/worlds/pulse", status: "Coming soon", menuLabel: "Coming Fall 2026" },
+  { name: "Apex", element: "Water", world: "water", href: "/worlds/apex", status: "Active", menuLabel: "Enroll now", emphasizeLabel: true },
+  { name: "Pulse Collective", element: "Fire", world: "fire", href: "/worlds/pulse", status: "Coming soon", menuLabel: "Coming Fall 2026", emphasizeLabel: true },
   { name: "WorldWise", element: "Air", world: "air", href: "/worlds/worldwise", status: "Coming soon", menuLabel: "Coming soon" },
 ];
 

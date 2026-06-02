@@ -10,8 +10,9 @@ interface Props {
   label?: string; // status label, e.g. "Enroll now" / "Coming Fall 2026" / "Coming soon"
   href: string;
   status?: "Active" | "Coming soon";
+  emphasize?: boolean; // bold the label (Apex "Enroll now", Pulse date)
 }
-const { world, name, label, href, status } = Astro.props;
+const { world, name, label, href, status, emphasize = false } = Astro.props;
 
 const dot = {
   earth: "bg-earth",
@@ -41,7 +42,7 @@ const hoverBorder = {
       <span
         class:list={[
           "ml-auto shrink-0 whitespace-nowrap font-body text-eyebrow uppercase",
-          status === "Active" ? "font-semibold text-foreground" : "text-subtle",
+          emphasize ? "font-semibold text-foreground" : "text-subtle",
         ]}
       >
         {label}
