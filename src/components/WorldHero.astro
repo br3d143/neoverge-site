@@ -33,9 +33,18 @@ const wvar = {
   air: "[--w:var(--color-air)]",
 }[world];
 const accentLine = { earth: "bg-earth", water: "bg-water", fire: "bg-fire", air: "bg-air" }[world];
+// Per-world logo height — the logos have very different aspect ratios, so a single
+// height makes the wide wordmarks (NeoVerse) huge and the tall stacked lockup (Pulse)
+// small. Tall/compact logos get a bigger height so every world reads equally large.
+const markHeight = {
+  earth: "clamp(150px, 28vh, 300px)", // wide wordmark — width-limited anyway
+  water: "clamp(200px, 34vh, 380px)", // landscape lockup
+  fire: "clamp(300px, 52vh, 560px)", // tall stacked lockup — needs the most height
+  air: "clamp(240px, 40vh, 440px)", // squarish lockup
+}[world];
 ---
 
-<section class:list={["world-hero relative isolate flex min-h-[100dvh] items-center justify-center overflow-hidden px-6", wvar]}>
+<section class:list={["world-hero relative isolate flex min-h-[100dvh] items-center justify-center overflow-hidden px-6", wvar]} style={`--mark-h:${markHeight}`}>
   <div class="world-hero__bg" aria-hidden="true"></div>
   <ElementHeroFX type={world} />
 
@@ -106,7 +115,7 @@ const accentLine = { earth: "bg-earth", water: "bg-water", fire: "bg-fire", air:
   }
   .world-hero__mark {
     display: block;
-    height: clamp(150px, 28vh, 300px);
+    height: var(--mark-h, clamp(150px, 28vh, 300px));
     width: auto;
     max-width: 86vw;
     object-fit: contain;
