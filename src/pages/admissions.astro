@@ -12,7 +12,6 @@ import Link from "../components/Link.astro";
 import StepList from "../components/StepList.astro";
 import FAQ from "../components/FAQ.astro";
 import ApplicationCTA from "../components/ApplicationCTA.astro";
-import PhotoBand from "../components/PhotoBand.astro";
 import { forms } from "../config/site";
 
 const steps = [
@@ -71,13 +70,36 @@ const quicklinks = [
   <!-- Shadow Day photography -->
   <Section space="compact">
     <div data-reveal>
-      <PhotoBand
-        photos={[
-          { src: "/images/apex-squad.webp", alt: "Apex student-athletes in their black-and-orange uniforms" },
-          { src: "/images/apex-team-portrait.webp", alt: "The Apex team together for a portrait" },
-          { src: "/images/apex-action.webp", alt: "An Apex athlete rising for a shot at the hoop" },
-        ]}
-      />
+      <div class="grid gap-5 md:grid-cols-2 md:items-start">
+        <!-- Action shot — portrait, gets a full-height column so the full leap (feet to rim) shows -->
+        <figure class="pb-frame overflow-hidden rounded-3xl">
+          <img
+            src="/images/apex-action.webp"
+            alt="An Apex athlete elevating to the rim"
+            loading="lazy"
+            class="pb-img aspect-[2/3] w-full object-cover"
+          />
+        </figure>
+        <!-- Two team shots stacked on the right -->
+        <div class="grid gap-5">
+          <figure class="pb-frame overflow-hidden rounded-3xl">
+            <img
+              src="/images/apex-team-teal.webp"
+              alt="The Apex team together in their black-and-teal uniforms"
+              loading="lazy"
+              class="pb-img aspect-[4/3] w-full object-cover"
+            />
+          </figure>
+          <figure class="pb-frame overflow-hidden rounded-3xl">
+            <img
+              src="/images/apex-squad.webp"
+              alt="Apex student-athletes ready to compete"
+              loading="lazy"
+              class="pb-img aspect-[4/3] w-full object-cover"
+            />
+          </figure>
+        </div>
+      </div>
       <p class="mt-6 text-body-s text-subtle">Real Apex student-athletes, on and off the court.</p>
     </div>
   </Section>
@@ -154,3 +176,14 @@ const quicklinks = [
 
   <ApplicationCTA heading="We're not looking for perfect. We're looking for prepared." primaryHref={forms.apexInterest} primaryLabel="Start your application" secondaryHref="/contact" secondaryLabel="Contact Coach Quincy" />
 </Layout>
+
+<style>
+  /* Shadow Day photo band — subtle frame + hover zoom (reduced-motion safe) */
+  .pb-frame { background: color-mix(in srgb, var(--color-foreground) 6%, transparent); }
+  .pb-img { transition: transform 0.6s var(--ease-refined, ease-out); }
+  .pb-frame:hover .pb-img { transform: scale(1.05); }
+  @media (prefers-reduced-motion: reduce) {
+    .pb-img { transition: none; }
+    .pb-frame:hover .pb-img { transform: none; }
+  }
+</style>
