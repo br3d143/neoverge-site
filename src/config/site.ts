@@ -26,11 +26,12 @@ export const worlds: {
   world: WorldKey;
   href: string;
   status: "Active" | "Coming soon";
+  menuLabel: string;
 }[] = [
-  { name: "NeoVerse", element: "Earth", world: "earth", href: "/worlds/neoverse", status: "Coming soon" },
-  { name: "Apex", element: "Water", world: "water", href: "/worlds/apex", status: "Active" },
-  { name: "Pulse Collective", element: "Fire", world: "fire", href: "/worlds/pulse", status: "Coming soon" },
-  { name: "WorldWise", element: "Air", world: "air", href: "/worlds/worldwise", status: "Coming soon" },
+  { name: "NeoVerse", element: "Earth", world: "earth", href: "/worlds/neoverse", status: "Coming soon", menuLabel: "Coming soon" },
+  { name: "Apex", element: "Water", world: "water", href: "/worlds/apex", status: "Active", menuLabel: "Enroll now" },
+  { name: "Pulse Collective", element: "Fire", world: "fire", href: "/worlds/pulse", status: "Coming soon", menuLabel: "Coming Fall 2026" },
+  { name: "WorldWise", element: "Air", world: "air", href: "/worlds/worldwise", status: "Coming soon", menuLabel: "Coming soon" },
 ];
 
 export const mainNav = [
@@ -205,19 +206,11 @@ export const worldFigures: Partial<Record<WorldKey, string[]>> = {
 // license-free) — swap for real NeoVerge photos as they arrive. Apex has its own
 // page with real photos, so it's not listed here.
 export const worldPhotos: Partial<Record<WorldKey, { src: string; alt: string }[]>> = {
-  earth: [
-    { src: "/images/stock/neoverse-1.webp", alt: "NeoVerse students smiling together in class" },
-    { src: "/images/stock/neoverse-2.webp", alt: "A young learner raising their hand beside a globe" },
-    { src: "/images/stock/neoverse-3.webp", alt: "Children painting at easels during enrichment" },
-  ],
+  // NeoVerse (earth) and WorldWise (air) intentionally left as "photography coming soon"
+  // placeholders until real photos arrive (per Shaun). Pulse keeps illustrative photos.
   fire: [
     { src: "/images/stock/pulse-1.webp", alt: "Young dancers performing on stage" },
     { src: "/images/stock/pulse-2.webp", alt: "Students training at the ballet barre" },
-  ],
-  air: [
-    { src: "/images/stock/worldwise-1.webp", alt: "A student holding a globe" },
-    { src: "/images/stock/worldwise-2.webp", alt: "A curious learner exploring a globe" },
-    { src: "/images/stock/worldwise-3.webp", alt: "A child studying a world map" },
   ],
 };
 

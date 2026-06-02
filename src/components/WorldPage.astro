@@ -43,6 +43,18 @@ const waitlist = `mailto:${w.contact}?subject=Waitlist%20%E2%80%94%20${encodeURI
     secondaryLabel="Follow on Instagram"
   />
 
+  <div class="relative isolate overflow-hidden">
+    {/* Element figures (e.g. Pulse dancers) as faint page-background decoration */}
+    {
+      figures && figures.length > 0 && (
+        <div class="wp-decor" aria-hidden="true">
+          {figures.map((f, i) => (
+            <img src={f} alt="" class={`wp-decor__fig wp-decor__fig--${i}`} loading="lazy" />
+          ))}
+        </div>
+      )
+    }
+
   <!-- Mission & Vision -->
   <Section class={tintBg}>
     <div class="grid grid-cols-1 gap-xl md:grid-cols-2 md:gap-lg" data-reveal>
@@ -69,27 +81,10 @@ const waitlist = `mailto:${w.contact}?subject=Waitlist%20%E2%80%94%20${encodeURI
     </ul>
   </Section>
 
-  {
-    figures && figures.length > 0 && (
-      <Section>
-        <div class="mx-auto max-w-[42rem] text-center" data-reveal>
-          <Eyebrow tone={world}>On the stage</Eyebrow>
-          <Heading level={2} size="display-m" class="mt-3">Where every spark becomes a spotlight.</Heading>
-          <p class="mt-5 text-body-l text-muted">From first audition to final bow, Pulse artists train in dance, theatre, and music — and learn to own the moment when the lights come up.</p>
-        </div>
-        <div class:list={["wp-stage relative mt-2xl flex items-end justify-center gap-[4%] overflow-hidden rounded-3xl px-[6%] pt-2xl sm:gap-[8%]", tintBg]} data-reveal>
-          {figures.map((f, i) => (
-            <img src={f} alt="" class={`wp-dancer wp-dancer--${i}`} loading="lazy" />
-          ))}
-        </div>
-      </Section>
-    )
-  }
-
-  {/* Photography of life inside the world */}
+  {/* Photography of life inside the world (else a coming-soon placeholder) */}
   {
     photos && photos.length > 0 ? (
-      <Section space={figures && figures.length > 0 ? "compact" : "default"}>
+      <Section>
         <div class="mx-auto max-w-[42rem] text-center" data-reveal>
           <Eyebrow tone={world}>Inside {w.name}</Eyebrow>
           <Heading level={2} size="display-m" class="mt-3">A glimpse of the everyday.</Heading>
@@ -97,7 +92,7 @@ const waitlist = `mailto:${w.contact}?subject=Waitlist%20%E2%80%94%20${encodeURI
         <PhotoBand photos={photos} class="mt-2xl" />
         <p class="mt-6 text-center text-body-s text-muted">Photos shown are illustrative; real {w.name} photography coming soon.</p>
       </Section>
-    ) : (!figures || figures.length === 0) ? (
+    ) : (
       <Section space="compact">
         <div class:list={["flex aspect-[16/9] w-full items-center justify-center overflow-hidden rounded-3xl", tintBg]} data-reveal>
           <div class="flex flex-col items-center gap-4 text-center">
@@ -106,7 +101,7 @@ const waitlist = `mailto:${w.contact}?subject=Waitlist%20%E2%80%94%20${encodeURI
           </div>
         </div>
       </Section>
-    ) : null
+    )
   }
 
   <ApplicationCTA
@@ -118,25 +113,55 @@ const waitlist = `mailto:${w.contact}?subject=Waitlist%20%E2%80%94%20${encodeURI
     secondaryHref="/contact"
     secondaryLabel="Or get in touch"
   />
+  </div>
 </Layout>
 
 <style>
-  .wp-dancer {
-    height: clamp(150px, 26vw, 320px);
-    width: auto;
-    transform-origin: bottom center;
-    animation: wp-sway 3.4s var(--ease-refined, ease-in-out) infinite;
+  /* Faint element figures spread across the page as ambient background decoration */
+  .wp-decor {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
   }
-  .wp-dancer--0 { animation-delay: 0s; }
-  .wp-dancer--1 { animation-delay: 0.55s; height: clamp(170px, 29vw, 360px); }
-  .wp-dancer--2 { animation-delay: 1.1s; }
+  .wp-decor__fig {
+    position: absolute;
+    width: auto;
+    opacity: 0.12;
+    transform-origin: bottom center;
+    animation: wp-sway 6s var(--ease-refined, ease-in-out) infinite;
+  }
+  .wp-decor__fig--0 {
+    height: clamp(260px, 30vw, 480px);
+    top: 30%;
+    left: -5%;
+    rotate: -4deg;
+  }
+  .wp-decor__fig--1 {
+    height: clamp(300px, 34vw, 560px);
+    top: 52%;
+    right: -6%;
+    rotate: 5deg;
+    animation-delay: 0.9s;
+  }
+  .wp-decor__fig--2 {
+    height: clamp(260px, 30vw, 480px);
+    top: 76%;
+    left: 4%;
+    rotate: -2deg;
+    animation-delay: 1.8s;
+  }
 
   @keyframes wp-sway {
     0%, 100% { transform: translateY(0) rotate(-2deg); }
     50% { transform: translateY(-10px) rotate(2.5deg); }
   }
 
+  /* On smaller screens the page is narrow — hide decoration to avoid clutter */
+  @media (max-width: 1024px) {
+    .wp-decor { display: none; }
+  }
   @media (prefers-reduced-motion: reduce) {
-    .wp-dancer { animation: none; }
+    .wp-decor__fig { animation: none; }
   }
 </style>
