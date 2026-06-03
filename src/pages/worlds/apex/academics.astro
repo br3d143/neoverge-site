@@ -8,27 +8,34 @@ import Heading from "../../../components/Heading.astro";
 import Prose from "../../../components/Prose.astro";
 import ApplicationCTA from "../../../components/ApplicationCTA.astro";
 import ApexNav from "../../../components/ApexNav.astro";
+import Icon from "../../../components/Icon.astro";
 
 const offers = [
-  { t: "Independent Study Support (Built for Athletes)", b: "Flexible, asynchronous learning platforms let student-athletes move at a competitive rhythm without falling behind. Daily academic sessions are embedded in the schedule for structure and accountability — at a pace that works for the individual." },
+  { t: "Independent Study Support (Built for Athletes)", b: "Flexible, asynchronous learning platforms let student-athletes move at a competitive rhythm without falling behind. Daily academic sessions are embedded in the schedule for structure and accountability, at a pace that works for the individual." },
   { t: "NCAA-Approved Coursework", b: "All academic offerings align with NCAA eligibility standards to keep every athlete eligible for D1, D2, or NAIA programs, with course tracking and core subject coverage built to support real recruitment outcomes." },
-  { t: "Academic Coaching & Mentorship", b: "Athletes don't just get assignments — they get coached through them. Mentors monitor progress, provide support, and build executive function, time management, and strategic learning skills." },
+  { t: "Academic Coaching & Mentorship", b: "Athletes don't just get assignments, they get coached through them. Mentors monitor progress, provide support, and build executive function, time management, and strategic learning skills." },
   { t: "College-Ready Transcripts & Advising", b: "We partner with accredited curriculum providers for real college-prep transcripts recognized by colleges, universities, and the NCAA, plus personalized advising and recruitment strategy." },
-  { t: "SAT/ACT Prep & Future-Ready Planning", b: "Optional test prep, test-taking strategy, and guidance on building a strong college admissions profile — even beyond athletics." },
+  { t: "SAT/ACT Prep & Future-Ready Planning", b: "Optional test prep, test-taking strategy, and guidance on building a strong college admissions profile, even beyond athletics." },
 ];
 ---
 
-<Layout title="Academics — Apex · NeoVerge Dream School" headerTransparent={true}>
+<Layout title="Academics, Apex · NeoVerge Dream School" headerTransparent={true}>
   <PageHero
     world="water"
     eyebrow="Apex · Academics"
     title="Brains. Buckets. Balance."
-    intro="At Apex, academics don't sit in the background — they run point. We flip the traditional model by giving student-athletes the flexibility and support to grow in the classroom without ever losing momentum on the court. Our academic model is NCAA-aligned, college-prep focused, and built so that when recruiters call, your grades, eligibility, and mindset are already in championship form."
+    intro="At Apex, academics don't sit in the background, they run point. We flip the traditional model by giving student-athletes the flexibility and support to grow in the classroom without ever losing momentum on the court. Our academic model is NCAA-aligned, college-prep focused, and built so that when recruiters call, your grades, eligibility, and mindset are already in championship form."
+    image="/images/apex-team-portrait.webp"
+    imageAlt="The Apex team together, ready for the next level"
+    imagePosition="center 30%"
   />
 
   <Section>
     <div data-reveal>
-      <Eyebrow tone="water">What we offer</Eyebrow>
+      <span class="inline-flex items-center gap-2 text-water-accent">
+        <Icon name="graduation" size={18} />
+        <Eyebrow tone="water">What we offer</Eyebrow>
+      </span>
       <Heading level={2} size="display-m" class="mt-3 max-w-[42rem]">You don't have to choose between buckets and books.</Heading>
     </div>
     <div class="mt-2xl flex flex-col gap-xl" data-reveal>
@@ -52,5 +59,5 @@ const offers = [
 
   <ApexNav current="/worlds/apex/academics" />
 
-  <ApplicationCTA world="water" heading="Build the whole picture." primaryHref="/admissions" primaryLabel="Apply now" secondaryHref="/contact" secondaryLabel="Contact Coach Quincy" />
+  <ApplicationCTA world="water" heading="Build the whole picture." primaryHref="/admissions/apex" primaryLabel="Apply now" secondaryHref="/contact" secondaryLabel="Contact Coach Quincy" />
 </Layout>

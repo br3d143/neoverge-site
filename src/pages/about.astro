@@ -13,9 +13,9 @@ import PhotoBand from "../components/PhotoBand.astro";
 
 const academics = [
   { world: "earth", name: "NeoVerse", body: "For academic explorers in grades K–8, we blend core subjects with project-based learning, design thinking, and cross-disciplinary challenges that spark deep inquiry. Earth science meets entrepreneurship. Math meets movement. Reading meets relevance." },
-  { world: "water", name: "Apex Inner System", body: "For student-athletes on a mission, Apex delivers rigorous, NCAA-accredited high school courses with built-in flexibility — independent study schedules, host-family transitions, time-zone coordination, and academic accountability through weekly coaching check-ins." },
-  { world: "fire", name: "Pulse Collective", body: "For performing artists and dancers, learning is expressive, embodied, and alive. Academic goals integrate with rehearsal schedules, industry mentorship, and artist residencies — whether writing scripts in English or calculating stage dimensions in geometry." },
-  { world: "air", name: "WorldWise", body: "For global learners, we infuse academics with cultural literacy, financial fluency, civic engagement, and multilingual exploration. Students think beyond borders — learning how the world works and how to navigate it with emotional intelligence." },
+  { world: "water", name: "Apex Inner System Athletics", body: "For student-athletes on a mission, Apex delivers rigorous, NCAA-accredited high school courses with built-in flexibility, independent study schedules, host-family transitions, time-zone coordination, and academic accountability through weekly coaching check-ins." },
+  { world: "fire", name: "Pulse Collective", body: "For performing artists and dancers, learning is expressive, embodied, and alive. Academic goals integrate with rehearsal schedules, industry mentorship, and artist residencies, whether writing scripts in English or calculating stage dimensions in geometry." },
+  { world: "air", name: "WorldWise", body: "For global learners, we infuse academics with cultural literacy, financial fluency, civic engagement, and multilingual exploration. Students think beyond borders, learning how the world works and how to navigate it with emotional intelligence." },
 ];
 const offers = [
   "Personalized academic pathways grounded in your child's passions",
@@ -28,22 +28,24 @@ const offers = [
 ];
 const tone = { earth: "earth", water: "water", fire: "fire", air: "air" } as const;
 const faqs = [
-  { q: "What makes NeoVerge different from traditional schools?", a: "NeoVerge isn't a one-size-fits-all model. Our worlds are customized learning communities designed around student passions — sports, the arts, academics, or global exploration. We go beyond test scores to build purpose, creativity, and real-world readiness." },
+  { q: "What makes NeoVerge different from traditional schools?", a: "NeoVerge isn't a one-size-fits-all model. Our worlds are customized learning communities designed around student passions, sports, the arts, academics, or global exploration. We go beyond test scores to build purpose, creativity, and real-world readiness." },
   { q: "Is the coursework recognized and college-prep aligned?", a: "Yes. Students engage in high-quality, standards-aligned academics through partnerships with accredited curriculum providers and NCAA-approved platforms, supporting official transcripts, graduation requirements, and competitive college or career readiness." },
-  { q: "What grade levels do you serve?", a: "Kindergarten through 12th grade. Our immersive worlds include tailored programs for elementary, middle, and high school students, with flexible pathways based on age, interest, and readiness — not just grade level." },
+  { q: "What grade levels do you serve?", a: "Kindergarten through 12th grade. Our immersive worlds include tailored programs for elementary, middle, and high school students, with flexible pathways based on age, interest, and readiness, not just grade level." },
   { q: "How do I begin the application process?", a: "Fill out the interest form on our Admissions page, or the waitlist form for the world you're applying to. You'll receive next steps via email." },
-  { q: "What does a typical school day look like?", a: "No two students have the exact same day. Depending on their world, students engage in academic workshops, project-based learning, training blocks, creative labs, or field-based exploration — blending structure with flexibility for deep focus and real growth." },
-  { q: "Is this school only for athletes or performers?", a: "Not at all. While we support high-level performers and athletes through specialized programs, NeoVerge is for all driven learners — scholars, creatives, explorers, and innovators passionate about shaping their own futures." },
+  { q: "What does a typical school day look like?", a: "No two students have the exact same day. Depending on their world, students engage in academic workshops, project-based learning, training blocks, creative labs, or field-based exploration, blending structure with flexibility for deep focus and real growth." },
+  { q: "Is this school only for athletes or performers?", a: "Not at all. While we support high-level performers and athletes through specialized programs, NeoVerge is for all driven learners, scholars, creatives, explorers, and innovators passionate about shaping their own futures." },
   { q: "How do you support students who need flexibility for training, travel, or auditions?", a: "Our model is designed with flexibility in mind. We offer asynchronous coursework, academic coaching, and customized pacing plans so students stay on track while pursuing goals beyond the classroom." },
   { q: "How does NeoVerge support social-emotional growth?", a: "We prioritize whole-child development through weekly mindset coaching, reflective practice, and community connection. We believe emotional intelligence and mental wellness are just as important as academics." },
 ];
 ---
 
-<Layout title="About — NeoVerge Dream School" headerTransparent={true}>
+<Layout title="About, NeoVerge Dream School" headerTransparent={true}>
   <PageHero
     eyebrow="About NeoVerge"
     title="Education beyond the classroom."
-    intro="NeoVerge Dream School was created for the dreamers, doers, and leaders of today. We're a team of innovative leaders, dedicated educators, coaches, and creatives reimagining school from the inside out — with love, with vision, and with students at the center of it all."
+    intro="NeoVerge Dream School was created for the dreamers, doers, and leaders of today. We're a team of innovative leaders, dedicated educators, coaches, and creatives reimagining school from the inside out, with love, with vision, and with students at the center of it all."
+    image="/images/stock/students-collab.webp"
+    imageAlt="NeoVerge students learning together"
   />
 
   <!-- Mission & Vision -->
@@ -61,7 +63,7 @@ const faqs = [
   <!-- Reimagining Education -->
   <SplitSection eyebrow="Reimagining education" heading="Centered on students." headingSize="display-m">
     <Prose centered={false}>
-      <p>At NeoVerge, we believe learning should ignite passion and purpose. We blend academics, arts, wellness, and innovation into immersive worlds where every child is seen, heard, and empowered to lead. By designing flexible pathways rooted in curiosity, creativity, and community, we're breaking the mold of traditional education. Our students aren't just preparing for the future — they're shaping it, with voice, agency, and a sense of belonging at every step.</p>
+      <p>At NeoVerge, we believe learning should ignite passion and purpose. We blend academics, arts, wellness, and innovation into immersive worlds where every child is seen, heard, and empowered to lead. By designing flexible pathways rooted in curiosity, creativity, and community, we're breaking the mold of traditional education. Our students aren't just preparing for the future, they're shaping it, with voice, agency, and a sense of belonging at every step.</p>
     </Prose>
   </SplitSection>
 
@@ -70,7 +72,7 @@ const faqs = [
     <div data-reveal>
       <PhotoBand
         photos={[
-          { src: "/images/stock/about-1.webp", alt: "A mentor working one-on-one with a student" },
+          { src: "/images/stock/mentor-1on1.webp", alt: "A mentor working one-on-one with a student" },
           { src: "/images/stock/about-2.webp", alt: "Students collaborating on a hands-on project" },
         ]}
       />
@@ -83,7 +85,7 @@ const faqs = [
     <div data-reveal>
       <Eyebrow tone="muted">Academics at NeoVerge</Eyebrow>
       <Heading level={2} size="display-m" class="mt-3 max-w-[42rem]">Future-focused. Learner-led. Anything but standard.</Heading>
-      <p class="mt-5 max-w-[42rem] text-body-l text-muted">Our curriculum meets and exceeds California state standards — but that's just the launchpad. We build around who your child is and who they're becoming.</p>
+      <p class="mt-5 max-w-[42rem] text-body-l text-muted">Our curriculum meets and exceeds California state standards, but that's just the launchpad. We build around who your child is and who they're becoming.</p>
     </div>
     <div class="mt-2xl grid grid-cols-1 gap-x-2xl gap-y-xl md:grid-cols-2" data-reveal>
       {academics.map((a) => (
@@ -108,7 +110,26 @@ const faqs = [
         </li>
       ))}
     </ul>
-    <p class="mt-xl max-w-[42rem] font-display text-heading-m text-foreground" data-reveal>This isn't school as usual. This is NeoVerge — where education evolves with you.</p>
+    <p class="mt-xl max-w-[42rem] font-display text-heading-m text-foreground" data-reveal>This isn't school as usual. This is NeoVerge, where education evolves with you.</p>
+  </Section>
+
+  <!-- A day across the worlds, photography -->
+  <Section class="border-t border-border" space="compact">
+    <div class="mx-auto max-w-[42rem] text-center" data-reveal>
+      <Eyebrow tone="muted">A day across the worlds</Eyebrow>
+      <Heading level={2} size="display-m" class="mt-3">Learning that looks like every child.</Heading>
+    </div>
+    <div data-reveal>
+      <PhotoBand
+        class="mt-2xl"
+        photos={[
+          { src: "/images/stock/kids-circle.webp", alt: "A diverse group of young learners with their teacher" },
+          { src: "/images/stock/science-kids.webp", alt: "Students exploring science together" },
+          { src: "/images/stock/kids-map.webp", alt: "Children discovering the world on a classroom map" },
+        ]}
+      />
+      <p class="mt-6 text-center text-body-s text-subtle">Photos shown are illustrative; real NeoVerge photography coming soon.</p>
+    </div>
   </Section>
 
   <!-- FAQs -->
@@ -116,5 +137,5 @@ const faqs = [
     <FAQ items={faqs} />
   </SplitSection>
 
-  <ApplicationCTA heading="Your journey starts here." body="Whether you're an artist, athlete, innovator, or explorer — if you're committed to doing the work, we're committed to walking with you." primaryHref="/admissions" primaryLabel="Explore admissions" secondaryHref="/contact" secondaryLabel="Or get in touch" />
+  <ApplicationCTA heading="Your journey starts here." body="Whether you're an artist, athlete, innovator, or explorer, if you're committed to doing the work, we're committed to walking with you." primaryHref="/admissions" primaryLabel="Explore admissions" secondaryHref="/contact" secondaryLabel="Or get in touch" />
 </Layout>

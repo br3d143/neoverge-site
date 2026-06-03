@@ -10,10 +10,11 @@ import Button from "../../../components/Button.astro";
 import Link from "../../../components/Link.astro";
 import ApplicationCTA from "../../../components/ApplicationCTA.astro";
 import ApexNav from "../../../components/ApexNav.astro";
+import Icon from "../../../components/Icon.astro";
 import { forms, partners } from "../../../config/site";
 
 const why = [
-  "Confidence fuels performance — deep self-belief built through consistent practice.",
+  "Confidence fuels performance, deep self-belief built through consistent practice.",
   "Focus keeps athletes locked in under pressure and free of distractions.",
   "Emotional control keeps players steady after a mistake or a bad game.",
   "Visualization and preparation give athletes an edge before they touch the court.",
@@ -29,18 +30,23 @@ const includes = [
 ];
 ---
 
-<Layout title="Mindset Training — Apex · NeoVerge Dream School" headerTransparent={true}>
+<Layout title="Mindset Training, Apex · NeoVerge Dream School" headerTransparent={true}>
   <PageHero
     world="water"
     eyebrow="Apex · Mindset Training"
     title="Because the game starts in your head."
-    intro="Talent gets you in the gym. Mindset keeps you there. We've partnered with Zenith Mindset — certified coaches who specialize in competitive student-athletes — for whole-group sessions and one-on-one coaching that unlock each athlete's full potential on and off the court."
+    intro="Talent gets you in the gym. Mindset keeps you there. We've partnered with Zenith Mindset, certified coaches who specialize in competitive student-athletes, for whole-group sessions and one-on-one coaching that unlock each athlete's full potential on and off the court."
+    image="/images/apex-team-teal.webp"
+    imageAlt="The Apex team, composed and focused"
   />
 
   <Section>
     <div data-reveal>
-      <Eyebrow tone="water">Why mental training matters</Eyebrow>
-      <Heading level={2} size="display-m" class="mt-3 max-w-[42rem]">The best athletes don't just train harder — they think sharper.</Heading>
+      <span class="inline-flex items-center gap-2 text-water-accent">
+        <Icon name="sparkles" size={18} />
+        <Eyebrow tone="water">Why mental training matters</Eyebrow>
+      </span>
+      <Heading level={2} size="display-m" class="mt-3 max-w-[42rem]">The best athletes don't just train harder, they think sharper.</Heading>
     </div>
     <ul class="mt-2xl grid gap-x-2xl gap-y-lg sm:grid-cols-2" data-reveal>
       {why.map((o) => (
@@ -54,14 +60,17 @@ const includes = [
 
   <SplitSection world="water" eyebrow="Why “Apex Inner System”?" heading="Built from the inside out." class="border-t border-border">
     <Prose centered={false}>
-      <p>“Apex” represents the highest point — the pursuit of peak performance. But the path to that peak doesn't start with talent. It starts with the inner system that drives everything you do: thought patterns, habits, emotional control, resilience, and belief. We help athletes build those systems deliberately, from the inside out.</p>
-      <p>Like water — central to our identity — we teach athletes to move with both force and flexibility. Water adapts to any environment. It nourishes and sustains, but it can also carve through rock. Calm under pressure, relentless in its direction. That's the mindset we train: adaptable, composed, powerful.</p>
+      <p>“Apex” represents the highest point, the pursuit of peak performance. But the path to that peak doesn't start with talent. It starts with the inner system that drives everything you do: thought patterns, habits, emotional control, resilience, and belief. We help athletes build those systems deliberately, from the inside out.</p>
+      <p>Like water, central to our identity, we teach athletes to move with both force and flexibility. Water adapts to any environment. It nourishes and sustains, but it can also carve through rock. Calm under pressure, relentless in its direction. That's the mindset we train: adaptable, composed, powerful.</p>
     </Prose>
   </SplitSection>
 
   <Section class="border-t border-border">
     <div data-reveal>
-      <Eyebrow tone="water">Apex mindset training includes</Eyebrow>
+      <span class="inline-flex items-center gap-2 text-water-accent">
+        <Icon name="target" size={18} />
+        <Eyebrow tone="water">Apex mindset training includes</Eyebrow>
+      </span>
     </div>
     <ul class="mt-xl grid gap-x-2xl gap-y-lg sm:grid-cols-2" data-reveal>
       {includes.map((o) => (
@@ -79,5 +88,5 @@ const includes = [
 
   <ApexNav current="/worlds/apex/mindset" />
 
-  <ApplicationCTA world="water" heading="Train the mental, too." primaryHref="/admissions" primaryLabel="Apply now" secondaryHref="/contact" secondaryLabel="Contact Coach Quincy" />
+  <ApplicationCTA world="water" heading="Train the mental, too." primaryHref="/admissions/apex" primaryLabel="Apply now" secondaryHref="/contact" secondaryLabel="Contact Coach Quincy" />
 </Layout>

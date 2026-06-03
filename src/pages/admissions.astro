@@ -2,188 +2,91 @@
 import Layout from "../layouts/Layout.astro";
 import PageHero from "../components/PageHero.astro";
 import Section from "../components/Section.astro";
-import SplitSection from "../components/SplitSection.astro";
-import Container from "../components/Container.astro";
 import Eyebrow from "../components/Eyebrow.astro";
 import Heading from "../components/Heading.astro";
-import Prose from "../components/Prose.astro";
 import Button from "../components/Button.astro";
-import Link from "../components/Link.astro";
-import StepList from "../components/StepList.astro";
-import FAQ from "../components/FAQ.astro";
 import ApplicationCTA from "../components/ApplicationCTA.astro";
-import { forms } from "../config/site";
+import { worldsContent, worldOrder, type WorldKey } from "../config/site";
 
-const steps = [
-  { title: "Submit the Interest Form", body: "The first step is our Apex Interest Form. This helps our staff learn about your goals, background, and why you're interested in joining the Apex system." },
-  { title: "Schedule Your Shadow Day", body: "Once your interest form is reviewed, you'll be invited to a full-day Shadow Day alongside our current student-athletes — training, academics, and mindset sessions — so both sides can see if it's the right fit." },
-  { title: "Interview with Apex Leadership", body: "After your Shadow Day, you'll meet with a member of our leadership team. This conversation helps us understand your mindset, motivation, and readiness to thrive at Apex." },
-  { title: "Acceptance or Denial Notification", body: "You'll receive an official email with your application status. If accepted, you move on to enrollment. If denied for now, we'll offer feedback and guidance for reapplication." },
-  { title: "Submit Registration Fee", body: "Accepted athletes submit a non-refundable $500 registration fee to officially hold their spot. Payment instructions are provided via email." },
-  { title: "Receive Enrollment Packet", body: "Once your fee is received, you'll get your official enrollment packet — schedules, handbooks, uniform orders, onboarding steps, and more." },
-];
-const includes = [
-  "Daily elite team practices",
-  "Individual development sessions",
-  "Strength & conditioning sessions",
-  "Competitive prep game schedule against top programs",
-  "Academic oversight and NCAA-aligned coursework support",
-  "Mindset training by certified Zenith Mindset coaches",
-  "College test prep, media training, and more",
-];
-const faqs = [
-  { q: "What is Apex Inner System Athletics?", a: "A high-performance athletic and academic development program for serious student-athletes. As a world within NeoVerge, Apex offers elite basketball training, mindset coaching, academic instruction, and college prep — all within a purpose-driven, character-based culture." },
-  { q: "What ages or grade levels do you serve?", a: "Apex serves middle school (grades 6–8), high school (grades 9–12), and post-grad athletes looking to improve their academic and athletic profile before college. Placement is determined through evaluation and Shadow Day performance." },
-  { q: "What is a Shadow Day and why is it required?", a: "A full-day trial experience where prospective athletes train, attend classes, and experience life at Apex. It helps athletes decide if Apex is the right fit, and lets our staff evaluate effort, mindset, and coachability." },
-  { q: "How much is tuition?", a: "Domestic students: $15,000–$35,000 per academic year depending on sport focus and academic pathway. International students: $40,000 per year. This includes training, academic support, game schedule, mindset coaching, and program resources. Flexible payment plans are available." },
-  { q: "Do you offer scholarships or financial aid?", a: "Yes. Apex offers a limited number of need-based scholarships to qualifying domestic students, based on financial need, leadership, academic standing, and athletic potential. Applications are available after acceptance." },
-  { q: "Is Apex NCAA-approved?", a: "Yes. Apex partners with NCAA-approved curriculum providers to ensure student-athletes meet core academic requirements for college eligibility, and helps track progress toward NCAA clearinghouse standards." },
-  { q: "What makes Apex different from other basketball academies?", a: "We don't just train the body — we develop the whole athlete. Apex integrates elite coaching, academic oversight, and certified mindset training through our partnership with Zenith Mindset. Every detail of the day is structured for maximum growth." },
-  { q: "Who are your coaches and trainers?", a: "Our staff includes former professional athletes and college-level coaches, including those who have trained NBA, NFL, and Division 1 players. Athletes receive team, strength, and individualized skill training daily under expert leadership." },
-  { q: "What is a typical day like at Apex?", a: "A structured schedule of academic study blocks, team practice, strength and conditioning, individual skill development, mindset training, and rest, recovery, and nutritional support — designed to maximize physical, mental, and academic growth." },
-  { q: "How do I apply?", a: "Start by submitting our Interest Form online. You'll then be invited to a Shadow Day, followed by an interview for selected students. Accepted applicants submit a $500 registration fee to begin enrollment." },
-];
-const quicklinks = [
-  { label: "Apex Interest Form", href: forms.apexInterest },
-  { label: "Schedule a Shadow Day", href: forms.shadowDay },
-  { label: "Scholarship Application", href: forms.scholarship },
-  { label: "1-on-1 Mindset Session (Zenith)", href: forms.zenithBooking },
-  { label: "Mindset Consent Form", href: forms.mindsetConsent },
-];
+// Per-world admissions status. Apex + Pulse are open; the others are coming soon.
+const admissions: Record<WorldKey, { href: string | null; open: boolean }> = {
+  water: { href: "/admissions/apex", open: true },
+  fire: { href: "/admissions/pulse", open: true },
+  earth: { href: null, open: false },
+  air: { href: null, open: false },
+};
+
+const tint = { earth: "bg-earth-tint", water: "bg-water-tint", fire: "bg-fire-tint", air: "bg-air-tint" };
+const dot = { earth: "bg-earth", water: "bg-water", fire: "bg-fire", air: "bg-air" };
+const tone = { earth: "earth", water: "water", fire: "fire", air: "air" } as const;
 ---
 
-<Layout title="Admissions — NeoVerge Dream School" headerTransparent={true}>
+<Layout title="Admissions, NeoVerge Dream School" headerTransparent={true}>
   <PageHero
     eyebrow="Admissions"
-    title="Your journey starts here."
-    intro="This isn't for everybody. Apex is built for serious student-athletes ready to invest in their growth — mentally, physically, and academically. If you're committed to the work, we're committed to you."
+    title="Find your world, then apply."
+    intro="NeoVerge is one universe of four worlds, and each one admits students its own way. Choose the world that fits your child and start your application below. Apex and Pulse Collective are accepting applications now; our other worlds are opening soon."
+    image="/images/stock/community.webp"
+    imageAlt="A diverse group of NeoVerge students together"
   />
 
-  <!-- Shadow Day -->
-  <SplitSection eyebrow="It starts with a Shadow Day" heading="More than a tryout — a full-day immersion.">
-    <Prose centered={false}>
-      <p>Joining Apex isn't just about how talented you are — it's about how you think, how you train, and how you show up every single day. We don't run two-hour tryouts. We run full Shadow Day experiences: a full-day immersion into the Apex system. You'll train with the team, attend academic sessions, and see firsthand how we operate.</p>
-      <p>It's your chance to see if Apex is the right fit, and our opportunity to evaluate your mindset, effort, coachability, and alignment with our culture. To schedule your official Shadow Day, contact Coach Quincy at <strong>apex@neovergedreamschool.com</strong> or (310) 817-0494.</p>
-    </Prose>
-  </SplitSection>
-
-  <!-- Shadow Day photography -->
-  <Section space="compact">
-    <div data-reveal>
-      <div class="grid gap-5 md:grid-cols-2 md:items-start">
-        <!-- Action shot — portrait, gets a full-height column so the full leap (feet to rim) shows -->
-        <figure class="pb-frame overflow-hidden rounded-3xl">
-          <img
-            src="/images/apex-action.webp"
-            alt="An Apex athlete elevating to the rim"
-            loading="lazy"
-            class="pb-img aspect-[2/3] w-full object-cover"
-          />
-        </figure>
-        <!-- Two team shots stacked on the right -->
-        <div class="grid gap-5">
-          <figure class="pb-frame overflow-hidden rounded-3xl">
-            <img
-              src="/images/apex-team-teal.webp"
-              alt="The Apex team together in their black-and-teal uniforms"
-              loading="lazy"
-              class="pb-img aspect-[4/3] w-full object-cover"
-            />
-          </figure>
-          <figure class="pb-frame overflow-hidden rounded-3xl">
-            <img
-              src="/images/apex-squad.webp"
-              alt="Apex student-athletes ready to compete"
-              loading="lazy"
-              class="pb-img aspect-[4/3] w-full object-cover"
-            />
-          </figure>
-        </div>
-      </div>
-      <p class="mt-6 text-body-s text-subtle">Real Apex student-athletes, on and off the court.</p>
+  <Section>
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-2" data-reveal>
+      {
+        worldOrder.map((k) => {
+          const w = worldsContent[k];
+          const a = admissions[k];
+          return (
+            <div class="flex flex-col overflow-hidden rounded-3xl border border-border bg-surface">
+              <div class:list={["flex aspect-[16/9] items-center justify-center p-10", tint[k]]}>
+                <img src={w.logo} alt={`${w.name} logo`} class="max-h-24 w-auto object-contain" loading="lazy" />
+              </div>
+              <div class="flex flex-1 flex-col p-7">
+                <div class="flex items-center gap-2.5">
+                  <span class:list={["h-2.5 w-2.5 shrink-0 rounded-full", dot[k]]} aria-hidden="true" />
+                  <Eyebrow tone={tone[k]}>{w.element} · {w.grades}</Eyebrow>
+                </div>
+                <Heading level={2} size="heading-l" class="mt-3">{w.name}</Heading>
+                <p class="mt-3 flex-1 text-body-m text-muted">{w.blurb}</p>
+                <div class="mt-7">
+                  {a.open && a.href ? (
+                    <Button href={a.href} world={k}>Apply to {w.name.split(" ")[0]} →</Button>
+                  ) : (
+                    <span class="inline-flex items-center gap-2 rounded-full border border-border-strong px-4 py-2 font-body text-eyebrow uppercase text-subtle">
+                      Admissions opening soon
+                    </span>
+                  )}
+                </div>
+              </div>
+            </div>
+          );
+        })
+      }
     </div>
   </Section>
 
-  <!-- Application steps -->
-  <Section class="border-t border-border">
-    <div data-reveal>
-      <Eyebrow tone="muted">The process</Eyebrow>
-      <Heading level={2} size="display-m" class="mt-3">Your journey to Apex, step by step.</Heading>
-    </div>
-    <div class="mt-2xl">
-      <StepList steps={steps} />
-    </div>
-  </Section>
-
-  <!-- Tuition -->
-  <Section class="border-t border-border">
-    <div class="grid grid-cols-1 gap-xl md:grid-cols-2 md:gap-2xl">
-      <div data-reveal>
-        <Eyebrow tone="muted">Tuition · 2025–2026</Eyebrow>
-        <Heading level={2} size="display-m" class="mt-3">An investment in their future.</Heading>
-        <dl class="mt-xl flex flex-col gap-4">
-          <div class="flex items-baseline justify-between gap-4 border-t border-border-strong pt-4">
-            <dt class="text-body-m text-muted">Domestic students</dt>
-            <dd class="font-display text-heading-m text-foreground">$15,000–$35,000<span class="text-body-s text-subtle">/yr</span></dd>
-          </div>
-          <div class="flex items-baseline justify-between gap-4 border-t border-border-strong pt-4">
-            <dt class="text-body-m text-muted">International students</dt>
-            <dd class="font-display text-heading-m text-foreground">$40,000<span class="text-body-s text-subtle">/yr</span></dd>
-          </div>
-        </dl>
-        <p class="mt-6 text-body-s text-subtle">Flexible monthly and semester-based payment plans are available. Full tuition details are shared with families upon acceptance.</p>
-      </div>
-      <div data-reveal>
-        <Eyebrow tone="muted">Tuition includes</Eyebrow>
-        <ul class="mt-xl flex flex-col gap-4">
-          {includes.map((o) => (
-            <li class="flex items-start gap-3 border-t border-border-strong pt-4">
-              <span class="mt-2 h-2 w-2 shrink-0 rounded-full bg-foreground" aria-hidden="true" />
-              <span class="text-body-m text-foreground">{o}</span>
-            </li>
-          ))}
-        </ul>
+  <!-- How admissions works (shared overview) -->
+  <Section class="border-t border-border bg-surface">
+    <div class="mx-auto max-w-[44rem] text-center" data-reveal>
+      <Eyebrow tone="muted">How it works</Eyebrow>
+      <Heading level={2} size="display-m" class="mt-3">One school, many doors in.</Heading>
+      <p class="mt-5 text-body-l text-muted">
+        Each world has its own process built around what it teaches, athletic Shadow Days for Apex,
+        auditions for Pulse, and more to come. Pick your world above to see its exact steps, what's
+        included, and how to apply. Not sure which fits? We're happy to help you find the right one.
+      </p>
+      <div class="mt-xl flex flex-wrap items-center justify-center gap-5">
+        <Button href="/contact" size="lg">Talk to our team</Button>
       </div>
     </div>
   </Section>
 
-  <!-- Scholarships -->
-  <SplitSection eyebrow="Scholarships" heading="Opportunity shouldn't have a price tag." class="border-t border-border">
-    <Prose centered={false}>
-      <p>We believe financial limitations shouldn't block access to opportunity. Apex offers a limited number of need-based scholarships each year to qualifying domestic student-athletes — awarded on demonstrated financial need, leadership, character, work ethic, academic standing, and athletic potential. Scholarship applications are provided after acceptance and reviewed confidentially by our leadership team.</p>
-    </Prose>
-  </SplitSection>
-
-  <!-- FAQs -->
-  <SplitSection eyebrow="Admissions FAQs" heading="Questions, answered." class="border-t border-border">
-    <FAQ items={faqs} />
-  </SplitSection>
-
-  <!-- Forms & quicklinks -->
-  <Section class="border-t border-border">
-    <div data-reveal>
-      <Eyebrow tone="muted">Forms & quicklinks</Eyebrow>
-    </div>
-    <div class="mt-xl grid grid-cols-1 gap-3 sm:grid-cols-2" data-reveal>
-      {quicklinks.map((l) => (
-        <a href={l.href} target="_blank" rel="noopener noreferrer" class="group flex items-center justify-between gap-4 rounded-xl border border-border bg-surface px-5 py-4 transition-colors duration-[250ms] hover:bg-foreground/[0.03]">
-          <span class="text-body-m text-foreground">{l.label}</span>
-          <span class="text-subtle transition-transform duration-[250ms] group-hover:translate-x-1" aria-hidden="true">↗</span>
-        </a>
-      ))}
-    </div>
-  </Section>
-
-  <ApplicationCTA heading="We're not looking for perfect. We're looking for prepared." primaryHref={forms.apexInterest} primaryLabel="Start your application" secondaryHref="/contact" secondaryLabel="Contact Coach Quincy" />
+  <ApplicationCTA
+    heading="Your journey starts here."
+    body="Choose a world above to begin, or reach out and we'll help you find the right fit."
+    primaryHref="/contact"
+    primaryLabel="Get in touch"
+    secondaryHref="/worlds"
+    secondaryLabel="Explore the worlds"
+  />
 </Layout>
-
-<style>
-  /* Shadow Day photo band — subtle frame + hover zoom (reduced-motion safe) */
-  .pb-frame { background: color-mix(in srgb, var(--color-foreground) 6%, transparent); }
-  .pb-img { transition: transform 0.6s var(--ease-refined, ease-out); }
-  .pb-frame:hover .pb-img { transform: scale(1.05); }
-  @media (prefers-reduced-motion: reduce) {
-    .pb-img { transition: none; }
-    .pb-frame:hover .pb-img { transform: none; }
-  }
-</style>

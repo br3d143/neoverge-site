@@ -8,6 +8,7 @@ import Section from "./Section.astro";
 import Eyebrow from "./Eyebrow.astro";
 import Heading from "./Heading.astro";
 import Button from "./Button.astro";
+import Icon from "./Icon.astro";
 import ElementHeroFX from "./ElementHeroFX.astro";
 
 interface Props {
@@ -33,6 +34,8 @@ const wvar = {
   air: "[--w:var(--color-air)]",
 }[world];
 const accentLine = { earth: "bg-earth", water: "bg-water", fire: "bg-fire", air: "bg-air" }[world];
+const elementIcon = { earth: "leaf", water: "droplet", fire: "flame", air: "wind" }[world];
+const accentText = { earth: "text-earth-accent", water: "text-water-accent", fire: "text-fire-accent", air: "text-air-accent" }[world];
 // Per-world logo height — the logos have very different aspect ratios, so a single
 // height makes the wide wordmarks (NeoVerse) huge and the tall stacked lockup (Pulse)
 // small. Tall/compact logos get a bigger height so every world reads equally large.
@@ -57,7 +60,10 @@ const markHeight = {
 <Section class={`relative ${wvar}`}>
   <div class="world-hero__bg world-hero__bg--soft" aria-hidden="true"></div>
   <div class="relative mx-auto max-w-[46rem] text-center" data-reveal>
-    <Eyebrow tone={world}>{meta}</Eyebrow>
+    <span class="inline-flex items-center justify-center gap-2">
+      <Icon name={elementIcon} size={18} class={accentText} />
+      <Eyebrow tone={world}>{meta}</Eyebrow>
+    </span>
     <Heading level={1} size="display-l" tone={world} class="mt-4">{heading}</Heading>
     <span class:list={["mx-auto mt-6 block h-1 w-16 rounded-full", accentLine]} aria-hidden="true"></span>
     <p class="mt-7 font-display text-heading-l text-foreground">{tagline}</p>

@@ -9,50 +9,61 @@ import Prose from "../../../components/Prose.astro";
 import Button from "../../../components/Button.astro";
 import ApplicationCTA from "../../../components/ApplicationCTA.astro";
 import ApexNav from "../../../components/ApexNav.astro";
+import Icon from "../../../components/Icon.astro";
 import { forms } from "../../../config/site";
 
 const blocks = [
   {
     t: "Nutrition & Performance",
+    icon: "utensils",
     sub: "Fuel like a pro. Recover like a beast.",
     items: ["Performance-based meal planning", "Weight gain & lean muscle strategies", "Hydration, recovery & supplement education", "Cooking basics & smart choices on a budget"],
   },
   {
     t: "Sleep Education & Wellness",
+    icon: "moon",
     sub: "Because recovery is part of the grind.",
     items: ["Sleep routines that actually work", "Rest and performance science", "Stress, burnout & self-care tools", "Sleep tracking and accountability"],
   },
   {
     t: "Financial Literacy",
-    sub: "Secure the bag — and know what to do with it.",
+    icon: "dollar",
+    sub: "Secure the bag, and know what to do with it.",
     items: ["Budgeting, saving & banking basics", "Credit, debt & smart money habits", "NIL readiness: managing your brand income", "Taxes, contracts & financial red flags"],
   },
   {
     t: "Personal Branding & Media Training",
+    icon: "megaphone",
     sub: "Your image is your impact. Own it.",
     items: ["Social media presence & digital footprint", "Interview training & public speaking", "Content creation tips for NIL and visibility", "Understanding your voice, story & audience"],
   },
   {
     t: "Parent Workshops",
+    icon: "users",
     sub: "Because your kid isn't doing this alone.",
     items: ["Navigating recruiting realities", "Supporting academic & athletic balance", "How to advocate for your athlete", "Mental health, motivation & trust at home"],
   },
 ];
 ---
 
-<Layout title="Life Beyond the Court — Apex · NeoVerge Dream School" headerTransparent={true}>
+<Layout title="Life Beyond the Court, Apex · NeoVerge Dream School" headerTransparent={true}>
   <PageHero
     world="water"
     eyebrow="Apex · Life Beyond the Court"
-    title="Yes, we build athletes — and we care about the whole person."
-    intro="Basketball's the hook, but life is the mission. At Apex, we prepare student-athletes for what's waiting off the court. We teach them how to eat, sleep, think, and move like champions — how to manage money, own their name, and lead with purpose. This is real-life prep, not textbook fluff."
+    title="Yes, we build athletes, and we care about the whole person."
+    intro="Basketball's the hook, but life is the mission. At Apex, we prepare student-athletes for what's waiting off the court. We teach them how to eat, sleep, think, and move like champions, how to manage money, own their name, and lead with purpose. This is real-life prep, not textbook fluff."
+    image="/images/apex-squad.webp"
+    imageAlt="Apex athletes together off the court"
   />
 
   {blocks.map((b, i) => (
     <Section class={i === 0 ? "" : "border-t border-border"}>
       <div class="grid grid-cols-1 gap-xl md:grid-cols-[1fr_1.4fr] md:gap-2xl" data-reveal>
         <div>
-          <Eyebrow tone="water">{b.t}</Eyebrow>
+          <span class="inline-flex items-center gap-2 text-water-accent">
+            <Icon name={b.icon} size={18} />
+            <Eyebrow tone="water">{b.t}</Eyebrow>
+          </span>
           <Heading level={2} size="heading-l" class="mt-3">{b.sub}</Heading>
         </div>
         <ul class="flex flex-col gap-4">
@@ -79,5 +90,5 @@ const blocks = [
 
   <ApexNav current="/worlds/apex/life-beyond-court" />
 
-  <ApplicationCTA world="water" heading="Build a champion for life." primaryHref="/admissions" primaryLabel="Apply now" secondaryHref="/contact" secondaryLabel="Contact Coach Quincy" />
+  <ApplicationCTA world="water" heading="Build a champion for life." primaryHref="/admissions/apex" primaryLabel="Apply now" secondaryHref="/contact" secondaryLabel="Contact Coach Quincy" />
 </Layout>

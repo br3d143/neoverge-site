@@ -16,28 +16,72 @@ interface Props {
   intro?: string;
   world?: "earth" | "water" | "fire" | "air";
   size?: "display-l" | "display-m";
+  /** Optional hero photo — when set, the hero becomes a two-column text + image layout. */
+  image?: string;
+  imageAlt?: string;
+  /** Aspect ratio for the hero photo (Tailwind class), e.g. "aspect-[4/5]". */
+  imageAspect?: string;
+  /** object-position for the hero photo, e.g. "center 30%". */
+  imagePosition?: string;
 }
-const { eyebrow, title, subhead, intro, world, size = "display-l" } = Astro.props;
+const {
+  eyebrow,
+  title,
+  subhead,
+  intro,
+  world,
+  size = "display-l",
+  image,
+  imageAlt = "",
+  imageAspect = "aspect-[4/3]",
+  imagePosition,
+} = Astro.props;
 ---
 
 <section class="page-hero relative isolate overflow-hidden">
   <div class="page-hero__atmo" aria-hidden="true"></div>
   <Constellation />
-  <img
-    src="/brand/neoverge-circle.png"
-    alt=""
-    aria-hidden="true"
-    class="page-hero__mark"
-    width="1619"
-    height="1615"
-  />
+  {
+    !image && (
+      <img
+        src="/brand/neoverge-circle.png"
+        alt=""
+        aria-hidden="true"
+        class="page-hero__mark"
+        width="1619"
+        height="1615"
+      />
+    )
+  }
   <Container class="relative z-[1] flex min-h-[58vh] flex-col justify-center pt-28 pb-xl">
-    <div class="max-w-[46rem]" data-reveal>
-      {eyebrow && <Eyebrow tone={world ?? "muted"}>{eyebrow}</Eyebrow>}
-      <Heading level={1} size={size} tone={world} class="mt-4">{title}</Heading>
-      {subhead && <p class="mt-5 font-display text-heading-m text-foreground">{subhead}</p>}
-      {intro && <p class="mt-5 max-w-[42rem] text-body-l text-muted">{intro}</p>}
-    </div>
+    {
+      image ? (
+        <div class="grid items-center gap-xl md:grid-cols-2 md:gap-2xl">
+          <div data-reveal>
+            {eyebrow && <Eyebrow tone={world ?? "muted"}>{eyebrow}</Eyebrow>}
+            <Heading level={1} size={size} tone={world} class="mt-4">{title}</Heading>
+            {subhead && <p class="mt-5 font-display text-heading-m text-foreground">{subhead}</p>}
+            {intro && <p class="mt-5 text-body-l text-muted">{intro}</p>}
+          </div>
+          <div data-reveal>
+            <img
+              src={image}
+              alt={imageAlt}
+              class:list={[imageAspect, "w-full rounded-3xl object-cover shadow-[0_24px_70px_-30px_rgba(26,26,26,0.45)]"]}
+              style={imagePosition ? `object-position:${imagePosition}` : undefined}
+              fetchpriority="high"
+            />
+          </div>
+        </div>
+      ) : (
+        <div class="max-w-[46rem]" data-reveal>
+          {eyebrow && <Eyebrow tone={world ?? "muted"}>{eyebrow}</Eyebrow>}
+          <Heading level={1} size={size} tone={world} class="mt-4">{title}</Heading>
+          {subhead && <p class="mt-5 font-display text-heading-m text-foreground">{subhead}</p>}
+          {intro && <p class="mt-5 max-w-[42rem] text-body-l text-muted">{intro}</p>}
+        </div>
+      )
+    }
   </Container>
 </section>
 

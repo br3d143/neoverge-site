@@ -15,7 +15,7 @@ const { post } = Astro.props;
 const more = posts.filter((p) => p.slug !== post.slug).slice(0, 2);
 ---
 
-<Layout title={`${post.title} — NeoVerge Dream School`}>
+<Layout title={`${post.title}, NeoVerge Dream School`}>
   <article>
     <Section width="prose" space="compact" class="pt-2xl">
       <div data-reveal>

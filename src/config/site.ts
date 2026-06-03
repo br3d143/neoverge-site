@@ -9,7 +9,7 @@ export const site = {
   name: "NeoVerge Dream School",
   tagline: "One Universe. Infinite Futures.",
   subTagline:
-    "Igniting curiosity. Empowering leaders. Shaping the future—one student at a time.",
+    "Igniting curiosity. Empowering leaders. Shaping the future, one student at a time.",
   email: "info@neovergedreamschool.com",
   phone: "(310) 817-0494",
   phoneHref: "tel:+13108170494",
@@ -53,11 +53,9 @@ export const footerNav = [
 ];
 
 // Parent NeoVerge has no dedicated IG account; using the active Apex account as a
-// stand-in for the footer. Facebook/YouTube have no real accounts yet.
+// stand-in for the footer. No Facebook/YouTube accounts yet, so they're omitted.
 export const social = [
   { label: "Instagram", href: "https://www.instagram.com/apexinnersystemathletics/" },
-  { label: "Facebook", href: "#" },
-  { label: "YouTube", href: "#" },
 ];
 
 // Real, verified per-world Instagram accounts.
@@ -71,6 +69,8 @@ export const worldInstagram: Record<WorldKey, string> = {
 // External forms & scheduling links (from the content master).
 export const forms = {
   apexInterest: "https://form.jotform.com/250895493963171",
+  pulseInterest:
+    "https://docs.google.com/forms/d/e/1FAIpQLSe94Ie2-cjWIHqQMasufqxDmo9FtfV3ho4rf3M3ADsXdH8kTw/viewform",
   shadowDay:
     "https://docs.google.com/forms/d/e/1FAIpQLSfGauVN5dYJCbFCggb8L2m96QORtqd5JY0Ow_GtE5BYOt-XLQ/viewform?usp=header",
   scholarship:
@@ -99,7 +99,7 @@ export const worldsContent = {
     tagline: "Grounded in purpose. Growing with power.",
     heroHeading: "Exploration. Expression. Excellence.",
     intro:
-      "Where curiosity takes root and intellect flourishes. NeoVerse is our K–8 general education track, offering rigorous academics and rich enrichment — from garden science and project-based learning to languages, music, and wellness.",
+      "Where curiosity takes root and intellect flourishes. NeoVerse is our K–8 general education track, offering rigorous academics and rich enrichment, from garden science and project-based learning to languages, music, and wellness.",
     blurb: "Rigorous academics and rich enrichment for K–8 explorers.",
     mission:
       "To nurture rooted, resilient learners through strong academics, integrated enrichment, and compassionate community.",
@@ -125,7 +125,7 @@ export const worldsContent = {
     tagline: "Flow with focus. Train with heart.",
     heroHeading: "Elite Training, Focused Futures.",
     intro:
-      "Where grit meets greatness. Apex develops mentally strong, academically focused student-athletes through elite sports training, mindset coaching, and NCAA-aligned academics — preparing them to lead in competition and in life.",
+      "Where grit meets greatness. Apex develops mentally strong, academically focused student-athletes through elite sports training, mindset coaching, and NCAA-aligned academics, preparing them to lead in competition and in life.",
     blurb: "Elite training, mindset coaching, and NCAA-aligned academics for student-athletes.",
     mission:
       "To build mentally tough, academically driven, and athletically elite student-athletes who lead with character on and off the court.",
@@ -150,7 +150,7 @@ export const worldsContent = {
     tagline: "Ignite your spark. Move with meaning.",
     heroHeading: "Where Creativity Meets Excellence.",
     intro:
-      "Where passion takes center stage. Pulse is a bold performing-arts track where young artists shine in dance, musical theatre, and acting — all while receiving personalized academic support.",
+      "Where passion takes center stage. Pulse is a bold performing-arts track where young artists shine in dance, musical theatre, and acting, all while receiving personalized academic support.",
     blurb: "A bold performing-arts world where young artists take center stage.",
     mission:
       "To cultivate young artists who express boldly, train passionately, and perform with heart while receiving rigorous, personalized academic instruction.",
@@ -175,7 +175,7 @@ export const worldsContent = {
     tagline: "Freedom to learn. Space to soar.",
     heroHeading: "Freedom to Learn, Power to Grow.",
     intro:
-      "For learners who chart their own course. WorldWise blends the flexibility of homeschooling with the community of in-person learning — empowering independent K–12 students through collaborative drop-off days, global studies, and hands-on exploration.",
+      "For learners who chart their own course. WorldWise blends the flexibility of homeschooling with the community of in-person learning, empowering independent K–12 students through collaborative drop-off days, global studies, and hands-on exploration.",
     blurb: "Flexible, global learning for independent homeschool families.",
     mission:
       "To empower homeschoolers and independent learners with flexible structure, social connection, and meaningful enrichment.",
@@ -204,14 +204,16 @@ export const worldFigures: Partial<Record<WorldKey, string[]>> = {
 };
 
 // Photography shown on each world page. Stock placeholders for now (self-hosted,
-// license-free) — swap for real NeoVerge photos as they arrive. Apex has its own
+// license-free), swap for real NeoVerge photos as they arrive. Apex has its own
 // page with real photos, so it's not listed here.
 export const worldPhotos: Partial<Record<WorldKey, { src: string; alt: string }[]>> = {
-  // NeoVerse (earth) and WorldWise (air) intentionally left as "photography coming soon"
-  // placeholders until real photos arrive (per Shaun). Pulse keeps illustrative photos.
+  // NeoVerse (earth) and WorldWise (air) stay "photography coming soon" until real photos
+  // arrive (per Shaun). Pulse keeps illustrative, license-free stock for now.
+  // The first photo is featured beside the world's "offers" list; the rest fill the band below.
   fire: [
+    { src: "/images/stock/dance-red.webp", alt: "A young dancer practicing her craft" },
+    { src: "/images/stock/dance-teens.webp", alt: "Young performers in a dance class" },
     { src: "/images/stock/pulse-1.webp", alt: "Young dancers performing on stage" },
-    { src: "/images/stock/pulse-2.webp", alt: "Students training at the ballet barre" },
   ],
 };
 
@@ -221,5 +223,5 @@ export const apexPages = [
   { title: "Programming", href: "/worlds/apex/programming", blurb: "Whole-athlete development, every single day." },
   { title: "Academics", href: "/worlds/apex/academics", blurb: "Brains. Buckets. Balance." },
   { title: "Mindset Training", href: "/worlds/apex/mindset", blurb: "Because the game starts in your head." },
-  { title: "Life Beyond the Court", href: "/worlds/apex/life-beyond-court", blurb: "Basketball's the hook — life is the mission." },
+  { title: "Life Beyond the Court", href: "/worlds/apex/life-beyond-court", blurb: "Basketball's the hook. Life is the mission." },
 ];
