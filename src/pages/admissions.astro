@@ -26,8 +26,8 @@ const tone = { earth: "earth", water: "water", fire: "fire", air: "air" } as con
     eyebrow="Admissions"
     title="Find your world, then apply."
     intro="NeoVerge is one universe of four worlds, and each one admits students its own way. Choose the world that fits your child and start your application below. Apex and Pulse Collective are accepting applications now; our other worlds are opening soon."
-    image="/images/stock/community.webp"
-    imageAlt="A diverse group of NeoVerge students together"
+    image="/images/stock/kids-table.webp"
+    imageAlt="A teacher working with young students at a table"
   />
 
   <Section>
@@ -44,7 +44,7 @@ const tone = { earth: "earth", water: "water", fire: "fire", air: "air" } as con
               <div class="flex flex-1 flex-col p-7">
                 <div class="flex items-center gap-2.5">
                   <span class:list={["h-2.5 w-2.5 shrink-0 rounded-full", dot[k]]} aria-hidden="true" />
-                  <Eyebrow tone={tone[k]}>{w.element} · {w.grades}</Eyebrow>
+                  <Eyebrow tone={tone[k]}>{w.grades}</Eyebrow>
                 </div>
                 <Heading level={2} size="heading-l" class="mt-3">{w.name}</Heading>
                 <p class="mt-3 flex-1 text-body-m text-muted">{w.blurb}</p>

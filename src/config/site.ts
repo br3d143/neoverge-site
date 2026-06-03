@@ -212,7 +212,6 @@ export const worldPhotos: Partial<Record<WorldKey, { src: string; alt: string }[
   // The first photo is featured beside the world's "offers" list; the rest fill the band below.
   fire: [
     { src: "/images/stock/dance-red.webp", alt: "A young dancer practicing her craft" },
-    { src: "/images/stock/dance-teens.webp", alt: "Young performers in a dance class" },
     { src: "/images/stock/pulse-1.webp", alt: "Young dancers performing on stage" },
   ],
 };

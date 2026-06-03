@@ -47,7 +47,7 @@ const icons: Record<string, string> = {
           href={n.href}
           data-world={n.world}
           class:list={["mandala__node", `is-${n.pos}`, ring[n.world]]}
-          aria-label={`Enter ${n.name}, the world of ${n.element}`}
+          aria-label={`Enter ${n.name}`}
         >
           <span class="mandala__circle">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={icons[n.world]} />

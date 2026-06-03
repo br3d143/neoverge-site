@@ -58,8 +58,8 @@ const quicklinks = [
     eyebrow="Apex · Admissions"
     title="Your journey starts here."
     intro="This isn't for everybody. Apex is built for serious student-athletes ready to invest in their growth, mentally, physically, and academically. If you're committed to the work, we're committed to you."
-    image="/images/apex-team-teal.webp"
-    imageAlt="The Apex team in their black-and-teal uniforms"
+    image="/images/apex-rim-hang.webp"
+    imageAlt="An Apex athlete hanging on the rim after a dunk"
   />
 
   <Container class="pt-6">
@@ -74,43 +74,6 @@ const quicklinks = [
       <p>It's your chance to see if Apex is the right fit, and our opportunity to evaluate your mindset, effort, coachability, and alignment with our culture. To schedule your official Shadow Day, contact Coach Quincy at <strong>apex@neovergedreamschool.com</strong> or (310) 817-0494.</p>
     </Prose>
   </SplitSection>
-
-  <!-- Shadow Day photography -->
-  <Section space="compact">
-    <div data-reveal>
-      <div class="grid gap-5 md:grid-cols-2 md:items-start">
-        <!-- Action shot, portrait, gets a full-height column so the full leap (feet to rim) shows -->
-        <figure class="pb-frame overflow-hidden rounded-3xl">
-          <img
-            src="/images/apex-action.webp"
-            alt="An Apex athlete elevating to the rim"
-            loading="lazy"
-            class="pb-img aspect-[2/3] w-full object-cover"
-          />
-        </figure>
-        <!-- Two team shots stacked on the right -->
-        <div class="grid gap-5">
-          <figure class="pb-frame overflow-hidden rounded-3xl">
-            <img
-              src="/images/apex-team-teal.webp"
-              alt="The Apex team together in their black-and-teal uniforms"
-              loading="lazy"
-              class="pb-img aspect-[4/3] w-full object-cover"
-            />
-          </figure>
-          <figure class="pb-frame overflow-hidden rounded-3xl">
-            <img
-              src="/images/apex-squad.webp"
-              alt="Apex student-athletes ready to compete"
-              loading="lazy"
-              class="pb-img aspect-[4/3] w-full object-cover"
-            />
-          </figure>
-        </div>
-      </div>
-      <p class="mt-6 text-body-s text-subtle">Real Apex student-athletes, on and off the court.</p>
-    </div>
-  </Section>
 
   <!-- Application steps -->
   <Section class="border-t border-border">
@@ -184,14 +147,3 @@ const quicklinks = [
 
   <ApplicationCTA world="water" heading="We're not looking for perfect. We're looking for prepared." primaryHref={forms.apexInterest} primaryLabel="Start your application" secondaryHref="/contact" secondaryLabel="Contact Coach Quincy" />
 </Layout>
-
-<style>
-  /* Shadow Day photo band, subtle frame + hover zoom (reduced-motion safe) */
-  .pb-frame { background: color-mix(in srgb, var(--color-foreground) 6%, transparent); }
-  .pb-img { transition: transform 0.6s var(--ease-refined, ease-out); }
-  .pb-frame:hover .pb-img { transform: scale(1.05); }
-  @media (prefers-reduced-motion: reduce) {
-    .pb-img { transition: none; }
-    .pb-frame:hover .pb-img { transform: none; }
-  }
-</style>
