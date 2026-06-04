@@ -133,7 +133,7 @@ export const worldsContent = {
       "To be the nation's premier athletic-academic hybrid, preparing students to compete at the next level in sport and in life.",
     offers: [
       "Strength & conditioning",
-      "Basketball skills development",
+      "Individual basketball skills development",
       "Daily team practices",
       "NCAA-accredited academic curriculum",
       "Mindset, breathwork & character education",
@@ -206,12 +206,19 @@ export const worldFigures: Partial<Record<WorldKey, string[]>> = {
 // Photography shown on each world page. Stock placeholders for now (self-hosted,
 // license-free), swap for real NeoVerge photos as they arrive. Apex has its own
 // page with real photos, so it's not listed here.
-export const worldPhotos: Partial<Record<WorldKey, { src: string; alt: string }[]>> = {
-  // NeoVerse (earth) and WorldWise (air) stay "photography coming soon" until real photos
-  // arrive (per Shaun). Pulse keeps illustrative, license-free stock for now.
+export const worldPhotos: Partial<
+  Record<WorldKey, { src: string; alt: string; portrait?: boolean }[]>
+> = {
+  // Illustrative, license-free stock; swap for real photography as it arrives.
   // The first photo is featured beside the world's "offers" list; the rest fill the band below.
+  earth: [
+    { src: "/images/stock/art-class.webp", alt: "Students painting at easels in art class" },
+    { src: "/images/stock/meadow-explore.webp", alt: "Young explorers discovering nature in a meadow" },
+    { src: "/images/stock/kids-clay.webp", alt: "Children learning through hands-on play" },
+  ],
   fire: [
-    { src: "/images/stock/dance-red.webp", alt: "A young dancer practicing her craft" },
+    { src: "/images/stock/ballerina-pointe.webp", alt: "A young ballerina dancing en pointe", portrait: true },
+    { src: "/images/stock/theatre-kids.webp", alt: "Young performers acting out a play on stage" },
     { src: "/images/stock/pulse-1.webp", alt: "Young dancers performing on stage" },
   ],
 };

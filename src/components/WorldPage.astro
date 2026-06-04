@@ -85,7 +85,10 @@ const ctaBody = admissionsHref[world]
             src={photos[0].src}
             alt={photos[0].alt}
             loading="lazy"
-            class="aspect-[4/3] w-full rounded-3xl object-cover"
+            class:list={[
+              photos[0].portrait ? "aspect-[3/4] max-w-[26rem] justify-self-center" : "aspect-[4/3]",
+              "w-full rounded-3xl object-cover",
+            ]}
           />
           <ul class="flex flex-col gap-lg">
             {w.offers.map((o) => (
