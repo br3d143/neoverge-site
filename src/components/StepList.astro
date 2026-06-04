@@ -1,11 +1,12 @@
 ---
 /**
  * StepList — numbered vertical step sequence (e.g. Admissions application steps).
+ * A step may carry an action link (href + linkLabel) rendered under its body.
  */
 import Heading from "./Heading.astro";
 
 interface Props {
-  steps: { title: string; body: string }[];
+  steps: { title: string; body: string; href?: string; linkLabel?: string }[];
 }
 const { steps } = Astro.props;
 ---
@@ -18,6 +19,17 @@ const { steps } = Astro.props;
         <div>
           <Heading level={3} size="heading-l">{s.title}</Heading>
           <p class="mt-3 max-w-[44rem] text-body-m text-muted">{s.body}</p>
+          {s.href && (
+            <a
+              href={s.href}
+              target={s.href.startsWith("http") ? "_blank" : undefined}
+              rel={s.href.startsWith("http") ? "noopener noreferrer" : undefined}
+              class="group mt-4 inline-flex items-center gap-2 font-body text-body-m font-medium text-foreground underline-offset-4 hover:underline"
+            >
+              {s.linkLabel ?? "Open"}
+              <span class="transition-transform duration-[250ms] group-hover:translate-x-1" aria-hidden="true">→</span>
+            </a>
+          )}
         </div>
       </li>
     ))

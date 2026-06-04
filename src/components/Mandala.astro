@@ -278,9 +278,27 @@ const icons: Record<string, string> = {
 
     function edgeSVG(world, base, light) {
       if (world === "fire") {
-        return '<svg width="100%" height="100%" viewBox="0 0 1200 260" preserveAspectRatio="none">' +
-          '<path class="tr-flame" d="' + flamePath(1200, 260, 10) + '" fill="' + base + '"/>' +
-          '<path class="tr-flame2" d="' + flamePath(1200, 185, 8) + '" fill="' + light + '" opacity="0.92"/></svg>';
+        // Layered, gradient-filled flames (deep base, hot tips) drawn double-width so
+        // they can drift sideways while an animated turbulence filter licks the edges.
+        return '<svg style="position:absolute;inset:0;overflow:visible" width="100%" height="100%" viewBox="0 0 1200 300" preserveAspectRatio="none">' +
+          '<defs>' +
+          '<linearGradient id="nv-fire-back" x1="0" y1="1" x2="0" y2="0">' +
+          '<stop offset="0" stop-color="' + base + '"/><stop offset="0.55" stop-color="' + base + '"/><stop offset="1" stop-color="' + light + '"/>' +
+          '</linearGradient>' +
+          '<linearGradient id="nv-fire-front" x1="0" y1="1" x2="0" y2="0">' +
+          '<stop offset="0" stop-color="' + light + '"/><stop offset="1" stop-color="#ffeec2"/>' +
+          '</linearGradient>' +
+          '<filter id="nv-fire-wobble" x="-30%" y="-80%" width="160%" height="260%">' +
+          '<feTurbulence type="fractalNoise" baseFrequency="0.011 0.04" numOctaves="2" seed="8" result="n">' +
+          '<animate attributeName="baseFrequency" dur="0.5s" values="0.011 0.04;0.016 0.06;0.011 0.04" repeatCount="indefinite"/>' +
+          '</feTurbulence>' +
+          '<feDisplacementMap in="SourceGraphic" in2="n" scale="32"/>' +
+          '</filter>' +
+          '</defs>' +
+          '<g filter="url(#nv-fire-wobble)">' +
+          '<g class="tr-drift-a"><g class="tr-flame"><path d="' + flamePath(2400, 300, 22) + '" fill="url(#nv-fire-back)"/></g></g>' +
+          '<g class="tr-drift-b"><g class="tr-flame2"><path transform="translate(0,110)" d="' + flamePath(2400, 190, 15) + '" fill="url(#nv-fire-front)" opacity="0.95"/></g></g>' +
+          '</g></svg>';
       }
       if (world === "water") {
         return '<svg width="100%" height="100%" viewBox="0 0 1200 170" preserveAspectRatio="none">' +
@@ -303,7 +321,7 @@ const icons: Record<string, string> = {
       const panel = document.createElement("div");
       const edge = document.createElement("div");
       edge.innerHTML = edgeSVG(world, base, light);
-      const EH = world === "fire" ? 260 : world === "water" ? 170 : world === "earth" ? 150 : 160;
+      const EH = world === "fire" ? 300 : world === "water" ? 170 : world === "earth" ? 150 : 160;
       if (!horizontal) {
         panel.style.cssText = "position:absolute;left:0;right:0;bottom:0;height:0;background:" + base + ";";
         edge.style.cssText = "position:absolute;left:0;right:0;bottom:100%;height:" + EH + "px;line-height:0;";
@@ -318,13 +336,51 @@ const icons: Record<string, string> = {
         { duration: 1250, easing: "cubic-bezier(.4,0,.3,1)", fill: "forwards" },
       );
       if (world === "fire") {
+        // hot panel: deep embers at the base, brighter toward the flame line
+        panel.style.background =
+          "linear-gradient(to top, #2b0a02, " + base + " 45%, color-mix(in srgb, " + base + " 62%, " + light + "))";
+
+        // warm glow radiating above the flame line
+        const glow = document.createElement("div");
+        glow.style.cssText =
+          "position:absolute;left:-5%;right:-5%;bottom:-40px;height:135%;pointer-events:none;filter:blur(16px);" +
+          "background:radial-gradient(58% 95% at 50% 100%, color-mix(in srgb, " + light + " 55%, transparent), transparent 72%);";
+        edge.insertBefore(glow, edge.firstChild);
+
+        // sideways drift so the licks travel like real flames
+        const da = edge.querySelector(".tr-drift-a");
+        const db = edge.querySelector(".tr-drift-b");
+        if (da) da.animate([{ transform: "translateX(0)" }, { transform: "translateX(-420px)" }], { duration: 1900, easing: "linear", fill: "forwards" });
+        if (db) db.animate([{ transform: "translateX(-340px)" }, { transform: "translateX(30px)" }], { duration: 1900, easing: "linear", fill: "forwards" });
+
+        // vertical licking flicker
         edge.querySelectorAll(".tr-flame, .tr-flame2").forEach((f, idx) => {
-          f.style.transformOrigin = "bottom";
+          f.style.transformBox = "fill-box";
+          f.style.transformOrigin = "50% 100%";
           f.animate(
-            [{ transform: "scaleY(1)" }, { transform: "scaleY(1.3)" }, { transform: "scaleY(0.9)" }, { transform: "scaleY(1.16)" }, { transform: "scaleY(1)" }],
-            { duration: 300 - idx * 70, iterations: 6 },
+            [{ transform: "scaleY(1)" }, { transform: "scaleY(1.28)" }, { transform: "scaleY(0.92)" }, { transform: "scaleY(1.18)" }, { transform: "scaleY(1)" }],
+            { duration: 340 - idx * 80, iterations: 6, easing: "ease-in-out" },
           );
         });
+
+        // rising embers
+        for (let i = 0; i < 16; i++) {
+          const em = document.createElement("span");
+          const sz = 3 + Math.random() * 4;
+          em.style.cssText =
+            "position:absolute;bottom:" + Math.random() * 26 + "px;left:" + (3 + Math.random() * 94) + "%;" +
+            "width:" + sz + "px;height:" + sz + "px;border-radius:9999px;background:#ffd98a;" +
+            "box-shadow:0 0 10px 3px rgba(255,150,50,0.75);opacity:0;";
+          edge.appendChild(em);
+          em.animate(
+            [
+              { opacity: 0, transform: "translate(0,0) scale(1)" },
+              { opacity: 1, offset: 0.15 },
+              { opacity: 0, transform: "translate(" + (Math.random() * 64 - 32) + "px," + -(150 + Math.random() * 170) + "px) scale(0.4)" },
+            ],
+            { duration: 700 + Math.random() * 500, delay: Math.random() * 900, iterations: 2, easing: "ease-out" },
+          );
+        }
       }
       setTimeout(() => wrap.remove(), 1900);
     }
