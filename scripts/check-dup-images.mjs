@@ -26,6 +26,9 @@ for (const f of walk("dist")) {
 
 let dups = 0;
 for (const [img, pages] of Object.entries(usage).sort()) {
+  // Staff card photos intentionally appear on both /worlds/apex and
+  // /worlds/apex/staff (client request, June 2026).
+  if (img.includes("/images/staff-")) continue;
   if (pages.length > 1) {
     dups++;
     console.log("REUSED:", img, "->", pages.join(", "));

@@ -7,6 +7,7 @@ import Heading from "../../components/Heading.astro";
 import WorldHero from "../../components/WorldHero.astro";
 import QuoteBlock from "../../components/QuoteBlock.astro";
 import ApplicationCTA from "../../components/ApplicationCTA.astro";
+import ApexStaff from "../../components/ApexStaff.astro";
 import { worldsContent, apexPages } from "../../config/site";
 
 const w = worldsContent.water;
@@ -87,6 +88,9 @@ const w = worldsContent.water;
       </figcaption>
     </figure>
   </Section>
+
+  <!-- Meet the staff (shared card band, also on /worlds/apex/staff) -->
+  <ApexStaff heading="Meet the staff behind the system." />
 
   <!-- Explore the program -->
   <Section class="border-t border-border">

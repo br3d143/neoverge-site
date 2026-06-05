@@ -1,99 +1,14 @@
 ---
 /**
- * Apex · Meet the Staff — built from the five AISA staff cards (PDFs in OneDrive).
- * Photos are extracted from the cards; the teal duotone treatment is recreated in
- * CSS so the page matches the card aesthetic. Linked from "Inside the Apex system".
+ * Apex · Meet the Staff — built from the six AISA staff cards (PDFs in OneDrive).
+ * The card band itself lives in components/ApexStaff.astro and is shared with
+ * the Apex main page per client request.
  */
 import Layout from "../../../layouts/Layout.astro";
 import PageHero from "../../../components/PageHero.astro";
-import Container from "../../../components/Container.astro";
 import ApplicationCTA from "../../../components/ApplicationCTA.astro";
 import ApexNav from "../../../components/ApexNav.astro";
-import { worldInstagram } from "../../../config/site";
-
-type Stat = { value: string; label: string };
-type Cred = { lead: string; rest?: string };
-
-const staff: {
-  name: string;
-  role: string;
-  sub?: string;
-  bio: string;
-  image: string;
-  imagePosition?: string;
-  statsLabel?: string;
-  stats?: Stat[];
-  credsLabel?: string;
-  creds?: Cred[];
-}[] = [
-  {
-    name: "Robert Icart",
-    role: "Athletic Director",
-    sub: "Founder & Executive Director, BTI",
-    bio: "As AISA's Athletic Director, Robert leads our basketball program and college-placement pipeline, bringing the network and 25+ years he built at BTI to every Apex athlete.",
-    image: "/images/staff-robert.webp",
-    imagePosition: "center 20%",
-    statsLabel: "Career track record · players placed",
-    stats: [
-      { value: "600+", label: "to college" },
-      { value: "35", label: "to the Ivy League" },
-      { value: "8", label: "to the NBA" },
-    ],
-  },
-  {
-    name: "Donovan Morris",
-    role: "Boys Head Coach",
-    bio: "As AISA's Boys Head Coach, Donovan walks our players through the same pipeline he walked himself: prep school, Division 1, and seven pro years across five countries.",
-    image: "/images/staff-donovan.webp",
-    statsLabel: "Career highlights",
-    stats: [
-      { value: "2,000+", label: "#1 all-time scorer, Cajon HS" },
-      { value: "D1", label: "Fresno State · Long Beach State" },
-      { value: "7", label: "pro years, 5 countries" },
-    ],
-  },
-  {
-    name: "Dr. Shayna Markwongnark",
-    role: "Director of Education",
-    bio: "As AISA's Director of Education, Shayna leads our accredited academic program, bringing the work of a USC professor and a doctorate in education to every Apex student-athlete.",
-    image: "/images/staff-shayna.webp",
-    imagePosition: "center 25%",
-    credsLabel: "Education & credentials",
-    creds: [
-      { lead: "Doctorate in Educational Leadership (EdD)", rest: "USC" },
-      { lead: "Professor of Clinical Education", rest: "USC Rossier School of Education" },
-      { lead: "Certified mindset coach", rest: "for student-athletes" },
-    ],
-  },
-  {
-    name: "Jordan Hill",
-    role: "Skills Trainer",
-    bio: "As AISA's Skills Trainer, Jordan develops our guards with the discipline he built at college basketball's highest level, and later as a pro overseas.",
-    image: "/images/staff-jordan.webp",
-    credsLabel: "Playing career",
-    creds: [
-      { lead: "Played D1", rest: "at Wisconsin & Seattle University" },
-      { lead: "Wisconsin Final Four", rest: "team member" },
-      { lead: "Played professionally", rest: "overseas in Cyprus" },
-    ],
-  },
-  {
-    name: "Mike Teller",
-    role: "Skills Trainer",
-    sub: "Owner, The Secret Trainer",
-    bio: "As AISA's Skills Trainer and owner of The Secret Trainer, Mike brings pro-level skill development to every Apex player, turning detail and daily reps into real improvement.",
-    image: "/images/staff-teller.webp",
-    credsLabel: "Trainer credentials",
-    creds: [
-      { lead: "21+ years", rest: "as a top West Coast skills trainer" },
-      { lead: "Head coach of BTI United", rest: "BTI's top circuit team" },
-      { lead: "Pangos All-American Camp", rest: "coach" },
-    ],
-  },
-];
-
-const [featured, ...rest] = staff;
-const ig = worldInstagram.water;
+import ApexStaff from "../../../components/ApexStaff.astro";
 ---
 
 <Layout title="Meet the Staff, Apex · NeoVerge Dream School" headerTransparent={true}>
@@ -101,126 +16,10 @@ const ig = worldInstagram.water;
     world="water"
     eyebrow="Apex · Meet the Staff"
     title="Built by people who've been there."
-    intro="Every member of the Apex staff has played, coached, or taught at the highest levels: Division 1 careers, pro years overseas, a USC doctorate, and decades of elite player development. Your athlete learns from people who've lived it."
+    intro="Every member of the Apex staff has played, coached, or taught at the highest levels: All-American honors, Division 1 careers, pro years overseas, a USC doctorate, and decades of elite player development. Your athlete learns from people who've lived it."
   />
 
-  <!-- Dark staff band, styled after the AISA staff cards -->
-  <section class="bg-[#0d1517]">
-    <Container class="py-2xl md:py-3xl">
-      <div data-reveal>
-        <p class="font-body text-eyebrow uppercase tracking-[0.14em] text-water-light">AISA · Staff</p>
-        <h2 class="mt-3 max-w-[40rem] font-display text-heading-l text-white md:text-display-m">
-          The staff behind the system.
-        </h2>
-      </div>
-
-      <!-- Featured: Athletic Director -->
-      <article
-        class="staff-card mt-2xl grid grid-cols-1 overflow-hidden rounded-3xl ring-1 ring-white/10 md:grid-cols-[1.05fr_1fr]"
-        data-reveal
-      >
-        <div class="staff-photo relative min-h-[18rem] md:min-h-0">
-          <img
-            src={featured.image}
-            alt={`${featured.name}, ${featured.role}`}
-            width="1600"
-            height="1216"
-            loading="lazy"
-            class="absolute inset-0 h-full w-full object-cover"
-            style={`object-position: ${featured.imagePosition ?? "center 30%"}`}
-          />
-          <div class="staff-photo__tint" aria-hidden="true"></div>
-          <div class="staff-photo__fade" aria-hidden="true"></div>
-          <span class="staff-chip">● AISA · Staff</span>
-        </div>
-        <div class="flex flex-col gap-5 border-t-2 border-water-light/70 p-7 md:border-l-2 md:border-t-0 md:p-10">
-          <div>
-            <p class="font-body text-eyebrow uppercase tracking-[0.14em] text-water-light">{featured.role}</p>
-            <h3 class="mt-2 font-display text-heading-l text-white md:text-display-m">{featured.name}</h3>
-            {featured.sub && <p class="mt-1.5 text-body-s text-white/55">{featured.sub}</p>}
-          </div>
-          <p class="text-body-m text-white/75">{featured.bio}</p>
-          <div class="mt-auto border-t border-white/10 pt-5">
-            <p class="font-body text-[11px] uppercase tracking-[0.16em] text-water-light/80">{featured.statsLabel}</p>
-            <dl class="mt-4 grid grid-cols-3 gap-4">
-              {featured.stats!.map((s) => (
-                <div>
-                  <dd class="font-display text-[2.4rem] leading-none text-water-light">{s.value}</dd>
-                  <dt class="mt-2 text-[11px] uppercase leading-snug tracking-wider text-white/50">{s.label}</dt>
-                </div>
-              ))}
-            </dl>
-          </div>
-          <a
-            href={ig}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="text-body-s text-white/40 transition-colors hover:text-water-light"
-          >@apexinnersystemathletics</a>
-        </div>
-      </article>
-
-      <!-- The rest of the staff -->
-      <div class="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2">
-        {rest.map((p) => (
-          <article class="staff-card flex flex-col overflow-hidden rounded-3xl ring-1 ring-white/10" data-reveal>
-            <div class="staff-photo relative aspect-[4/3]">
-              <img
-                src={p.image}
-                alt={`${p.name}, ${p.role}`}
-                width="1600"
-                height="1216"
-                loading="lazy"
-                class="absolute inset-0 h-full w-full object-cover"
-                style={`object-position: ${p.imagePosition ?? "center 30%"}`}
-              />
-              <div class="staff-photo__tint" aria-hidden="true"></div>
-              <div class="staff-photo__fade" aria-hidden="true"></div>
-              <span class="staff-chip">● AISA · Staff</span>
-            </div>
-            <div class="flex grow flex-col gap-5 border-t-2 border-water-light/70 p-7 md:p-8">
-              <div>
-                <p class="font-body text-eyebrow uppercase tracking-[0.14em] text-water-light">{p.role}</p>
-                <h3 class="mt-2 font-display text-heading-l text-white">{p.name}</h3>
-                {p.sub && <p class="mt-1.5 text-body-s text-white/55">{p.sub}</p>}
-              </div>
-              <p class="text-body-m text-white/75">{p.bio}</p>
-              <div class="mt-auto border-t border-white/10 pt-5">
-                {p.stats ? (
-                  <>
-                    <p class="font-body text-[11px] uppercase tracking-[0.16em] text-water-light/80">{p.statsLabel}</p>
-                    <dl class="mt-4 grid grid-cols-3 gap-4">
-                      {p.stats.map((s) => (
-                        <div>
-                          <dd class="font-display text-[2rem] leading-none text-water-light">{s.value}</dd>
-                          <dt class="mt-2 text-[11px] uppercase leading-snug tracking-wider text-white/50">{s.label}</dt>
-                        </div>
-                      ))}
-                    </dl>
-                  </>
-                ) : (
-                  <>
-                    <p class="font-body text-[11px] uppercase tracking-[0.16em] text-water-light/80">{p.credsLabel}</p>
-                    <ul class="mt-4 flex flex-col gap-3">
-                      {p.creds!.map((c) => (
-                        <li class="flex items-start gap-3">
-                          <span class="mt-[0.55em] h-[2px] w-4 shrink-0 bg-water-light" aria-hidden="true" />
-                          <span class="text-body-s text-white/70">
-                            <strong class="font-semibold text-white">{c.lead}</strong>
-                            {c.rest && ` ${c.rest}`}
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
-                  </>
-                )}
-              </div>
-            </div>
-          </article>
-        ))}
-      </div>
-    </Container>
-  </section>
+  <ApexStaff />
 
   <ApexNav current="/worlds/apex/staff" />
 
@@ -234,40 +33,3 @@ const ig = worldInstagram.water;
     secondaryLabel="Schedule a shadow day"
   />
 </Layout>
-
-<style>
-  .staff-card {
-    background: #131c1f;
-  }
-  /* Recreate the staff cards' teal duotone: colorize the B&W photo, then deepen */
-  .staff-photo__tint {
-    position: absolute;
-    inset: 0;
-    background: var(--color-water, #5da9b3);
-    mix-blend-mode: color;
-  }
-  .staff-photo__fade {
-    position: absolute;
-    inset: 0;
-    background:
-      linear-gradient(to top, rgba(13, 21, 23, 0.55), rgba(13, 21, 23, 0) 38%),
-      rgba(12, 45, 51, 0.28);
-    mix-blend-mode: multiply;
-  }
-  .staff-chip {
-    position: absolute;
-    top: 1.25rem;
-    left: 1.25rem;
-    display: inline-flex;
-    align-items: center;
-    padding: 0.35rem 0.8rem;
-    border: 1px solid rgba(255, 255, 255, 0.35);
-    font-family: var(--font-body);
-    font-size: 10px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.85);
-    background: rgba(13, 21, 23, 0.35);
-    backdrop-filter: blur(4px);
-  }
-</style>
