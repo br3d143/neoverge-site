@@ -69,11 +69,11 @@ const studios = [
   },
 ];
 
-// Weekly schedule, Monday–Thursday (Fridays are the community field trip).
-// `all` rows are the same across all four days.
-type ScheduleRow = { time: string; all?: string; days?: [string, string, string, string] };
+// Weekly schedule. Each day gets its own cell (matching Shaun's source table);
+// `all` rows repeat the same block Monday–Thursday. Friday is the field trip.
+type ScheduleRow = { time: string; all?: string; days?: [string, string, string, string]; friday?: string };
 const schedule: ScheduleRow[] = [
-  { time: "8:00 – 9:30 AM", all: "Daily Ballet Studio: Technique & Placement" },
+  { time: "8:00 – 9:30 AM", all: "Daily Ballet Studio: Technique & Placement", friday: "Weekly field trip into the community" },
   { time: "9:30 – 11:30 AM", all: "Academic Block: IEW Science Writing, Reading, Beast Academy Math, Cursive & Spanish" },
   { time: "11:30 – 12:00 PM", all: "Lunch & Recharge" },
   { time: "11:30 – 12:20 PM", all: "Flexibility Class: Extension & Contortion" },
@@ -92,7 +92,13 @@ const schedule: ScheduleRow[] = [
   },
   { time: "3:30 – 4:00 PM", all: "Daily Academic Focus: Typing, then Chess, Reading, or Journaling" },
 ];
-const dayNames = ["Monday", "Tuesday", "Wednesday", "Thursday"];
+const dayNames = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+
+// Render helper: "Title: details" cells get a bold title line + muted detail line.
+function splitCell(text: string): { title: string; sub?: string } {
+  const i = text.indexOf(": ");
+  return i === -1 ? { title: text } : { title: text.slice(0, i), sub: text.slice(i + 2) };
+}
 
 // A day in the life (peak day, like a Monday or Thursday).
 const dayInLife = [
@@ -248,37 +254,42 @@ const dayInLife = [
         <Heading level={2} size="display-m" class="mt-3 max-w-[40rem]">A week at Pulse.</Heading>
       </div>
       <div class="mt-2xl overflow-x-auto rounded-3xl border border-border" data-reveal>
-        <table class="w-full min-w-[56rem] border-collapse text-left">
+        <table class="w-full min-w-[64rem] border-collapse text-left">
           <thead>
             <tr class="bg-fire-tint">
-              <th scope="col" class="px-5 py-4 font-body text-eyebrow uppercase text-fire-accent">Time</th>
+              <th scope="col" class="px-4 py-4 font-body text-eyebrow uppercase text-fire-accent">Time</th>
               {dayNames.map((d) => (
-                <th scope="col" class="px-5 py-4 font-body text-eyebrow uppercase text-fire-accent">{d}</th>
+                <th scope="col" class="border-l border-border px-4 py-4 font-body text-eyebrow uppercase text-fire-accent">{d}</th>
               ))}
             </tr>
           </thead>
           <tbody>
-            {schedule.map((row) => (
-              <tr class="border-t border-border">
-                <th scope="row" class="whitespace-nowrap px-5 py-4 align-top font-display text-body-s font-medium text-foreground">{row.time}</th>
-                {row.all ? (
-                  <td colspan={4} class="px-5 py-4 align-top text-body-s text-muted">{row.all}</td>
-                ) : (
-                  row.days!.map((d) => (
-                    <td class="px-5 py-4 align-top text-body-s text-muted">{d}</td>
-                  ))
-                )}
-              </tr>
-            ))}
+            {schedule.map((row) => {
+              const cells = row.all
+                ? [row.all, row.all, row.all, row.all]
+                : (row.days! as string[]);
+              return (
+                <tr class="border-t border-border">
+                  <th scope="row" class="whitespace-nowrap px-4 py-4 align-top font-display text-body-s font-medium text-foreground">{row.time}</th>
+                  {cells.map((c) => {
+                    const cell = splitCell(c);
+                    return (
+                      <td class="border-l border-border px-4 py-4 align-top">
+                        <span class="block text-body-s font-semibold text-foreground">{cell.title}</span>
+                        {cell.sub && <span class="mt-1 block text-body-s text-muted">{cell.sub}</span>}
+                      </td>
+                    );
+                  })}
+                  <td class="border-l border-border bg-fire-tint/40 px-4 py-4 align-top">
+                    {row.friday && (
+                      <span class="block text-body-s font-semibold italic text-fire-accent">{row.friday}</span>
+                    )}
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
-      </div>
-      <div class="mt-6 flex items-start gap-3 rounded-2xl bg-fire-tint p-5" data-reveal>
-        <Icon name="compass" size={22} class="mt-0.5 shrink-0 text-fire-accent" />
-        <p class="text-body-m text-foreground">
-          <strong class="font-semibold">Fridays:</strong> a weekly field trip into the community,
-          taking the learning beyond the studio.
-        </p>
       </div>
     </Section>
 

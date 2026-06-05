@@ -24,7 +24,7 @@ const n = photos.length;
   n === 2 && (
     <div class:list={["grid gap-5 sm:grid-cols-2", cls]}>
       {photos.map((p, i) => (
-        <figure class:list={["pb-frame overflow-hidden rounded-3xl", i === 1 && "sm:mt-12"]}>
+        <figure class:list={["pb-frame self-start overflow-hidden rounded-3xl", i === 1 && "sm:mt-12"]}>
           <img src={p.src} alt={p.alt} class="pb-img h-60 w-full object-cover sm:h-80" loading="lazy" />
         </figure>
       ))}
