@@ -19,6 +19,8 @@ interface Props {
   /** Optional hero photo — when set, the hero becomes a two-column text + image layout. */
   image?: string;
   imageAlt?: string;
+  /** Show the NeoVerge circle emblem in place of a photo (two-column layout, no photo card). */
+  emblem?: boolean;
   /** Aspect ratio for the hero photo (Tailwind class), e.g. "aspect-[4/5]". */
   imageAspect?: string;
   /** object-position for the hero photo, e.g. "center 30%". */
@@ -33,6 +35,7 @@ const {
   size = "display-l",
   image,
   imageAlt = "",
+  emblem = false,
   imageAspect = "aspect-[4/3]",
   imagePosition,
 } = Astro.props;
@@ -42,7 +45,7 @@ const {
   <div class="page-hero__atmo" aria-hidden="true"></div>
   <Constellation />
   {
-    !image && (
+    !image && !emblem && (
       <img
         src="/brand/neoverge-circle.png"
         alt=""
@@ -55,7 +58,7 @@ const {
   }
   <Container class="relative z-[1] flex min-h-[58vh] flex-col justify-center pt-28 pb-xl">
     {
-      image ? (
+      image || emblem ? (
         <div class="grid items-center gap-xl md:grid-cols-2 md:gap-2xl">
           <div data-reveal>
             {eyebrow && <Eyebrow tone={world ?? "muted"}>{eyebrow}</Eyebrow>}
@@ -64,13 +67,26 @@ const {
             {intro && <p class="mt-5 text-body-l text-muted">{intro}</p>}
           </div>
           <div data-reveal>
-            <img
-              src={image}
-              alt={imageAlt}
-              class:list={[imageAspect, "w-full rounded-3xl object-cover shadow-[0_24px_70px_-30px_rgba(26,26,26,0.45)]"]}
-              style={imagePosition ? `object-position:${imagePosition}` : undefined}
-              fetchpriority="high"
-            />
+            {image ? (
+              <img
+                src={image}
+                alt={imageAlt}
+                class:list={[imageAspect, "w-full rounded-3xl object-cover shadow-[0_24px_70px_-30px_rgba(26,26,26,0.45)]"]}
+                style={imagePosition ? `object-position:${imagePosition}` : undefined}
+                fetchpriority="high"
+              />
+            ) : (
+              <div class="flex justify-center md:justify-end md:pr-8">
+                <img
+                  src="/brand/neoverge-circle.png"
+                  alt="The NeoVerge emblem, four elements joined in one circle"
+                  class="page-hero__emblem w-full max-w-[19rem] md:max-w-[23rem]"
+                  width="1619"
+                  height="1615"
+                  fetchpriority="high"
+                />
+              </div>
+            )}
           </div>
         </div>
       ) : (
@@ -109,5 +125,16 @@ const {
   }
   @media (max-width: 768px) {
     .page-hero__mark { opacity: 0.06; right: -22%; }
+  }
+  .page-hero__emblem {
+    filter: drop-shadow(0 28px 44px rgba(26, 26, 26, 0.22));
+    animation: emblem-float 7s ease-in-out infinite;
+  }
+  @keyframes emblem-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .page-hero__emblem { animation: none; }
   }
 </style>
