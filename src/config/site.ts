@@ -50,7 +50,6 @@ export const footerNav = [
   { label: "Admissions", href: "/admissions" },
   { label: "Contact", href: "/contact" },
   { label: "Blog", href: "/blog" },
-  { label: "Media Guide", href: "/media-guide" },
 ];
 
 // Parent NeoVerge has no dedicated IG account; using the active Apex account as a
