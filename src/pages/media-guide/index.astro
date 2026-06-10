@@ -1,0 +1,319 @@
+---
+/**
+ * NeoVerge media guide hub: the parent-brand kit (logos, full color system, fonts,
+ * boilerplate) plus links to the four per-world guides at /media-guide/<world>.
+ */
+import Layout from "../../layouts/Layout.astro";
+import Section from "../../components/Section.astro";
+import Container from "../../components/Container.astro";
+import Eyebrow from "../../components/Eyebrow.astro";
+import Heading from "../../components/Heading.astro";
+import Divider from "../../components/Divider.astro";
+import Link from "../../components/Link.astro";
+import { site, type WorldKey } from "../../config/site";
+
+const logos = [
+  { src: "/brand/neoverge-lockup.png", name: "Primary lockup", desc: "The blended emblem above the NEOVERGE Dream School wordmark. Use this first.", file: "neoverge-lockup.png" },
+  { src: "/brand/universe-full-color.png", name: "Full universe logo", desc: "The emblem flanked by all four world icons. For posters and brand-wide moments.", file: "neoverge-universe-full-color.png" },
+  { src: "/brand/neoverge-circle.png", name: "Circle emblem", desc: "The icon alone. Profile pictures, app icons, favicons, small spaces.", file: "neoverge-circle-emblem.png" },
+  { src: "/brand/neoverge-wordmark.png", name: "Wordmark", desc: "Text only. For tight horizontal spaces where the emblem will not fit.", file: "neoverge-wordmark.png" },
+  { src: "/brand/universe-black.png", name: "Universe logo · black", desc: "One-color version for documents, forms, and limited-color printing.", file: "neoverge-universe-black.png" },
+  { src: "/brand/neoverge-banner.png", name: "Banner", desc: "Wide banner art for headers, covers, and event backdrops.", file: "neoverge-banner.png" },
+  { src: "/brand/all-neoverge.svg", name: "Master vector (SVG)", desc: "Every official mark in one scalable file. Hand this to designers and printers.", file: "all-neoverge-vector.svg" },
+];
+
+const neutrals = [
+  { name: "Off-White", hex: "#FAFAF7", rgb: "250, 250, 247", usage: "Page background. Never pure white for full pages.", bordered: true },
+  { name: "White", hex: "#FFFFFF", rgb: "255, 255, 255", usage: "Cards and raised surfaces.", bordered: true },
+  { name: "Ink", hex: "#1A1A1A", rgb: "26, 26, 26", usage: "Headlines and body text. Never pure black.", lightText: true },
+  { name: "Gray", hex: "#6B6B66", rgb: "107, 107, 102", usage: "Secondary text.", lightText: true },
+  { name: "Stone", hex: "#A8A8A2", rgb: "168, 168, 162", usage: "Captions and small hints.", lightText: true },
+];
+
+const worldColors: { tone: WorldKey; world: string; name: string; hex: string; rgb: string; href: string }[] = [
+  { tone: "earth", world: "NeoVerse", name: "NeoVerse Green", hex: "#199549", rgb: "25, 149, 73", href: "/media-guide/neoverse" },
+  { tone: "water", world: "Apex", name: "Apex Teal", hex: "#5DA9B3", rgb: "93, 169, 179", href: "/media-guide/apex" },
+  { tone: "fire", world: "Pulse Collective", name: "Pulse Orange", hex: "#EE8F27", rgb: "238, 143, 39", href: "/media-guide/pulse" },
+  { tone: "air", world: "WorldWise", name: "WorldWise Silver", hex: "#A9ABAE", rgb: "169, 171, 174", href: "/media-guide/worldwise" },
+];
+
+const roots = { name: "Roots Brown", hex: "#8C5F3D", rgb: "140, 95, 61", usage: "The roots in the emblem. A rare accent; use sparingly and never as a main color." };
+
+const guides: { tone: WorldKey; name: string; grades: string; logo: string; href: string; tint: string }[] = [
+  { tone: "earth", name: "NeoVerse", grades: "K–8 General Education", logo: "/brand/neoverse.png", href: "/media-guide/neoverse", tint: "bg-earth-tint" },
+  { tone: "water", name: "Apex", grades: "Grades 6–12 + Post-Grad", logo: "/brand/apex.png", href: "/media-guide/apex", tint: "bg-water-tint" },
+  { tone: "fire", name: "Pulse Collective", grades: "Performing Arts · K–12", logo: "/brand/pulse.png", href: "/media-guide/pulse", tint: "bg-fire-tint" },
+  { tone: "air", name: "WorldWise", grades: "K–12 Hybrid Homeschool", logo: "/brand/worldwise.png", href: "/media-guide/worldwise", tint: "bg-air-tint" },
+];
+---
+
+<Layout
+  title="Media Guide · NeoVerge Dream School"
+  description="Official NeoVerge Dream School logos, colors, fonts, and brand guidelines, plus media guides for each world."
+  headerTransparent={true}
+>
+  <!-- Hero -->
+  <section class="flex min-h-[60vh] items-center border-b border-border bg-surface">
+    <Container>
+      <div class="grid grid-cols-1 items-center gap-10 pt-28 pb-16 lg:grid-cols-[1fr_320px]">
+        <div>
+          <Eyebrow tone="default">Media Guide</Eyebrow>
+          <Heading level={1} size="display-l" class="mt-4">NeoVerge Dream School</Heading>
+          <p class="mt-6 max-w-[38rem] text-body-l text-muted">
+            The official brand kit: logo files, exact color values, fonts, and ready-to-use copy
+            for NeoVerge and each of its four worlds. Share this page with press, printers, and
+            partners so everything they make looks like us.
+          </p>
+          <p class="mt-4 font-mono text-mono text-subtle">{site.tagline}</p>
+        </div>
+        <div class="hidden items-center justify-center rounded-3xl border border-border bg-background p-10 lg:flex">
+          <img src="/brand/neoverge-circle.png" alt="NeoVerge circle emblem" class="max-h-44 w-auto" loading="eager" />
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <!-- World guides up top so they're easy to find -->
+  <Section id="worlds">
+    <Eyebrow tone="default">Per-world guides</Eyebrow>
+    <Heading level={2} size="display-m" class="mt-2">Pick a world</Heading>
+    <p class="mt-4 max-w-prose text-body-m text-muted">
+      Each world has its own logos, signature color, and voice. Open its guide for the complete kit.
+    </p>
+    <div class="mt-2xl grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        guides.map((w) => (
+          <a
+            href={w.href}
+            class="group flex flex-col overflow-hidden rounded-2xl border border-border bg-surface transition-all duration-[250ms] [transition-timing-function:var(--ease-refined)] hover:-translate-y-1 hover:shadow-[0_16px_48px_-20px_rgba(26,26,26,0.3)]"
+          >
+            <div class:list={["flex h-40 items-center justify-center p-8", w.tint]}>
+              <img src={w.logo} alt={`${w.name} logo`} class="max-h-full w-auto max-w-full" loading="lazy" />
+            </div>
+            <div class="flex grow flex-col p-5">
+              <p class="font-display text-heading-s text-foreground">{w.name}</p>
+              <p class="mt-1 grow text-body-s text-muted">{w.grades}</p>
+              <span class="mt-4 text-body-s font-semibold text-foreground">
+                View media guide <span aria-hidden="true" class="inline-block transition-transform duration-[250ms] group-hover:translate-x-1">→</span>
+              </span>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+  </Section>
+
+  <Divider />
+
+  <!-- 01 · Logos -->
+  <Section id="logos">
+    <Eyebrow tone="default">01 · Logos</Eyebrow>
+    <Heading level={2} size="display-m" class="mt-2">NeoVerge logo files</Heading>
+    <p class="mt-4 max-w-prose text-body-m text-muted">
+      The parent-brand marks. High-resolution files with transparent backgrounds (except the
+      banner), ready for print and screen. Click download to save the original file.
+    </p>
+    <div class="mt-2xl grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        logos.map((l) => (
+          <div class="flex flex-col overflow-hidden rounded-2xl border border-border bg-surface">
+            <div class="flex h-44 items-center justify-center border-b border-border bg-background p-8">
+              <img src={l.src} alt={l.name} class="max-h-full w-auto max-w-full" loading="lazy" />
+            </div>
+            <div class="flex grow flex-col p-5">
+              <p class="font-display text-heading-s text-foreground">{l.name}</p>
+              <p class="mt-1 grow text-body-s text-muted">{l.desc}</p>
+              <a
+                href={l.src}
+                download={l.file}
+                class="mt-4 inline-flex items-center gap-2 text-body-s font-semibold text-foreground hover:underline underline-offset-4"
+              >
+                Download <span aria-hidden="true">↓</span>
+              </a>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </Section>
+
+  <Divider />
+
+  <!-- 02 · Colors -->
+  <Section id="colors">
+    <Eyebrow tone="default">02 · Colors</Eyebrow>
+    <Heading level={2} size="display-m" class="mt-2">The color system</Heading>
+    <p class="mt-4 max-w-prose text-body-m text-muted">
+      One family of neutrals shared by everything, plus a signature color per world. For print,
+      give your printer the HEX code and ask them to match it. Each world's guide lists its full
+      five-shade palette.
+    </p>
+
+    <p class="mt-2xl"><Eyebrow tone="muted">Shared neutrals</Eyebrow></p>
+    <div class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
+      {
+        neutrals.map((c) => (
+          <div class="overflow-hidden rounded-xl border border-border">
+            <div
+              class:list={["flex h-20 items-end p-3", c.bordered && "border-b border-border"]}
+              style={`background-color: ${c.hex}`}
+            >
+              <span class:list={["font-mono text-mono", c.lightText ? "text-white/90" : "text-foreground/70"]}>{c.hex}</span>
+            </div>
+            <div class="bg-surface p-3">
+              <p class="text-body-s font-medium text-foreground">{c.name}</p>
+              <p class="font-mono text-mono text-subtle">RGB {c.rgb}</p>
+              <p class="mt-2 text-body-s text-muted">{c.usage}</p>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+
+    <p class="mt-xl"><Eyebrow tone="muted">World signature colors</Eyebrow></p>
+    <div class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        worldColors.map((c) => (
+          <a href={c.href} class="group overflow-hidden rounded-xl border border-border transition-all duration-[250ms] hover:-translate-y-0.5 hover:shadow-[0_12px_40px_-16px_rgba(26,26,26,0.25)]">
+            <div class="flex h-24 items-end p-3" style={`background-color: ${c.hex}`}>
+              <span class="font-mono text-mono text-white/90">{c.hex}</span>
+            </div>
+            <div class="bg-surface p-3">
+              <p class="text-body-s font-medium text-foreground">{c.name}</p>
+              <p class="font-mono text-mono text-subtle">RGB {c.rgb}</p>
+              <p class="mt-2 text-body-s text-muted">{c.world} · full palette in its guide <span aria-hidden="true">→</span></p>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+
+    <p class="mt-xl"><Eyebrow tone="muted">Accent</Eyebrow></p>
+    <div class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div class="overflow-hidden rounded-xl border border-border">
+        <div class="flex h-24 items-end p-3" style={`background-color: ${roots.hex}`}>
+          <span class="font-mono text-mono text-white/90">{roots.hex}</span>
+        </div>
+        <div class="bg-surface p-3">
+          <p class="text-body-s font-medium text-foreground">{roots.name}</p>
+          <p class="font-mono text-mono text-subtle">RGB {roots.rgb}</p>
+          <p class="mt-2 text-body-s text-muted">{roots.usage}</p>
+        </div>
+      </div>
+    </div>
+  </Section>
+
+  <Divider />
+
+  <!-- 03 · Typography -->
+  <Section id="typography">
+    <Eyebrow tone="default">03 · Typography</Eyebrow>
+    <Heading level={2} size="display-m" class="mt-2">Fonts</Heading>
+    <div class="mt-2xl grid grid-cols-1 gap-8 lg:grid-cols-2">
+      <div class="rounded-2xl border border-border bg-surface p-8">
+        <Eyebrow tone="muted">Headlines</Eyebrow>
+        <p class="mt-4 font-display text-display-m text-foreground">Space Grotesk</p>
+        <p class="mt-4 font-display text-heading-m text-foreground">ABCDEFGHIJKLM abcdefghijklm 0123456789</p>
+        <p class="mt-4 text-body-m text-muted">
+          Used for every headline and title, usually in the Medium (500) weight. Free from
+          <Link href="https://fonts.google.com/specimen/Space+Grotesk">Google Fonts</Link>.
+        </p>
+      </div>
+      <div class="rounded-2xl border border-border bg-surface p-8">
+        <Eyebrow tone="muted">Body text</Eyebrow>
+        <p class="mt-4 font-body text-display-m text-foreground">Geist</p>
+        <p class="mt-4 font-body text-heading-m font-normal text-foreground">ABCDEFGHIJKLM abcdefghijklm 0123456789</p>
+        <p class="mt-4 text-body-m text-muted">
+          Used for paragraphs, captions, and buttons, usually Regular (400) and Semibold (600).
+          Free from <Link href="https://vercel.com/font">Vercel</Link>.
+        </p>
+      </div>
+    </div>
+    <p class="mt-8 max-w-prose text-body-m text-muted">
+      If neither font is available (for example in a shared document), Arial is the approved
+      stand-in. Never substitute decorative or script fonts.
+    </p>
+  </Section>
+
+  <Divider />
+
+  <!-- 04 · Copy -->
+  <Section id="boilerplate">
+    <Eyebrow tone="default">04 · Copy</Eyebrow>
+    <Heading level={2} size="display-m" class="mt-2">Name, tagline &amp; boilerplate</Heading>
+    <div class="mt-2xl grid grid-cols-1 gap-8 lg:grid-cols-[320px_1fr]">
+      <div class="flex flex-col gap-6">
+        <div>
+          <Eyebrow tone="muted">Official name</Eyebrow>
+          <p class="mt-2 font-display text-heading-m text-foreground">{site.name}</p>
+          <p class="text-body-s text-muted">Never "Neoverge" mid-sentence: capital N, capital V.</p>
+        </div>
+        <div>
+          <Eyebrow tone="muted">Tagline</Eyebrow>
+          <p class="mt-2 text-body-m text-foreground">“{site.tagline}”</p>
+        </div>
+        <div>
+          <Eyebrow tone="muted">Contact</Eyebrow>
+          <p class="mt-2 text-body-m text-foreground">{site.email}</p>
+          <p class="text-body-m text-foreground">{site.phone}</p>
+          <p class="text-body-m text-foreground">{site.location}</p>
+          <p class="text-body-m text-foreground">neovergedreamschool.com</p>
+        </div>
+      </div>
+      <div class="flex flex-col gap-6">
+        <div class="rounded-2xl border border-border bg-surface p-8">
+          <Eyebrow tone="muted">About paragraph · copy and paste</Eyebrow>
+          <p class="mt-4 text-body-l text-foreground">
+            NeoVerge Dream School is a visionary learning universe in La Puente, California, where
+            passion meets purpose. One campus holds four distinct worlds: NeoVerse for K–8 general
+            education, Apex for student-athletes, Pulse Collective for young performers, and
+            WorldWise for hybrid homeschool families. Every world pairs rigorous academics with
+            the passions that drive its students, igniting curiosity, empowering leaders, and
+            shaping the future one student at a time.
+          </p>
+        </div>
+        <div class="rounded-2xl border border-border bg-surface p-8">
+          <Eyebrow tone="muted">Short version · one sentence</Eyebrow>
+          <p class="mt-4 text-body-l text-foreground">
+            NeoVerge Dream School is a La Puente, California private school where four worlds,
+            general education, athletics, performing arts, and hybrid homeschool, share one
+            campus and one promise: education built around each child's passion.
+          </p>
+        </div>
+      </div>
+    </div>
+  </Section>
+
+  <Divider />
+
+  <!-- 05 · Rules -->
+  <Section id="rules">
+    <Eyebrow tone="default">05 · Rules</Eyebrow>
+    <Heading level={2} size="display-m" class="mt-2">Using the brand</Heading>
+    <div class="mt-2xl grid grid-cols-1 gap-8 md:grid-cols-2">
+      <div class="rounded-2xl border border-border bg-surface p-8">
+        <p class="font-display text-heading-s text-foreground">Always</p>
+        <ul class="mt-4 flex flex-col gap-3 text-body-m text-muted">
+          <li>Use the files downloaded from this page, at their original proportions.</li>
+          <li>Give the logo breathing room: clear space on every side at least the height of its emblem.</li>
+          <li>Place logos on white or off-white backgrounds.</li>
+          <li>Let one world color lead per piece; the others can support in small doses.</li>
+          <li>Send designers the master SVG so nothing gets blurry at large sizes.</li>
+        </ul>
+      </div>
+      <div class="rounded-2xl border border-border bg-surface p-8">
+        <p class="font-display text-heading-s text-foreground">Never</p>
+        <ul class="mt-4 flex flex-col gap-3 text-body-m text-muted">
+          <li>Stretch, squash, rotate, or crop the logo.</li>
+          <li>Recolor it, add shadows, outlines, glows, or other effects.</li>
+          <li>Place it over busy photos or clashing colors.</li>
+          <li>Retype the name in another font to imitate the wordmark.</li>
+          <li>Shrink a full logo below roughly 120 pixels wide on screen or one inch in print. Use the circle emblem in small spaces instead.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="mt-3xl">
+      <Link href={`mailto:${site.email}`}>Questions? {site.email}</Link>
+    </div>
+  </Section>
+</Layout>

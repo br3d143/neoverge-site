@@ -1,0 +1,440 @@
+---
+/**
+ * Per-world media guide: official logos with download links, exact color values,
+ * fonts, boilerplate copy, and usage rules. Built from one template so all four
+ * worlds stay consistent; parent-brand guide lives at /media-guide.
+ */
+import Layout from "../../layouts/Layout.astro";
+import Section from "../../components/Section.astro";
+import Container from "../../components/Container.astro";
+import Eyebrow from "../../components/Eyebrow.astro";
+import Heading from "../../components/Heading.astro";
+import Divider from "../../components/Divider.astro";
+import Link from "../../components/Link.astro";
+import { worldInstagram, type WorldKey } from "../../config/site";
+
+export function getStaticPaths() {
+  return [
+    { params: { world: "neoverse" } },
+    { params: { world: "apex" } },
+    { params: { world: "pulse" } },
+    { params: { world: "worldwise" } },
+  ];
+}
+
+type Swatch = { name: string; hex: string; rgb: string; usage: string; lightText?: boolean; bordered?: boolean };
+type LogoAsset = { src: string; name: string; desc: string; file: string };
+
+const neutrals: Swatch[] = [
+  { name: "Off-White", hex: "#FAFAF7", rgb: "250, 250, 247", usage: "Page background. Never pure white for full pages.", bordered: true },
+  { name: "White", hex: "#FFFFFF", rgb: "255, 255, 255", usage: "Cards and raised surfaces.", bordered: true },
+  { name: "Ink", hex: "#1A1A1A", rgb: "26, 26, 26", usage: "Headlines and body text. Never pure black.", lightText: true },
+  { name: "Gray", hex: "#6B6B66", rgb: "107, 107, 102", usage: "Secondary text.", lightText: true },
+  { name: "Stone", hex: "#A8A8A2", rgb: "168, 168, 162", usage: "Captions and small hints.", lightText: true },
+];
+
+const guides: Record<
+  string,
+  {
+    tone: WorldKey;
+    name: string;
+    shortName: string;
+    grades: string;
+    tagline: string;
+    about: string;
+    mission: string;
+    contact: string;
+    webPath: string;
+    colorTitle: string;
+    palette: Swatch[];
+    logos: LogoAsset[];
+    heroLogo: string;
+    photography: string;
+    photoNotes: string[];
+  }
+> = {
+  neoverse: {
+    tone: "earth",
+    name: "NeoVerse",
+    shortName: "NeoVerse",
+    grades: "K–8 General Education",
+    tagline: "Grounded in purpose. Growing with power.",
+    about:
+      "Where curiosity takes root and intellect flourishes. NeoVerse is the K–8 general education world of NeoVerge Dream School, offering rigorous academics and rich enrichment, from garden science and project-based learning to languages, music, and wellness.",
+    mission:
+      "To nurture rooted, resilient learners through strong academics, integrated enrichment, and compassionate community.",
+    contact: "info@neovergedreamschool.com",
+    webPath: "neovergedreamschool.com/worlds/neoverse",
+    colorTitle: "NeoVerse Green",
+    palette: [
+      { name: "NeoVerse Green", hex: "#199549", rgb: "25, 149, 73", usage: "The signature color. Logo, buttons, key accents.", lightText: true },
+      { name: "Deep Green", hex: "#0F562A", rgb: "15, 86, 42", usage: "Dark fills, hover states, headlines on green-washed backgrounds.", lightText: true },
+      { name: "Light Green", hex: "#7AC295", rgb: "122, 194, 149", usage: "Decorative shapes and secondary accents." },
+      { name: "Soft Green", hex: "#E8F4ED", rgb: "232, 244, 237", usage: "Section backgrounds and cards.", bordered: true },
+      { name: "Text Green", hex: "#168340", rgb: "22, 131, 64", usage: "Green text on white or off-white. Passes WCAG AA contrast.", lightText: true },
+    ],
+    logos: [
+      { src: "/brand/neoverse.png", name: "Primary logo · green", desc: "The full NeoVerse wordmark with the sprout emblem. Use this first.", file: "neoverse-logo-green.png" },
+      { src: "/brand/neoverse-black.png", name: "Wordmark · black", desc: "One-color version for documents, forms, and anywhere color printing is limited.", file: "neoverse-logo-black.png" },
+    ],
+    heroLogo: "/brand/neoverse.png",
+    photography:
+      "NeoVerse photos feel grounded and hands-on: gardens, classrooms mid-project, and kids discovering things outdoors.",
+    photoNotes: [
+      "Natural daylight, warm and soft. Avoid harsh flash.",
+      "Hands in the dirt, science tables, easels, real classroom moments.",
+      "Greenery in frame whenever possible. It echoes the palette.",
+      "Candid over posed. Curiosity should read on faces.",
+    ],
+  },
+  apex: {
+    tone: "water",
+    name: "Apex Inner System Athletics",
+    shortName: "Apex",
+    grades: "Grades 6–12 + Post-Grad",
+    tagline: "Flow with focus. Train with heart.",
+    about:
+      "Where grit meets greatness. Apex is the athletic-academic world of NeoVerge Dream School, developing mentally strong, academically focused student-athletes through elite sports training, mindset coaching, and NCAA-aligned academics.",
+    mission:
+      "To build mentally tough, academically driven, and athletically elite student-athletes who lead with character on and off the court.",
+    contact: "apex@neovergedreamschool.com",
+    webPath: "neovergedreamschool.com/worlds/apex",
+    colorTitle: "Apex Teal",
+    palette: [
+      { name: "Apex Teal", hex: "#5DA9B3", rgb: "93, 169, 179", usage: "The signature color. Logo, buttons, key accents.", lightText: true },
+      { name: "Deep Teal", hex: "#366268", rgb: "54, 98, 104", usage: "Dark fills, hover states, headlines on teal-washed backgrounds.", lightText: true },
+      { name: "Light Teal", hex: "#A1CDD3", rgb: "161, 205, 211", usage: "Decorative shapes and secondary accents." },
+      { name: "Soft Teal", hex: "#EFF6F7", rgb: "239, 246, 247", usage: "Section backgrounds and cards.", bordered: true },
+      { name: "Text Teal", hex: "#447B83", rgb: "68, 123, 131", usage: "Teal text on white or off-white. Passes WCAG AA contrast.", lightText: true },
+    ],
+    logos: [
+      { src: "/brand/apex.png", name: "Primary logo · stacked", desc: "APEX with the wave emblem and Inner System Athletics line. Use this first.", file: "apex-logo-stacked.png" },
+      { src: "/brand/apex-horizontal.png", name: "Horizontal lockup", desc: "Wave emblem beside the name. Best for wide spaces like banners and letterheads.", file: "apex-logo-horizontal.png" },
+      { src: "/brand/apex-logo.png", name: "Wave emblem · circle", desc: "The icon alone. Profile pictures, app icons, small spaces.", file: "apex-wave-circle.png" },
+      { src: "/brand/apex-wave.png", name: "Wave · open", desc: "The wave without the circle. Watermarks and decorative use.", file: "apex-wave.png" },
+      { src: "/brand/aisa.png", name: "AISA lockup", desc: "Circle emblem with the AISA initials. Merch and shorthand uses.", file: "aisa-lockup.png" },
+      { src: "/brand/aisa-wave.png", name: "AISA · open wave", desc: "Open wave with the AISA initials. Compact shorthand version.", file: "aisa-wave.png" },
+    ],
+    heroLogo: "/brand/apex-logo.png",
+    photography:
+      "Apex photos move: live game action, training reps, focused faces. Real effort over staged poses.",
+    photoNotes: [
+      "Gym and court settings with honest, athletic light.",
+      "Catch peak action: the layup, the rep, the huddle.",
+      "Show the classroom side too. Apex is school plus sport.",
+      "Teal accents in gear or background tie photos to the brand.",
+    ],
+  },
+  pulse: {
+    tone: "fire",
+    name: "Pulse Collective",
+    shortName: "Pulse",
+    grades: "Performing Arts · K–12",
+    tagline: "Ignite your spark. Move with meaning.",
+    about:
+      "Where passion takes center stage. Pulse Collective is the performing-arts world of NeoVerge Dream School, a bold track where young artists shine in dance, musical theatre, and acting, all while receiving personalized academic support.",
+    mission:
+      "To cultivate young artists who express boldly, train passionately, and perform with heart while receiving rigorous, personalized academic instruction.",
+    contact: "info@neovergedreamschool.com",
+    webPath: "neovergedreamschool.com/worlds/pulse",
+    colorTitle: "Pulse Orange",
+    palette: [
+      { name: "Pulse Orange", hex: "#EE8F27", rgb: "238, 143, 39", usage: "The signature color. Logo, buttons, key accents.", lightText: true },
+      { name: "Deep Amber", hex: "#8A5317", rgb: "138, 83, 23", usage: "Dark fills, hover states, headlines on orange-washed backgrounds.", lightText: true },
+      { name: "Light Orange", hex: "#F5BE82", rgb: "245, 190, 130", usage: "Decorative shapes and secondary accents." },
+      { name: "Soft Cream", hex: "#FDF4E9", rgb: "253, 244, 233", usage: "Section backgrounds and cards.", bordered: true },
+      { name: "Text Amber", hex: "#A4631B", rgb: "164, 99, 27", usage: "Orange text on white or off-white. Passes WCAG AA contrast.", lightText: true },
+    ],
+    logos: [
+      { src: "/brand/pulse.png", name: "Primary logo · stacked", desc: "PULSE COLLECTIVE with the flame emblem. Use this first.", file: "pulse-logo-stacked.png" },
+      { src: "/brand/pulse-icon.png", name: "Flame emblem · circle", desc: "The icon alone. Profile pictures, app icons, small spaces.", file: "pulse-flame-circle.png" },
+    ],
+    heroLogo: "/brand/pulse-icon.png",
+    photography:
+      "Pulse photos perform: stage light, motion blur in the right places, expression front and center.",
+    photoNotes: [
+      "Stage and studio settings, warm directional light.",
+      "Capture mid-movement: leaps, turns, the held note.",
+      "Costumes and stage wear welcome. Energy over formality.",
+      "Warm tones photograph best against the orange palette.",
+    ],
+  },
+  worldwise: {
+    tone: "air",
+    name: "WorldWise Hybrid Academy",
+    shortName: "WorldWise",
+    grades: "K–12 Hybrid Homeschool",
+    tagline: "Freedom to learn. Space to soar.",
+    about:
+      "For learners who chart their own course. WorldWise is the hybrid homeschool world of NeoVerge Dream School, blending the flexibility of homeschooling with the community of in-person learning through collaborative drop-off days, global studies, and hands-on exploration.",
+    mission:
+      "To empower homeschoolers and independent learners with flexible structure, social connection, and meaningful enrichment.",
+    contact: "info@neovergedreamschool.com",
+    webPath: "neovergedreamschool.com/worlds/worldwise",
+    colorTitle: "WorldWise Silver",
+    palette: [
+      { name: "WorldWise Silver", hex: "#A9ABAE", rgb: "169, 171, 174", usage: "The signature color. Logo, buttons, key accents.", lightText: true },
+      { name: "Deep Slate", hex: "#626365", rgb: "98, 99, 101", usage: "Dark fills, hover states, headlines on silver-washed backgrounds.", lightText: true },
+      { name: "Light Silver", hex: "#CDCED0", rgb: "205, 206, 208", usage: "Decorative shapes and secondary accents." },
+      { name: "Soft Silver", hex: "#F6F7F7", rgb: "246, 247, 247", usage: "Section backgrounds and cards.", bordered: true },
+      { name: "Text Slate", hex: "#717375", rgb: "113, 115, 117", usage: "Slate text on white or off-white. Passes WCAG AA contrast.", lightText: true },
+    ],
+    logos: [
+      { src: "/brand/worldwise.png", name: "Primary logo · stacked", desc: "WORLDWISE with the wind emblem. Use this first.", file: "worldwise-logo-stacked.png" },
+      { src: "/brand/worldwise-black.png", name: "Stacked logo · black", desc: "One-color version for documents, forms, and anywhere color printing is limited.", file: "worldwise-logo-black.png" },
+      { src: "/brand/worldwise-icon.png", name: "Wind emblem · circle", desc: "The icon alone. Profile pictures, app icons, small spaces.", file: "worldwise-wind-circle.png" },
+    ],
+    heroLogo: "/brand/worldwise-icon.png",
+    photography:
+      "WorldWise photos breathe: open spaces, small groups, field trips, learning that happens everywhere.",
+    photoNotes: [
+      "Bright, airy light. Outdoors and open rooms over tight interiors.",
+      "Small collaborative groups, mixed ages, parents welcome in frame.",
+      "Maps, globes, travel, and nature props reinforce the global theme.",
+      "Keep compositions uncluttered. White space is part of the look.",
+    ],
+  },
+};
+
+const { world } = Astro.params;
+const g = guides[world!];
+
+// Literal class strings so Tailwind picks them up.
+const tintBg: Record<WorldKey, string> = {
+  earth: "bg-earth-tint",
+  water: "bg-water-tint",
+  fire: "bg-fire-tint",
+  air: "bg-air-tint",
+};
+
+const instagram = worldInstagram[g.tone];
+const instagramHandle = "@" + instagram.replace(/\/$/, "").split("/").pop();
+---
+
+<Layout
+  title={`Media Guide, ${g.shortName} · NeoVerge Dream School`}
+  description={`Official ${g.shortName} logos, colors, fonts, and brand guidelines.`}
+  headerTransparent={true}
+>
+  <!-- Hero -->
+  <section class:list={["flex min-h-[60vh] items-center", tintBg[g.tone]]}>
+    <Container>
+      <div class="grid grid-cols-1 items-center gap-10 pt-28 pb-16 lg:grid-cols-[1fr_320px]">
+        <div>
+          <Eyebrow tone={g.tone}>Media Guide</Eyebrow>
+          <Heading level={1} size="display-l" class="mt-4">{g.name}</Heading>
+          <p class="mt-6 max-w-[38rem] text-body-l text-muted">
+            Everything you need to represent {g.shortName} correctly: official logo files, exact
+            color values, fonts, and ready-to-use copy. If it is not on this page, please ask
+            before improvising.
+          </p>
+          <p class="mt-4 font-mono text-mono text-subtle">{g.grades} · {g.tagline}</p>
+        </div>
+        <div class="hidden items-center justify-center rounded-3xl border border-border bg-surface p-10 lg:flex">
+          <img src={g.heroLogo} alt={`${g.shortName} logo`} class="max-h-44 w-auto" loading="eager" />
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <!-- 01 · Logos -->
+  <Section id="logos">
+    <Eyebrow tone={g.tone}>01 · Logos</Eyebrow>
+    <Heading level={2} size="display-m" class="mt-2">Official logo files</Heading>
+    <p class="mt-4 max-w-prose text-body-m text-muted">
+      These are the only approved {g.shortName} logo files. They are high-resolution PNGs with
+      transparent backgrounds, ready for print and screen. Click download to save the original file.
+    </p>
+    <div class="mt-2xl grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        g.logos.map((l) => (
+          <div class="flex flex-col overflow-hidden rounded-2xl border border-border bg-surface">
+            <div class="flex h-44 items-center justify-center border-b border-border bg-background p-8">
+              <img src={l.src} alt={l.name} class="max-h-full w-auto max-w-full" loading="lazy" />
+            </div>
+            <div class="flex grow flex-col p-5">
+              <p class="font-display text-heading-s text-foreground">{l.name}</p>
+              <p class="mt-1 grow text-body-s text-muted">{l.desc}</p>
+              <a
+                href={l.src}
+                download={l.file}
+                class="mt-4 inline-flex items-center gap-2 text-body-s font-semibold text-foreground hover:underline underline-offset-4"
+              >
+                Download PNG <span aria-hidden="true">↓</span>
+              </a>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </Section>
+
+  <Divider />
+
+  <!-- 02 · Colors -->
+  <Section id="colors">
+    <Eyebrow tone={g.tone}>02 · Colors</Eyebrow>
+    <Heading level={2} size="display-m" class="mt-2">Color palette</Heading>
+    <p class="mt-4 max-w-prose text-body-m text-muted">
+      {g.colorTitle} is the signature color; every other value below is an approved shade of it.
+      For print, give your printer the HEX code and ask them to match it. Never eyedrop colors
+      from photos or screenshots.
+    </p>
+
+    <p class="mt-2xl"><Eyebrow tone="muted">{g.shortName} palette</Eyebrow></p>
+    <div class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
+      {
+        g.palette.map((c) => (
+          <div class="overflow-hidden rounded-xl border border-border">
+            <div
+              class:list={["flex h-28 items-end p-3", c.bordered && "border-b border-border"]}
+              style={`background-color: ${c.hex}`}
+            >
+              <span class:list={["font-mono text-mono", c.lightText ? "text-white/90" : "text-foreground/70"]}>{c.hex}</span>
+            </div>
+            <div class="bg-surface p-3">
+              <p class="text-body-s font-medium text-foreground">{c.name}</p>
+              <p class="font-mono text-mono text-subtle">RGB {c.rgb}</p>
+              <p class="mt-2 text-body-s text-muted">{c.usage}</p>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+
+    <p class="mt-xl"><Eyebrow tone="muted">Shared neutrals · used by every world</Eyebrow></p>
+    <div class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
+      {
+        neutrals.map((c) => (
+          <div class="overflow-hidden rounded-xl border border-border">
+            <div
+              class:list={["flex h-20 items-end p-3", c.bordered && "border-b border-border"]}
+              style={`background-color: ${c.hex}`}
+            >
+              <span class:list={["font-mono text-mono", c.lightText ? "text-white/90" : "text-foreground/70"]}>{c.hex}</span>
+            </div>
+            <div class="bg-surface p-3">
+              <p class="text-body-s font-medium text-foreground">{c.name}</p>
+              <p class="font-mono text-mono text-subtle">RGB {c.rgb}</p>
+              <p class="mt-2 text-body-s text-muted">{c.usage}</p>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </Section>
+
+  <Divider />
+
+  <!-- 03 · Typography -->
+  <Section id="typography">
+    <Eyebrow tone={g.tone}>03 · Typography</Eyebrow>
+    <Heading level={2} size="display-m" class="mt-2">Fonts</Heading>
+    <div class="mt-2xl grid grid-cols-1 gap-8 lg:grid-cols-2">
+      <div class="rounded-2xl border border-border bg-surface p-8">
+        <Eyebrow tone="muted">Headlines</Eyebrow>
+        <p class="mt-4 font-display text-display-m text-foreground">Space Grotesk</p>
+        <p class="mt-4 font-display text-heading-m text-foreground">ABCDEFGHIJKLM abcdefghijklm 0123456789</p>
+        <p class="mt-4 text-body-m text-muted">
+          Used for every headline and title, usually in the Medium (500) weight. Free from
+          <Link href="https://fonts.google.com/specimen/Space+Grotesk">Google Fonts</Link>.
+        </p>
+      </div>
+      <div class="rounded-2xl border border-border bg-surface p-8">
+        <Eyebrow tone="muted">Body text</Eyebrow>
+        <p class="mt-4 font-body text-display-m text-foreground">Geist</p>
+        <p class="mt-4 font-body text-heading-m font-normal text-foreground">ABCDEFGHIJKLM abcdefghijklm 0123456789</p>
+        <p class="mt-4 text-body-m text-muted">
+          Used for paragraphs, captions, and buttons, usually Regular (400) and Semibold (600).
+          Free from <Link href="https://vercel.com/font">Vercel</Link>.
+        </p>
+      </div>
+    </div>
+    <p class="mt-8 max-w-prose text-body-m text-muted">
+      If neither font is available (for example in a shared document), Arial is the approved
+      stand-in. Never substitute decorative or script fonts.
+    </p>
+  </Section>
+
+  <Divider />
+
+  <!-- 04 · Name & boilerplate -->
+  <Section id="boilerplate">
+    <Eyebrow tone={g.tone}>04 · Copy</Eyebrow>
+    <Heading level={2} size="display-m" class="mt-2">Name, tagline &amp; boilerplate</Heading>
+    <div class="mt-2xl grid grid-cols-1 gap-8 lg:grid-cols-[320px_1fr]">
+      <div class="flex flex-col gap-6">
+        <div>
+          <Eyebrow tone="muted">Official name</Eyebrow>
+          <p class="mt-2 font-display text-heading-m text-foreground">{g.name}</p>
+          <p class="text-body-s text-muted">A world of NeoVerge Dream School</p>
+        </div>
+        <div>
+          <Eyebrow tone="muted">Serves</Eyebrow>
+          <p class="mt-2 text-body-m text-foreground">{g.grades}</p>
+        </div>
+        <div>
+          <Eyebrow tone="muted">Tagline</Eyebrow>
+          <p class="mt-2 text-body-m text-foreground">“{g.tagline}”</p>
+        </div>
+        <div>
+          <Eyebrow tone="muted">Contact</Eyebrow>
+          <p class="mt-2 text-body-m text-foreground">{g.contact}</p>
+          <p class="text-body-m text-foreground">{g.webPath}</p>
+          <p class="text-body-m text-foreground">{instagramHandle} on Instagram</p>
+        </div>
+      </div>
+      <div class="flex flex-col gap-6">
+        <div class="rounded-2xl border border-border bg-surface p-8">
+          <Eyebrow tone="muted">About paragraph · copy and paste</Eyebrow>
+          <p class="mt-4 text-body-l text-foreground">{g.about}</p>
+        </div>
+        <div class="rounded-2xl border border-border bg-surface p-8">
+          <Eyebrow tone="muted">Mission</Eyebrow>
+          <p class="mt-4 text-body-l text-foreground">{g.mission}</p>
+        </div>
+      </div>
+    </div>
+  </Section>
+
+  <Divider />
+
+  <!-- 05 · Usage rules -->
+  <Section id="rules">
+    <Eyebrow tone={g.tone}>05 · Rules</Eyebrow>
+    <Heading level={2} size="display-m" class="mt-2">Using the brand</Heading>
+    <div class="mt-2xl grid grid-cols-1 gap-8 md:grid-cols-2">
+      <div class="rounded-2xl border border-border bg-surface p-8">
+        <p class="font-display text-heading-s text-foreground">Always</p>
+        <ul class="mt-4 flex flex-col gap-3 text-body-m text-muted">
+          <li>Use the files downloaded from this page, at their original proportions.</li>
+          <li>Give the logo breathing room: clear space on every side at least the height of its emblem.</li>
+          <li>Place logos on white, off-white, or the soft palette tint.</li>
+          <li>Use the Text shade for colored words on light backgrounds. It is tuned to stay readable.</li>
+          <li>Pair the palette with the shared neutrals for backgrounds and text.</li>
+        </ul>
+      </div>
+      <div class="rounded-2xl border border-border bg-surface p-8">
+        <p class="font-display text-heading-s text-foreground">Never</p>
+        <ul class="mt-4 flex flex-col gap-3 text-body-m text-muted">
+          <li>Stretch, squash, rotate, or crop the logo.</li>
+          <li>Recolor it, add shadows, outlines, glows, or other effects.</li>
+          <li>Place it over busy photos or clashing colors.</li>
+          <li>Retype the name in another font to imitate the wordmark.</li>
+          <li>Shrink a full logo below roughly 120 pixels wide on screen or one inch in print. Use the circle emblem in small spaces instead.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="mt-8 max-w-prose text-body-m text-muted">
+      {g.photography} Quick guidance for shoots and submitted photos:
+    </p>
+    <ul class="mt-4 grid max-w-[52rem] grid-cols-1 gap-3 text-body-m text-muted sm:grid-cols-2">
+      {g.photoNotes.map((n) => <li class="rounded-xl border border-border bg-surface px-5 py-4">{n}</li>)}
+    </ul>
+
+    <div class="mt-3xl flex flex-wrap items-center gap-6">
+      <Link href="/media-guide">← All media guides</Link>
+      <Link href={`mailto:${g.contact}`}>Questions? {g.contact}</Link>
+    </div>
+  </Section>
+</Layout>
