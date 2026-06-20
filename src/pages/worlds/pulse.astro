@@ -103,11 +103,6 @@ function splitCell(text: string): { title: string; sub?: string } {
 // A day in the life (peak day, like a Monday or Thursday).
 const dayInLife = [
   {
-    time: "7:00 – 8:00 AM",
-    title: "Rise & Recharge",
-    body: "The day starts with a relaxed morning routine: breakfast and a little downtime to wake up and get mentally ready for an active day.",
-  },
-  {
     time: "8:00 – 9:30 AM",
     title: "The Elite Dance Studio",
     body: "Instead of starting at a desk, the morning kicks off at the barre. This intensive 90-minute ballet block focuses on precision, core strength, alignment, and classical technique while energy is at its highest.",
@@ -252,6 +247,12 @@ const dayInLife = [
       <div data-reveal>
         <Eyebrow tone="fire">The weekly rhythm</Eyebrow>
         <Heading level={2} size="display-m" class="mt-3 max-w-[40rem]">A week at Pulse.</Heading>
+        <p class="mt-5 max-w-[42rem] text-body-l text-muted">
+          Start and end times are flexible and up to your family. This shows a full day, but you
+          decide what fits. Some artists start at 8:00 AM and finish at 2:00 PM, others begin at
+          9:30 AM and wrap up at 2:00 PM, and some start at 9:30 AM and stay through 4:00 PM. You
+          build the day around your artist.
+        </p>
       </div>
       <div class="mt-2xl overflow-x-auto rounded-3xl border border-border" data-reveal>
         <table class="w-full min-w-[64rem] border-collapse text-left">
@@ -301,6 +302,11 @@ const dayInLife = [
         <p class="mt-5 max-w-[44rem] text-body-l text-muted">
           A day at Pulse balances highly structured technical discipline in the morning with
           immersive, creative studio work in the afternoon. Here's what a peak day looks like.
+        </p>
+        <p class="mt-4 max-w-[44rem] text-body-l text-muted">
+          Keep in mind the start and end times are yours to set. Whether your artist begins at
+          8:00 AM or eases in at 9:30 AM, and finishes at 2:00 PM or stays through 4:00 PM, you
+          shape the day around your family.
         </p>
       </div>
       <ol class="mt-2xl flex max-w-[52rem] flex-col" data-reveal>

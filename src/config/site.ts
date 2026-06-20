@@ -13,7 +13,7 @@ export const site = {
   email: "info@neovergedreamschool.com",
   phone: "(310) 817-0494",
   phoneHref: "tel:+13108170494",
-  location: "La Puente, CA",
+  location: "Covina, CA",
   hours: "Monday–Thursday, 7:00 AM – 4:00 PM",
   newsletterLabel: "Stay connected with the future of learning.",
 } as const;
