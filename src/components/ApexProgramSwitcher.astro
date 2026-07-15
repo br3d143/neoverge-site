@@ -1,58 +1,81 @@
 ---
 /**
- * ApexProgramSwitcher — slim tab band shown directly under the hero on the Apex
- * world page and the AISA Youth page, so visitors immediately see there are two
- * programs and can jump between them. The Youth tab carries a "New" badge.
+ * ApexProgramSwitcher — big two-card program chooser shown directly under the hero
+ * on the Apex world page and the AISA Youth page. Makes it unmissable that Apex
+ * has two programs: the basketball-only academy and the new AISA Youth division.
  */
 import Container from "./Container.astro";
+import Eyebrow from "./Eyebrow.astro";
 
 interface Props {
   current: "academy" | "youth";
 }
 const { current } = Astro.props;
 
-const tabs = [
-  { key: "academy", href: "/worlds/apex", name: "The Academy", meta: "Grades 6–12 + Post-Grad" },
-  { key: "youth", href: "/worlds/apex/youth", name: "AISA Youth", meta: "Grades 3–8", isNew: true },
+const programs = [
+  {
+    key: "academy",
+    href: "/worlds/apex",
+    name: "Basketball Academy",
+    meta: "Grades 6–12 + Post-Grad",
+    body: "Our basketball-only academy: elite daily training, NCAA-aligned academics, and mindset coaching for serious student-athletes.",
+  },
+  {
+    key: "youth",
+    href: "/worlds/apex/youth",
+    name: "AISA Youth",
+    meta: "Grades 3–8",
+    body: "Our new three-sport youth division: football, basketball, and baseball by season, with daily fundamentals and mastery-based academics.",
+    isNew: true,
+  },
 ];
 ---
 
 <div class="border-y border-border bg-surface">
-  <Container class="flex flex-wrap items-center gap-x-5 gap-y-3 py-4">
-    <span class="font-body text-eyebrow uppercase tracking-[0.14em] text-subtle">
-      Two programs, one system
-    </span>
-    <nav aria-label="Apex programs" class="flex flex-wrap gap-2">
+  <Container class="py-xl md:py-2xl">
+    <div data-reveal>
+      <Eyebrow tone="water">Two programs, one system</Eyebrow>
+      <p class="mt-3 max-w-[40rem] font-display text-heading-l text-foreground">
+        Choose your path into Apex.
+      </p>
+    </div>
+    <div class="mt-lg grid grid-cols-1 gap-4 md:grid-cols-2" data-reveal>
       {
-        tabs.map((t) => (
-          <a
-            href={t.href}
-            aria-current={t.key === current ? "page" : undefined}
-            class:list={[
-              "inline-flex min-h-[44px] items-center gap-2.5 rounded-full px-5 py-2 transition-all duration-[250ms] [transition-timing-function:var(--ease-refined)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground",
-              t.key === current
-                ? "bg-water font-semibold text-foreground"
-                : "border border-border-strong text-muted hover:border-water hover:text-water-accent",
-            ]}
-          >
-            <span class="font-body text-body-s font-semibold">{t.name}</span>
-            <span
-              class:list={[
-                "hidden font-body text-eyebrow uppercase tracking-wider sm:inline",
-                t.key === current ? "text-foreground/60" : "text-subtle",
-              ]}
-            >
-              {t.meta}
-            </span>
-            {t.isNew && (
-              <span class="new-badge rounded-full bg-foreground px-2 py-0.5 font-body text-[10px] font-bold uppercase tracking-[0.12em] text-background">
-                New
+        programs.map((p) =>
+          p.key === current ? (
+            <div class="relative flex flex-col gap-3 rounded-3xl border-2 border-water bg-water-tint p-7 md:p-9">
+              <span class="flex flex-wrap items-center gap-3">
+                <span class="font-display text-heading-l text-foreground">{p.name}</span>
+                {p.isNew && (
+                  <span class="new-badge rounded-full bg-foreground px-2.5 py-1 font-body text-[11px] font-bold uppercase tracking-[0.12em] text-background">New</span>
+                )}
+                <span class="ml-auto rounded-full border border-water px-3 py-1 font-body text-eyebrow font-semibold uppercase tracking-wider text-water-accent">You're here</span>
               </span>
-            )}
-          </a>
-        ))
+              <span class="font-body text-eyebrow uppercase tracking-[0.14em] text-water-accent">{p.meta}</span>
+              <p class="text-body-m text-muted">{p.body}</p>
+            </div>
+          ) : (
+            <a
+              href={p.href}
+              class="group relative flex flex-col gap-3 rounded-3xl border border-border-strong bg-background p-7 transition-all duration-[250ms] [transition-timing-function:var(--ease-refined)] hover:-translate-y-0.5 hover:border-water hover:shadow-[0_16px_48px_-18px_rgba(26,26,26,0.3)] md:p-9"
+            >
+              <span class="flex flex-wrap items-center gap-3">
+                <span class="font-display text-heading-l text-foreground">{p.name}</span>
+                {p.isNew && (
+                  <span class="new-badge rounded-full bg-foreground px-2.5 py-1 font-body text-[11px] font-bold uppercase tracking-[0.12em] text-background">New</span>
+                )}
+                <span class="ml-auto text-heading-m text-water-accent transition-transform duration-[250ms] group-hover:translate-x-1" aria-hidden="true">→</span>
+              </span>
+              <span class="font-body text-eyebrow uppercase tracking-[0.14em] text-water-accent">{p.meta}</span>
+              <p class="text-body-m text-muted">{p.body}</p>
+              <span class="mt-1 font-body text-body-s font-semibold text-water-accent group-hover:underline">
+                Explore {p.name}
+              </span>
+            </a>
+          ),
+        )
       }
-    </nav>
+    </div>
   </Container>
 </div>
 

@@ -17,7 +17,7 @@ const seasons = [
     season: "Fall",
     sport: "Football",
     icon: "football",
-    body: "Specialized football training built on field work, technique, and the discipline of the game. Athletes learn to move, read, and compete the way the position demands.",
+    body: "Specialized football training built on technique, effort, and the discipline of the game. Athletes learn to read the play, move with purpose, and truly understand football.",
   },
   {
     season: "Winter",
@@ -29,7 +29,7 @@ const seasons = [
     season: "Spring",
     sport: "Baseball & 7v7",
     icon: "baseball",
-    body: "Baseball and football 7v7 on outdoor grass fields. Speed, timing, and live competition close out the year and pull the whole rotation together.",
+    body: "Baseball and football 7v7 training. Speed, timing, and live competition close out the year and pull the whole rotation together.",
   },
 ];
 
@@ -58,7 +58,7 @@ const schedules: { key: string; label: string; rows: Row[] }[] = [
     key: "fall",
     label: "Fall",
     rows: [
-      { time: "8:00–9:00", activity: "Football performance training", detail: "Field work & technique" },
+      { time: "8:00–9:00", activity: "Football performance training", detail: "Technique & learning the game" },
       { time: "9:00–9:10", activity: "Water break", break: true },
       { time: "9:10–9:50", activity: "Basketball fundamentals", detail: "With Donovan Morris" },
       { time: "9:50–10:10", activity: "Snack & reading break", break: true },
@@ -84,7 +84,7 @@ const schedules: { key: string; label: string; rows: Row[] }[] = [
     key: "spring",
     label: "Spring",
     rows: [
-      { time: "8:00–9:00", activity: "Baseball & 7v7 performance training", detail: "Outdoor grass fields" },
+      { time: "8:00–9:00", activity: "Baseball & 7v7 performance training", detail: "Speed, timing & live competition" },
       { time: "9:00–9:10", activity: "Water break", break: true },
       { time: "9:10–9:50", activity: "Basketball fundamentals", detail: "With Donovan Morris" },
       { time: "9:50–10:10", activity: "Snack & reading break", break: true },
@@ -120,8 +120,8 @@ const schedules: { key: string; label: string; rows: Row[] }[] = [
       </div>
       <p class="text-body-m text-muted">
         The curriculum shifts with the seasons on purpose, building versatile sportsmanship instead
-        of one-sport burnout. Training runs indoors in the City of Industry and moves to outdoor
-        grass fields as the season calls for it.
+        of one-sport burnout. Training runs year-round out of our home base in the City of Industry,
+        and every season gets the same professional intensity.
       </p>
     </div>
     <div class="mt-2xl grid grid-cols-1 gap-x-2xl gap-y-xl md:grid-cols-3" data-reveal>
@@ -149,8 +149,8 @@ const schedules: { key: string; label: string; rows: Row[] }[] = [
         Two pillars that never rotate.
       </Heading>
       <p class="mt-5 max-w-[42rem] text-body-l text-muted">
-        Whatever the season, every day includes the same two constants, taught by coaches who have
-        done it at the highest level.
+        Whatever the season, every training day includes the same two constants, taught by coaches
+        who have done it at the highest level.
       </p>
     </div>
     <div class="mt-2xl grid grid-cols-1 gap-6 md:grid-cols-2" data-reveal>
@@ -176,10 +176,11 @@ const schedules: { key: string; label: string; rows: Row[] }[] = [
   </Section>
 
   <!-- Academics -->
-  <SplitSection world="water" eyebrow="Academics" heading="A sharp mind alongside a powerful body." class="border-t border-border">
+  <SplitSection world="water" eyebrow="Academics & mindset" heading="A sharp mind alongside a powerful body." class="border-t border-border">
     <Prose centered={false}>
       <p>A true champion needs both. That's why every day at AISA Youth ends with live academic instruction led by a California credentialed teacher. No packets, no screens-only shortcuts, real teaching, every day.</p>
       <p>We also broke away from rigid, traditional schooling on purpose. Our academic model is strictly skill-mastery based rather than grade-level based, so every child masters critical concepts at their own optimal pace. Students build unshakeable academic confidence without hindering their athletic pursuits.</p>
+      <p>And because champions are built between the ears too, students train the mind directly: mental training led by Dr. Markwongnark, our certified and licensed Director of Education, plus public speaking training that builds the confidence to lead in a huddle, a classroom, or an interview.</p>
     </Prose>
   </SplitSection>
 
@@ -193,8 +194,9 @@ const schedules: { key: string; label: string; rows: Row[] }[] = [
         </Heading>
       </div>
       <p class="text-body-m text-muted">
-        The rhythm of the day stays the same all year. Only the morning focus block changes with the
-        season, so athletes always know what excellence looks like when they walk in.
+        Monday through Wednesday, the rhythm of the day stays the same all year. Only the morning
+        focus block changes with the season, so athletes always know what excellence looks like
+        when they walk in.
       </p>
     </div>
 
@@ -246,8 +248,21 @@ const schedules: { key: string; label: string; rows: Row[] }[] = [
         ))
       }
       <p class="mt-6 text-body-s text-subtle">
-        Sample schedule, 8:00 AM to 2:00 PM. Exact blocks flex with facilities and the competition calendar.
+        Sample Monday–Wednesday schedule, 8:00 AM to 2:00 PM. Exact blocks flex with facilities and the competition calendar.
       </p>
+    </div>
+
+    <div class="mt-xl grid items-center gap-6 rounded-3xl border border-water/40 bg-water-tint p-8 md:grid-cols-[auto_1fr] md:p-10" data-reveal>
+      <Icon name="heart" size={40} class="hidden text-water-accent md:block" />
+      <div>
+        <p class="font-body text-eyebrow uppercase tracking-[0.14em] text-water-accent">Thursdays</p>
+        <Heading level={3} size="heading-m" class="mt-2">Recovery day.</Heading>
+        <p class="mt-3 max-w-[46rem] text-body-m text-muted">
+          Thursdays dial the intensity down on purpose. Athletes recover their bodies with mobility
+          and regeneration work, then keep it light with fun games and friendly competitions inside
+          the sports. Young athletes should fall in love with the game, not burn out on it.
+        </p>
+      </div>
     </div>
   </Section>
 
