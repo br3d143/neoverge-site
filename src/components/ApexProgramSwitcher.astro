@@ -1,0 +1,70 @@
+---
+/**
+ * ApexProgramSwitcher — slim tab band shown directly under the hero on the Apex
+ * world page and the AISA Youth page, so visitors immediately see there are two
+ * programs and can jump between them. The Youth tab carries a "New" badge.
+ */
+import Container from "./Container.astro";
+
+interface Props {
+  current: "academy" | "youth";
+}
+const { current } = Astro.props;
+
+const tabs = [
+  { key: "academy", href: "/worlds/apex", name: "The Academy", meta: "Grades 6–12 + Post-Grad" },
+  { key: "youth", href: "/worlds/apex/youth", name: "AISA Youth", meta: "Grades 3–8", isNew: true },
+];
+---
+
+<div class="border-y border-border bg-surface">
+  <Container class="flex flex-wrap items-center gap-x-5 gap-y-3 py-4">
+    <span class="font-body text-eyebrow uppercase tracking-[0.14em] text-subtle">
+      Two programs, one system
+    </span>
+    <nav aria-label="Apex programs" class="flex flex-wrap gap-2">
+      {
+        tabs.map((t) => (
+          <a
+            href={t.href}
+            aria-current={t.key === current ? "page" : undefined}
+            class:list={[
+              "inline-flex min-h-[44px] items-center gap-2.5 rounded-full px-5 py-2 transition-all duration-[250ms] [transition-timing-function:var(--ease-refined)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground",
+              t.key === current
+                ? "bg-water font-semibold text-foreground"
+                : "border border-border-strong text-muted hover:border-water hover:text-water-accent",
+            ]}
+          >
+            <span class="font-body text-body-s font-semibold">{t.name}</span>
+            <span
+              class:list={[
+                "hidden font-body text-eyebrow uppercase tracking-wider sm:inline",
+                t.key === current ? "text-foreground/60" : "text-subtle",
+              ]}
+            >
+              {t.meta}
+            </span>
+            {t.isNew && (
+              <span class="new-badge rounded-full bg-foreground px-2 py-0.5 font-body text-[10px] font-bold uppercase tracking-[0.12em] text-background">
+                New
+              </span>
+            )}
+          </a>
+        ))
+      }
+    </nav>
+  </Container>
+</div>
+
+<style>
+  .new-badge {
+    animation: new-badge-pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes new-badge-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.55; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .new-badge { animation: none; }
+  }
+</style>

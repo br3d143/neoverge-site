@@ -28,9 +28,19 @@ export const worlds: {
   status: "Active" | "Coming soon";
   menuLabel: string;
   emphasizeLabel?: boolean; // bold the menu label (Apex "Enroll now", Pulse date)
+  sub?: { name: string; href: string; menuLabel: string }; // indented sub-link (AISA Youth)
 }[] = [
   { name: "NeoVerse", element: "Earth", world: "earth", href: "/worlds/neoverse", status: "Coming soon", menuLabel: "Coming soon" },
-  { name: "Apex", element: "Water", world: "water", href: "/worlds/apex", status: "Active", menuLabel: "Enroll now", emphasizeLabel: true },
+  {
+    name: "Apex",
+    element: "Water",
+    world: "water",
+    href: "/worlds/apex",
+    status: "Active",
+    menuLabel: "Enroll now",
+    emphasizeLabel: true,
+    sub: { name: "AISA Youth", href: "/worlds/apex/youth", menuLabel: "New · Gr 3–8" },
+  },
   { name: "Pulse Collective", element: "Fire", world: "fire", href: "/worlds/pulse", status: "Coming soon", menuLabel: "Coming Fall 2026", emphasizeLabel: true },
   { name: "WorldWise", element: "Air", world: "air", href: "/worlds/worldwise", status: "Coming soon", menuLabel: "Coming soon" },
 ];

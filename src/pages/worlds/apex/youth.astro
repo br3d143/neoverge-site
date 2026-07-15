@@ -8,6 +8,7 @@ import Heading from "../../../components/Heading.astro";
 import Prose from "../../../components/Prose.astro";
 import ApplicationCTA from "../../../components/ApplicationCTA.astro";
 import ApexNav from "../../../components/ApexNav.astro";
+import ApexProgramSwitcher from "../../../components/ApexProgramSwitcher.astro";
 import Icon from "../../../components/Icon.astro";
 import { forms } from "../../../config/site";
 
@@ -105,6 +106,8 @@ const schedules: { key: string; label: string; rows: Row[] }[] = [
     imageAlt="A young athlete working on ball-handling drills on an outdoor court"
     imageAspect="aspect-[4/5]"
   />
+
+  <ApexProgramSwitcher current="youth" />
 
   <!-- Seasonal rotation -->
   <Section>

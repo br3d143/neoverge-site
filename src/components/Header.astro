@@ -67,23 +67,38 @@ const dotClass = {
                 <div class="invisible absolute left-1/2 top-full z-50 w-60 -translate-x-1/2 pt-3 opacity-0 transition-all duration-[250ms] group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
                   <ul class="overflow-hidden rounded-2xl border border-border bg-surface py-2 shadow-[0_12px_40px_-12px_rgba(26,26,26,0.18)]">
                     {worlds.map((w) => (
-                      <li>
-                        <a
-                          href={w.href}
-                          class="flex items-center gap-3 px-4 py-2.5 text-body-s text-muted transition-colors duration-[250ms] hover:bg-foreground/[0.03] hover:text-foreground"
-                        >
-                          <span class:list={["h-2 w-2 shrink-0 rounded-full", dotClass[w.world]]} />
-                          <span class="font-display font-medium text-foreground">{w.name}</span>
-                          <span
-                            class:list={[
-                              "ml-auto font-body text-eyebrow uppercase",
-                              w.emphasizeLabel ? "font-semibold text-foreground" : "text-subtle",
-                            ]}
+                      <>
+                        <li>
+                          <a
+                            href={w.href}
+                            class="flex items-center gap-3 px-4 py-2.5 text-body-s text-muted transition-colors duration-[250ms] hover:bg-foreground/[0.03] hover:text-foreground"
                           >
-                            {w.menuLabel}
-                          </span>
-                        </a>
-                      </li>
+                            <span class:list={["h-2 w-2 shrink-0 rounded-full", dotClass[w.world]]} />
+                            <span class="font-display font-medium text-foreground">{w.name}</span>
+                            <span
+                              class:list={[
+                                "ml-auto font-body text-eyebrow uppercase",
+                                w.emphasizeLabel ? "font-semibold text-foreground" : "text-subtle",
+                              ]}
+                            >
+                              {w.menuLabel}
+                            </span>
+                          </a>
+                        </li>
+                        {w.sub && (
+                          <li>
+                            <a
+                              href={w.sub.href}
+                              class="flex items-center gap-3 py-2.5 pl-9 pr-4 text-body-s text-muted transition-colors duration-[250ms] hover:bg-foreground/[0.03] hover:text-foreground"
+                            >
+                              <span class="font-display font-medium text-foreground">{w.sub.name}</span>
+                              <span class="ml-auto font-body text-eyebrow font-semibold uppercase text-foreground">
+                                {w.sub.menuLabel}
+                              </span>
+                            </a>
+                          </li>
+                        )}
+                      </>
                     ))}
                   </ul>
                 </div>
@@ -156,18 +171,28 @@ const dotClass = {
     <div class="mt-4 flex flex-col gap-3 border-t border-border pt-6">
       {
         worlds.map((w) => (
-          <a href={w.href} class="flex items-center gap-3 font-display text-heading-m text-muted">
-            <span class:list={["h-2.5 w-2.5 rounded-full", dotClass[w.world]]} />
-            {w.name}
-            <span
-              class:list={[
-                "ml-auto font-body text-eyebrow uppercase",
-                w.emphasizeLabel ? "font-semibold text-foreground" : "text-subtle",
-              ]}
-            >
-              {w.menuLabel}
-            </span>
-          </a>
+          <>
+            <a href={w.href} class="flex items-center gap-3 font-display text-heading-m text-muted">
+              <span class:list={["h-2.5 w-2.5 rounded-full", dotClass[w.world]]} />
+              {w.name}
+              <span
+                class:list={[
+                  "ml-auto font-body text-eyebrow uppercase",
+                  w.emphasizeLabel ? "font-semibold text-foreground" : "text-subtle",
+                ]}
+              >
+                {w.menuLabel}
+              </span>
+            </a>
+            {w.sub && (
+              <a href={w.sub.href} class="flex items-center gap-3 pl-[22px] font-display text-heading-s text-muted">
+                {w.sub.name}
+                <span class="ml-auto font-body text-eyebrow font-semibold uppercase text-foreground">
+                  {w.sub.menuLabel}
+                </span>
+              </a>
+            )}
+          </>
         ))
       }
     </div>
