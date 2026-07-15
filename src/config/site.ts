@@ -225,6 +225,7 @@ export const worldPhotos: Partial<
 
 // Apex program sub-pages (full builds come in a later session; titles use the Apex voice).
 export const apexPages = [
+  { title: "AISA Youth", href: "/worlds/apex/youth", blurb: "An elite academy for grades 3–8: seasonal sports, daily fundamentals, mastery-based academics." },
   { title: "Meet the Staff", href: "/worlds/apex/staff", blurb: "Pro careers, D1 pedigrees, and a USC doctorate, all on one staff." },
   { title: "Athletics", href: "/worlds/apex/athletics", blurb: "Where killers are crafted and leaders are born." },
   { title: "Programming", href: "/worlds/apex/programming", blurb: "Whole-athlete development, every single day." },

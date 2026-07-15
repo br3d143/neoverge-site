@@ -6,6 +6,7 @@ import Eyebrow from "../../components/Eyebrow.astro";
 import Heading from "../../components/Heading.astro";
 import WorldHero from "../../components/WorldHero.astro";
 import QuoteBlock from "../../components/QuoteBlock.astro";
+import Button from "../../components/Button.astro";
 import ApplicationCTA from "../../components/ApplicationCTA.astro";
 import ApexStaff from "../../components/ApexStaff.astro";
 import { worldsContent, apexPages } from "../../config/site";
@@ -87,6 +88,27 @@ const w = worldsContent.water;
         <Eyebrow tone="subtle">Built from the inside out</Eyebrow>
       </figcaption>
     </figure>
+  </Section>
+
+  <!-- AISA Youth callout -->
+  <Section class="bg-water-tint">
+    <div class="grid items-center gap-xl md:grid-cols-[1.3fr_0.7fr] md:gap-2xl" data-reveal>
+      <div>
+        <Eyebrow tone="water">New · AISA Youth</Eyebrow>
+        <Heading level={2} size="display-m" class="mt-3 max-w-[40rem]">
+          Now building elite athletes from grade 3.
+        </Heading>
+        <p class="mt-5 max-w-[46rem] text-body-l text-muted">
+          Apex now starts younger. AISA Youth is our elite academy for ambitious boys and girls in
+          grades 3 through 8: football in the fall, basketball in the winter, baseball and 7v7 in
+          the spring, plus daily strength training, basketball fundamentals, and mastery-based
+          academics led by a California credentialed teacher, all based in the City of Industry.
+        </p>
+      </div>
+      <div class="flex md:justify-end">
+        <Button href="/worlds/apex/youth" world="water" size="lg" arrow>Explore AISA Youth</Button>
+      </div>
+    </div>
   </Section>
 
   <!-- Meet the staff (shared card band, also on /worlds/apex/staff) -->
