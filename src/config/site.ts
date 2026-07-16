@@ -68,6 +68,9 @@ export const social = [
   { label: "Instagram", href: "https://www.instagram.com/apexinnersystemathletics/" },
 ];
 
+// AISA Youth division has its own Instagram account.
+export const youthInstagram = "https://www.instagram.com/apexinnersystemathletics_youth/";
+
 // Real, verified per-world Instagram accounts.
 export const worldInstagram: Record<WorldKey, string> = {
   earth: "https://www.instagram.com/neoverseearth/",
@@ -79,6 +82,8 @@ export const worldInstagram: Record<WorldKey, string> = {
 // External forms & scheduling links (from the content master).
 export const forms = {
   apexInterest: "https://form.jotform.com/250895493963171",
+  youthInterest:
+    "https://docs.google.com/forms/d/e/1FAIpQLSdkBMNuOQa3FViQABe0yhjLYDfrB2ireyWpCyzUdPIu-qgl1w/viewform?usp=header",
   pulseInterest:
     "https://docs.google.com/forms/d/e/1FAIpQLSe94Ie2-cjWIHqQMasufqxDmo9FtfV3ho4rf3M3ADsXdH8kTw/viewform",
   shadowDay:

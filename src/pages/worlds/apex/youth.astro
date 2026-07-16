@@ -11,7 +11,7 @@ import ApexNav from "../../../components/ApexNav.astro";
 import Container from "../../../components/Container.astro";
 import Link from "../../../components/Link.astro";
 import Icon from "../../../components/Icon.astro";
-import { forms } from "../../../config/site";
+import { forms, youthInstagram } from "../../../config/site";
 
 const seasons = [
   {
@@ -322,6 +322,7 @@ const schedules: { key: string; label: string; rows: Row[] }[] = [
   <SplitSection world="water" eyebrow="For parents with big goals" heading="Turn potential into undeniable excellence." class="border-t border-border">
     <Prose centered={false}>
       <p>If you're dreaming of collegiate scholarships, professional sports careers, and real academic confidence for your child, this is where that journey begins. AISA Youth provides the structure, the elite coaching, and the personalized academic rigor to get there, starting years before everyone else does.</p>
+      <p>Follow the journey on Instagram: <a href={youthInstagram} target="_blank" rel="noopener noreferrer">@apexinnersystemathletics_youth</a></p>
     </Prose>
   </SplitSection>
 
@@ -331,7 +332,7 @@ const schedules: { key: string; label: string; rows: Row[] }[] = [
     world="water"
     heading="Give your child the ultimate competitive edge."
     body="AISA Youth is built for ambitious families. Express interest today and we'll walk you through the next steps."
-    primaryHref={forms.apexInterest}
+    primaryHref={forms.youthInterest}
     primaryLabel="Express interest"
     secondaryHref="/contact"
     secondaryLabel="Contact Coach Quincy"
