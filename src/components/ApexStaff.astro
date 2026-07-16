@@ -124,7 +124,11 @@ const ig = worldInstagram.water;
 
     <div class="mt-2xl grid grid-cols-1 gap-6 md:grid-cols-2">
       {staff.map((p) => (
-        <article class="staff-card flex flex-col overflow-hidden rounded-3xl ring-1 ring-white/10" data-reveal>
+        <article
+          id={p.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "")}
+          class="staff-card flex scroll-mt-24 flex-col overflow-hidden rounded-3xl ring-1 ring-white/10"
+          data-reveal
+        >
           <div class="staff-photo relative aspect-[4/3]">
             <img
               src={p.image}

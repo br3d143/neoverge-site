@@ -8,7 +8,8 @@ import Heading from "../../../components/Heading.astro";
 import Prose from "../../../components/Prose.astro";
 import ApplicationCTA from "../../../components/ApplicationCTA.astro";
 import ApexNav from "../../../components/ApexNav.astro";
-import ApexProgramSwitcher from "../../../components/ApexProgramSwitcher.astro";
+import Container from "../../../components/Container.astro";
+import Link from "../../../components/Link.astro";
 import Icon from "../../../components/Icon.astro";
 import { forms } from "../../../config/site";
 
@@ -18,18 +19,27 @@ const seasons = [
     sport: "Football",
     icon: "football",
     body: "Specialized football training built on technique, effort, and the discipline of the game. Athletes learn to read the play, move with purpose, and truly understand football.",
+    image: "/images/stock/youth-football.webp",
+    imageAlt: "A football ball carrier cutting past a defender mid-game",
+    imagePosition: "center 30%",
   },
   {
     season: "Winter",
     sport: "Basketball",
     icon: "basketball",
     body: "Competitive basketball training with team strategy at its core. Game IQ, spacing, and execution under pressure, sharpened every single day of the season.",
+    image: "/images/stock/apex-2.webp",
+    imageAlt: "Young players battling for a shot in a pickup basketball game",
+    imagePosition: "center 20%",
   },
   {
     season: "Spring",
     sport: "Baseball & 7v7",
     icon: "baseball",
     body: "Baseball and football 7v7 training. Speed, timing, and live competition close out the year and pull the whole rotation together.",
+    image: "/images/stock/youth-baseball.webp",
+    imageAlt: "A youth baseball game under California palm trees",
+    imagePosition: "center 55%",
   },
 ];
 
@@ -107,7 +117,9 @@ const schedules: { key: string; label: string; rows: Row[] }[] = [
     imageAspect="aspect-[4/5]"
   />
 
-  <ApexProgramSwitcher current="youth" />
+  <Container class="pt-6">
+    <Link href="/worlds/apex" tone="muted" class="text-body-s">← Part of Apex · see the Basketball Academy</Link>
+  </Container>
 
   <!-- Seasonal rotation -->
   <Section>
@@ -132,7 +144,16 @@ const schedules: { key: string; label: string; rows: Row[] }[] = [
               <span class="font-display text-heading-l text-water">{String(i + 1).padStart(2, "0")}</span>
               <Icon name={s.icon} size={26} class="text-water-accent" />
             </span>
-            <p class="mt-2 font-body text-eyebrow uppercase tracking-[0.14em] text-water-accent">{s.season}</p>
+            <img
+              src={s.image}
+              alt={s.imageAlt}
+              width="1600"
+              height="1200"
+              loading="lazy"
+              class="mt-4 aspect-[4/3] w-full rounded-2xl object-cover"
+              style={`object-position: ${s.imagePosition}`}
+            />
+            <p class="mt-4 font-body text-eyebrow uppercase tracking-[0.14em] text-water-accent">{s.season}</p>
             <Heading level={3} size="heading-m" class="mt-1">{s.sport}</Heading>
             <p class="mt-3 text-body-m text-muted">{s.body}</p>
           </div>
@@ -153,7 +174,15 @@ const schedules: { key: string; label: string; rows: Row[] }[] = [
         who have done it at the highest level.
       </p>
     </div>
-    <div class="mt-2xl grid grid-cols-1 gap-6 md:grid-cols-2" data-reveal>
+    <div class="mt-2xl grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-[0.55fr_1fr_1fr_0.55fr]" data-reveal>
+      <img
+        src="/images/stock/youth-hoops-flex.webp"
+        alt="A young player flexing with a basketball under his arm at a sunny park court"
+        width="1600"
+        height="2400"
+        loading="lazy"
+        class="hidden h-full w-full rounded-3xl object-cover lg:block"
+      />
       {
         pillars.map((p) => (
           <div class="flex flex-col gap-4 rounded-3xl border border-border bg-surface p-8">
@@ -169,10 +198,29 @@ const schedules: { key: string; label: string; rows: Row[] }[] = [
           </div>
         ))
       }
+      <img
+        src="/images/stock/youth-strength.webp"
+        alt="A young athlete focused on a dumbbell curl during strength training"
+        width="1600"
+        height="2400"
+        loading="lazy"
+        class="hidden h-full w-full rounded-3xl object-cover lg:block"
+      />
     </div>
-    <p class="mt-xl text-body-s text-subtle" data-reveal>
-      Meet the rest of the coaching staff on the <a href="/worlds/apex/staff" class="font-semibold text-water-accent hover:underline">Apex staff page</a>.
-    </p>
+
+    <div class="mt-xl rounded-3xl border border-border bg-surface p-8 md:p-10" data-reveal>
+      <div class="grid gap-lg md:grid-cols-[1fr_auto] md:items-center">
+        <div>
+          <p class="font-body text-eyebrow uppercase tracking-[0.14em] text-water-accent">Want extra reps?</p>
+          <Heading level={3} size="heading-m" class="mt-2">Private sessions, on request.</Heading>
+          <p class="mt-3 max-w-[46rem] text-body-m text-muted">
+            Students can request private one-on-one sessions with any member of the staff after
+            school hours, whether that's extra skill work, strength training, or academic support.
+          </p>
+        </div>
+        <a href="/worlds/apex/staff" class="font-body text-body-m font-semibold text-water-accent hover:underline">Meet the staff →</a>
+      </div>
+    </div>
   </Section>
 
   <!-- Academics -->
@@ -180,7 +228,7 @@ const schedules: { key: string; label: string; rows: Row[] }[] = [
     <Prose centered={false}>
       <p>A true champion needs both. That's why every day at AISA Youth ends with live academic instruction led by a California credentialed teacher. No packets, no screens-only shortcuts, real teaching, every day.</p>
       <p>We also broke away from rigid, traditional schooling on purpose. Our academic model is strictly skill-mastery based rather than grade-level based, so every child masters critical concepts at their own optimal pace. Students build unshakeable academic confidence without hindering their athletic pursuits.</p>
-      <p>And because champions are built between the ears too, students train the mind directly: mental training led by Dr. Markwongnark, our certified and licensed Director of Education, plus public speaking training that builds the confidence to lead in a huddle, a classroom, or an interview.</p>
+      <p>And because champions are built between the ears too, students train the mind directly: mental training led by <a href="/worlds/apex/staff#dr-shayna-markwongnark">Dr. Markwongnark</a>, our certified and licensed Director of Education, plus public speaking training that builds the confidence to lead in a huddle, a classroom, or an interview.</p>
     </Prose>
   </SplitSection>
 

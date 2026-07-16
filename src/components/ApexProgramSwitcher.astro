@@ -1,31 +1,27 @@
 ---
 /**
  * ApexProgramSwitcher — big two-card program chooser shown directly under the hero
- * on the Apex world page and the AISA Youth page. Makes it unmissable that Apex
- * has two programs: the basketball-only academy and the new AISA Youth division.
+ * on the Apex world page only (per client: once a visitor picks a program and lands
+ * on its page, the chooser is gone). "Basketball Academy" scrolls to the academy
+ * content below; "AISA Youth" navigates to the youth page.
  */
 import Container from "./Container.astro";
 import Eyebrow from "./Eyebrow.astro";
 
-interface Props {
-  current: "academy" | "youth";
-}
-const { current } = Astro.props;
-
 const programs = [
   {
-    key: "academy",
-    href: "/worlds/apex",
+    href: "#academy",
     name: "Basketball Academy",
     meta: "Grades 6–12 + Post-Grad",
     body: "Our basketball-only academy: elite daily training, NCAA-aligned academics, and mindset coaching for serious student-athletes.",
+    cta: "Continue to the Academy ↓",
   },
   {
-    key: "youth",
     href: "/worlds/apex/youth",
     name: "AISA Youth",
     meta: "Grades 3–8",
     body: "Our new three-sport youth division: football, basketball, and baseball by season, with daily fundamentals and mastery-based academics.",
+    cta: "Explore AISA Youth →",
     isNew: true,
   },
 ];
@@ -41,39 +37,22 @@ const programs = [
     </div>
     <div class="mt-lg grid grid-cols-1 gap-4 md:grid-cols-2" data-reveal>
       {
-        programs.map((p) =>
-          p.key === current ? (
-            <div class="relative flex flex-col gap-3 rounded-3xl border-2 border-water bg-water-tint p-7 md:p-9">
-              <span class="flex flex-wrap items-center gap-3">
-                <span class="font-display text-heading-l text-foreground">{p.name}</span>
-                {p.isNew && (
-                  <span class="new-badge rounded-full bg-foreground px-2.5 py-1 font-body text-[11px] font-bold uppercase tracking-[0.12em] text-background">New</span>
-                )}
-                <span class="ml-auto rounded-full border border-water px-3 py-1 font-body text-eyebrow font-semibold uppercase tracking-wider text-water-accent">You're here</span>
-              </span>
-              <span class="font-body text-eyebrow uppercase tracking-[0.14em] text-water-accent">{p.meta}</span>
-              <p class="text-body-m text-muted">{p.body}</p>
-            </div>
-          ) : (
-            <a
-              href={p.href}
-              class="group relative flex flex-col gap-3 rounded-3xl border border-border-strong bg-background p-7 transition-all duration-[250ms] [transition-timing-function:var(--ease-refined)] hover:-translate-y-0.5 hover:border-water hover:shadow-[0_16px_48px_-18px_rgba(26,26,26,0.3)] md:p-9"
-            >
-              <span class="flex flex-wrap items-center gap-3">
-                <span class="font-display text-heading-l text-foreground">{p.name}</span>
-                {p.isNew && (
-                  <span class="new-badge rounded-full bg-foreground px-2.5 py-1 font-body text-[11px] font-bold uppercase tracking-[0.12em] text-background">New</span>
-                )}
-                <span class="ml-auto text-heading-m text-water-accent transition-transform duration-[250ms] group-hover:translate-x-1" aria-hidden="true">→</span>
-              </span>
-              <span class="font-body text-eyebrow uppercase tracking-[0.14em] text-water-accent">{p.meta}</span>
-              <p class="text-body-m text-muted">{p.body}</p>
-              <span class="mt-1 font-body text-body-s font-semibold text-water-accent group-hover:underline">
-                Explore {p.name}
-              </span>
-            </a>
-          ),
-        )
+        programs.map((p) => (
+          <a
+            href={p.href}
+            class="group relative flex flex-col gap-3 rounded-3xl border border-border-strong bg-background p-7 transition-all duration-[250ms] [transition-timing-function:var(--ease-refined)] hover:-translate-y-0.5 hover:border-water hover:shadow-[0_16px_48px_-18px_rgba(26,26,26,0.3)] md:p-9"
+          >
+            <span class="flex flex-wrap items-center gap-3">
+              <span class="font-display text-heading-l text-foreground">{p.name}</span>
+              {p.isNew && (
+                <span class="new-badge rounded-full bg-foreground px-2.5 py-1 font-body text-[11px] font-bold uppercase tracking-[0.12em] text-background">New</span>
+              )}
+            </span>
+            <span class="font-body text-eyebrow uppercase tracking-[0.14em] text-water-accent">{p.meta}</span>
+            <p class="text-body-m text-muted">{p.body}</p>
+            <span class="mt-1 font-body text-body-s font-semibold text-water-accent group-hover:underline">{p.cta}</span>
+          </a>
+        ))
       }
     </div>
   </Container>
