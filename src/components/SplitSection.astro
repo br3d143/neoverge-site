@@ -28,6 +28,7 @@ const { eyebrow, heading, intro, world, headingSize = "display-m", sticky = true
         {eyebrow && <Eyebrow tone={world ?? "muted"}>{eyebrow}</Eyebrow>}
         {heading && <Heading level={2} size={headingSize} class="mt-3">{heading}</Heading>}
         {intro && <p class="mt-4 text-body-m text-muted">{intro}</p>}
+        <slot name="aside" />
       </div>
     </div>
     <div class="min-w-0" data-reveal>
